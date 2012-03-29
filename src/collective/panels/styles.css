@@ -1,0 +1,21 @@
+.panels .discreet {
+    text-align: center;
+    display: block;
+}
+
+.add-panel dd {
+    margin: 0 !important;
+}
+
+.add-panel .cell div {
+    padding: 0 1px;
+    font-size: 150%;
+}
+
+.add-panel a {
+    float: left;
+    padding: 2px;
+    border-bottom: 1px solid #aaa !important;
+    margin-right: 3em;
+    width: 4em;
+}

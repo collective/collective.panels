@@ -1,0 +1,36 @@
+<dl class="manage-panel collapsible"
+    tal:define="collapsed python: len(context) and ' collapsedOnLoad' or None"
+    tal:attributes="class string:$default${collapsed}">
+  <dt class="collapsibleHeader" i18n:translate="">Manage panel</dt>
+  <dd class="collapsibleContent">
+    <div class="reordering" style="float: right">
+      <a tal:condition="view/can_move_down"
+         tal:attributes="href string:${view/manageUrl}/@@move-portlet-down?name=${context/__name__}&amp;referer=${view/referer}"
+         title="Move down" class="down">▼</a>
+      <a tal:condition="view/can_move_up"
+         tal:attributes="href string:${view/manageUrl}/@@move-portlet-up?name=${context/__name__}&amp;referer=${view/referer}"
+         title="Move up" class="up">▲</a>
+    </div>
+
+    <p>Select a portlet type from the list below.</p>
+    <metal:form
+        use-macro="context/@@manage-portlets-macros/macros/portlet-add-form"
+        />
+
+    <br />
+
+    <metal:form
+        use-macro="context/@@manage-portlets-macros/macros/current-portlets-list"
+        />
+
+    <form method="POST" tal:attributes="action string:${view/baseUrl}/-">
+      <span tal:replace="structure context/@@authenticator/authenticator"/>
+
+      <input type="submit"
+             name="delete"
+             value="Delete panel"
+             i18n:attributes="value"
+             />
+    </form>
+  </dd>
+</dl>

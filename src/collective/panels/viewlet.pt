@@ -1,0 +1,43 @@
+<div class="panels" i18n:domain="collective.panels">
+  <!--  collapsedOnLoad -->
+  <dl class="collapsible collapsedOnLoad" tal:condition="view/can_add">
+    <dt class="collapsibleHeader" i18n:translate="">Add panel</dt>
+    <dd class="collapsibleContent">
+      <dl class="add-panel" tal:define="add_url view/add_panel_url">
+        <tal:panels repeat="layout view/available_layouts">
+          <dt class="hiddenStructure" tal:content="layout/title" />
+          <dd>
+            <a tal:attributes="href string:${add_url}/${layout/name}">
+              <span class="discreet" tal:content="layout/title" />
+              <div tal:content="structure layout/icon" />
+            </a>
+          </dd>
+        </tal:panels>
+      </dl>
+      <div class="visualClear"></div>
+    </dd>
+  </dl>
+  <tal:panels repeat="panel view/panels">
+
+    <tal:display define="html panel/@@display">
+      <div class="panel-content"
+           tal:attributes="class string:panel panel-${repeat/panel/index}"
+           tal:condition="html"
+           tal:content="structure html"
+           />
+
+      <dl class="portalMessage info"
+          tal:condition="python: not html.strip() and view.can_manage">
+        <dt i18n:translate="">Info</dt>
+        <dd i18n:translate="">This panel is empty.</dd>
+      </dl>
+    </tal:display>
+
+    <div class="visualClear"></div>
+
+    <tal:manage condition="view/can_manage"
+                content="structure panel/@@manage"
+                />
+
+  </tal:panels>
+</div>

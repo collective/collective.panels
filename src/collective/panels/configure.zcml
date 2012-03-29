@@ -1,0 +1,67 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <!-- Setup -->
+
+  <include package="plone.app.layout" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Panels"
+      directory="profile"
+      description="Registers control panel and default settings."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <!-- Traversal -->
+
+  <adapter
+      factory=".traversal.PanelTraverser"
+      name="panel"
+      />
+
+  <!-- Viewlets -->
+
+  <browser:viewlet
+      name="plone.belowcontentbody.contentpanels-manager"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".viewlet.PanelViewlet"
+      view="plone.app.layout.globals.interfaces.IViewView"
+      permission="zope2.View"
+      />
+
+  <!-- Views -->
+
+  <browser:page
+      name="-"
+      for=".content.Panel"
+      class=".browser.ManageView"
+      attribute="delete"
+      permission="plone.app.portlets.ManagePortlets"
+      />
+
+  <browser:page
+      name="manage"
+      for=".content.Panel"
+      class=".browser.ManageView"
+      template="manager.pt"
+      permission="plone.app.portlets.ManagePortlets"
+      />
+
+  <browser:page
+      name="display"
+      for=".content.Panel"
+      class=".browser.DisplayView"
+      permission="zope2.View"
+      />
+
+  <!-- Browser resources -->
+
+  <browser:resource
+      name="panels.css"
+      file="styles.css"
+      />
+
+</configure>
