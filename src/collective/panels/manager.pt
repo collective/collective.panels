@@ -1,6 +1,5 @@
-<dl class="manage-panel collapsible"
-    tal:define="collapsed python: len(context) and ' collapsedOnLoad' or None"
-    tal:attributes="class string:$default${collapsed}">
+<dl tal:define="collapsed python: len(context) and ' collapsedOnLoad' or None"
+    tal:attributes="class string:manage-panel collapsible${collapsed}">
   <dt class="collapsibleHeader" i18n:translate="">Manage panel</dt>
   <dd class="collapsibleContent">
     <div class="reordering" style="float: right">
