@@ -1,4 +1,5 @@
 import logging
+import itertools
 
 from plone.portlets.interfaces import IPortletRenderer
 from plone.portlets.interfaces import IPortletAssignmentSettings
@@ -53,6 +54,13 @@ def addable_portlets_cache_key(function, view):
     return set(roles), view.manager.__name__
 
 
+def batch(iterable, size):
+    sourceiter = iter(iterable)
+    while True:
+        batchiter = itertools.islice(sourceiter, size)
+        yield itertools.chain([batchiter.next()], batchiter)
+
+
 class RenderContext(Implicit):
     """Portlet rendering context."""
 
@@ -82,35 +90,37 @@ class DisplayView(BrowserView):
         pt, title, slots = layouts[panel.layout]
         count = max(slots)
 
-        for assignment in panel:
-            settings = IPortletAssignmentSettings(assignment)
-            if not settings.get('visible', True):
-                continue
+        output = []
+        for assignments in batch(panel, count):
+            for assignment in assignments:
+                settings = IPortletAssignmentSettings(assignment)
+                if not settings.get('visible', True):
+                    continue
 
-            try:
-                portlet = getMultiAdapter(
-                    (parent,
-                     self.request,
-                     self,
-                     panel,
-                     assignment), IPortletRenderer)
-            except ComponentLookupError:
-                logging.getLogger("panels").info(
-                    "unable to look up renderer for '%s.%s'." % (
-                        assignment.__class__.__module__,
-                        assignment.__class__.__name__
+                try:
+                    portlet = getMultiAdapter(
+                        (parent,
+                         self.request,
+                         self,
+                         panel,
+                         assignment), IPortletRenderer)
+                except ComponentLookupError:
+                    logging.getLogger("panels").info(
+                        "unable to look up renderer for '%s.%s'." % (
+                            assignment.__class__.__module__,
+                            assignment.__class__.__name__
+                            )
                         )
-                    )
-                continue
+                    continue
 
-            portlet.update()
-            if portlet.available:
-                context.add(portlet)
+                portlet.update()
+                if portlet.available:
+                    context.add(portlet)
 
-            if len(context.portlets) > count:
-                break
+            result = context.render()
+            output.append(result)
 
-        return context.render()
+        return u"\n".join(output)
 
 
 class ManageView(EditPortletManagerRenderer):
