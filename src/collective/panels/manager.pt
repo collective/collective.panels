@@ -33,7 +33,7 @@
         </select>
 
         <noscript>
-          <input class="hiddentype="submit"
+          <input type="submit"
                  name="change"
                  value="Change"
                  i18n:attributes="value"
