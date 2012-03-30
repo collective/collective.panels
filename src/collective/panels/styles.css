@@ -19,3 +19,8 @@
     margin-right: 3em;
     width: 4em;
 }
+
+.manage-panel .subform {
+    float: left;
+    margin-right: 2em;
+}

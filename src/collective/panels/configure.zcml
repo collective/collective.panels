@@ -43,6 +43,14 @@
       />
 
   <browser:page
+      name="change-layout"
+      for=".content.Panel"
+      class=".browser.ManageView"
+      attribute="change_layout"
+      permission="plone.app.portlets.ManagePortlets"
+      />
+
+  <browser:page
       name="manage"
       for=".content.Panel"
       class=".browser.ManageView"

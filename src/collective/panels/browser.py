@@ -19,6 +19,7 @@ from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from AccessControl import getSecurityManager
 from Acquisition import Implicit
 from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 
 from .i18n import MessageFactory as _
 
@@ -140,6 +141,16 @@ class ManageView(EditPortletManagerRenderer):
         return super(ManageView, self).addable_portlets()
 
     @property
+    def available_layouts(self):
+        ptypes = [
+            {'name': name, 'title': title}
+            for name, (pt, title, range) in layouts.items()
+            ]
+
+        ptypes.sort(key=lambda ptype: ptype['title'])
+        return ptypes
+
+    @property
     def can_move_down(self):
         return self.__parent__.index(self.context.__name__) < \
                len(self.__parent__) - 1
@@ -177,6 +188,19 @@ class ManageView(EditPortletManagerRenderer):
     def delete(self, REQUEST=None):
         name = self.context.__name__
         del self.context.aq_inner.aq_parent[name]
+
+        referer = self.request.get('HTTP_REFERER') or \
+                  self.context.absolute_url()
+
+        return self.request.response.redirect(referer)
+
+    @protect(PostOnly)
+    @protect(CheckAuthenticator)
+    def change_layout(self, layout=None, REQUEST=None):
+        self.context.layout = layout
+
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Layout changed."), type="info")
 
         referer = self.request.get('HTTP_REFERER') or \
                   self.context.absolute_url()

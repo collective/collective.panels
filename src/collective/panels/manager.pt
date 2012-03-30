@@ -11,12 +11,38 @@
          title="Move up" class="up">▲</a>
     </div>
 
-    <p>Select a portlet type from the list below.</p>
-    <metal:form
-        use-macro="context/@@manage-portlets-macros/macros/portlet-add-form"
-        />
+    <div class="subform portletAssignments">
+      <h4>Add portlet</h4>
+      <metal:form
+          use-macro="context/@@manage-portlets-macros/macros/portlet-add-form"
+          />
+    </div>
 
-    <br />
+    <div class="subform portletAssignments">
+      <h4>Change layout</h4>
+      <form method="POST" tal:attributes="action string:${view/baseUrl}/@@change-layout">
+        <span tal:replace="structure context/@@authenticator/authenticator"/>
+
+        <select name="layout" onchange="this.form.submit()">
+          <option tal:repeat="layout view/available_layouts"
+                  tal:attributes="name layout/name;
+                                  value layout/name;
+                                  selected python: 'selected' if context.layout == layout['name'] else None"
+                  tal:content="layout/title"
+                  />
+        </select>
+
+        <noscript>
+          <input class="hiddentype="submit"
+                 name="change"
+                 value="Change"
+                 i18n:attributes="value"
+                 />
+        </noscript>
+      </form>
+    </div>
+
+    <div class="visualClear"></div>
 
     <metal:form
         use-macro="context/@@manage-portlets-macros/macros/current-portlets-list"
