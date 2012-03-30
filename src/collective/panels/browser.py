@@ -56,10 +56,12 @@ def addable_portlets_cache_key(function, view):
 
 
 def batch(iterable, size):
-    sourceiter = iter(iterable)
-    while True:
-        batchiter = itertools.islice(sourceiter, size)
-        yield itertools.chain([batchiter.next()], batchiter)
+    def ticker(x, s=size, a=[-1]):
+        r = a[0] = a[0] + 1
+        return r // s
+
+    for k, g in itertools.groupby(iterable, ticker):
+        yield g
 
 
 class RenderContext(Implicit):
@@ -74,7 +76,10 @@ class RenderContext(Implicit):
 
     def render(self):
         template, title, count = layouts[self.name]
-        return template.pt_render(self.__dict__)
+        try:
+            return template.pt_render(self.__dict__)
+        finally:
+            del self.portlets[:]
 
 
 class DisplayView(BrowserView):
