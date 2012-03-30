@@ -8,7 +8,7 @@
   <tal:conforms condition="python: 16 % len(portlets) == 0">
     <tal:portlets define="size python: 16 // len(portlets)"
                   tal:repeat="portlet portlets">
-      <div tal:define="position python: size * repeat['portlet'].index"
+      <div tal:define="position python: size * repeat['portlet'].index()"
            tal:attributes="class string:cell position-${position} width-${size}"
            tal:content="structure portlet/render"
            />
