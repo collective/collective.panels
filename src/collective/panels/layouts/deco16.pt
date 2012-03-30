@@ -6,10 +6,12 @@
          />
   </tal:thirds>
   <tal:conforms condition="python: 16 % len(portlets) == 0">
-    <div tal:define="size python: 16 // len(portlets)"
-         tal:repeat="portlet portlets"
-         tal:attributes="class string:cell position-${python: size * repeat['portlet'].index} width-${size}"
-         tal:content="structure portlet/render"
-         />
+    <tal:portlets define="size python: 16 // len(portlets)"
+                  tal:repeat="portlet portlets">
+      <div tal:define="position python: size * repeat['portlet'].index"
+           tal:attributes="class string:cell position-${position} width-${size}"
+           tal:content="structure portlet/render"
+           />
+    </tal:portlets>
   </tal:conforms>
 </div>
