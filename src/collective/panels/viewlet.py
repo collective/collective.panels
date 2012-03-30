@@ -44,7 +44,7 @@ class PanelViewlet(ViewletBase):
             if len(panel) == 0:
                 return False
 
-        return True
+        return self.can_manage
 
     @property
     def can_manage(self):
