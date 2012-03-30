@@ -28,7 +28,7 @@
                   tal:attributes="name layout/name;
                                   value layout/name;
                                   selected python: 'selected' if context.layout == layout['name'] else None"
-                  tal:content="layout/title"
+                  tal:content="string:${layout/title}&nbsp;"
                   />
         </select>
 
