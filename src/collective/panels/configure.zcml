@@ -27,7 +27,7 @@
   <browser:viewlet
       name="plone.belowcontentbody.contentpanels-manager"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-      class=".viewlet.PanelViewlet"
+      class=".browser.PanelViewlet"
       view="plone.app.layout.globals.interfaces.IViewView"
       permission="zope2.View"
       />
