@@ -65,6 +65,26 @@
       permission="zope2.View"
       />
 
+  <!-- Layouts -->
+
+  <browser:panel
+      name="horizontal"
+      title="Horizontal"
+      template="templates/horizontal.pt"
+      />
+
+  <browser:panel
+      name="left"
+      title="Left"
+      template="templates/left.pt"
+      />
+
+  <browser:panel
+      name="right"
+      title="Right"
+      template="templates/right.pt"
+      />
+
   <!-- Browser resources -->
 
   <browser:resource

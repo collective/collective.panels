@@ -13,10 +13,17 @@ from Acquisition import Implicit
 
 from Products.statusmessages.interfaces import IStatusMessage
 
-from .browser import decode
 from .content import Panel
 from .interfaces import IPanel
 from .i18n import MessageFactory as _
+
+
+def encode(name):
+    return name.replace('.', '-')
+
+
+def decode(name):
+    return name.replace('-', '.')
 
 
 class PanelManager(Implicit):

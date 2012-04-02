@@ -1,14 +1,28 @@
 Overview
 ========
 
-This add-on extends Plone with "portlet panels".
+This add-on extends Plone with "portlet panels", where a panel is a
+container for a number of portlet assignments.
 
-Panel sets can be added above or below page contents; each embody a
-portlet manager and the assigned portlets are rendered according to a
-selected layout.
+Panels can be added to any viewlet manager in principle, although in
+the default setup, the panel management interface is registered only
+for the "below content" manager.
 
-The default layout simply floats the assigned portlets, up to four in
-a row using Plone's "Deco 16" grid.
+There's a choice of layout for each panel, selected when the panel is
+first added with an option to change later on. These layouts are
+registered as components using an included ZCML-directive.
+
+Use the directive to add additional layouts::
+
+  <browser:panel
+      name="example"
+      title="Example"
+      template="templates/example.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+The package includes a layout that arranges portlets horizontally,
+automatically adjusting to equal width.
 
 
 Author

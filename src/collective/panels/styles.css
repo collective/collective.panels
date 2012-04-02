@@ -1,4 +1,17 @@
-.panels .discreet {
+.panels .row {
+    float: left;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.panels .cell {
+    position: relative;
+    float: left;
+    left: 100%;
+}
+
+.add-panel .discreet {
     text-align: center;
     display: block;
 }
@@ -10,6 +23,9 @@
 .add-panel .cell div {
     padding: 1px 1px;
     font-size: 150%;
+    background-color: #999;
+    color: white;
+    text-align: center;
 }
 
 .add-panel a {
@@ -17,7 +33,7 @@
     padding: 2px;
     border-bottom: 1px solid #aaa !important;
     margin-right: 3em;
-    width: 4em;
+    width: 6em;
 }
 
 .manage-panel .subform {

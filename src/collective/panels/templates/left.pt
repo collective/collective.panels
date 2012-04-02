@@ -1,0 +1,22 @@
+<div class="row"
+     tal:define="portlets portlets | python: (1, 2, '+')"
+     tal:condition="portlets">
+  <tal:left define="portlet python: portlets[0]">
+    <div class="cell position-0 width-1:2"
+         tal:condition="python: len(portlets) &gt; 1">
+      <div tal:content="structure portlet" />
+    </div>
+
+    <div class="cell"
+         tal:condition="python: len(portlets) == 1">
+      <div tal:content="structure portlet" />
+    </div>
+  </tal:left>
+
+  <div class="cell position-1:2 width-1:2"
+       tal:condition="python: len(portlets) &gt; 1">
+    <div tal:repeat="portlet python: portlets[1:]"
+         tal:content="structure portlet"
+         />
+  </div>
+</div>

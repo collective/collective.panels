@@ -20,11 +20,13 @@
 
     <div class="subform portletAssignments">
       <h4>Change layout</h4>
-      <form method="POST" tal:attributes="action string:${view/baseUrl}/@@change-layout">
+      <form method="POST"
+            tal:define="layouts view/available_layouts"
+            tal:attributes="action string:${view/baseUrl}/@@change-layout">
         <span tal:replace="structure context/@@authenticator/authenticator"/>
 
         <select name="layout" onchange="this.form.submit()">
-          <option tal:repeat="layout view/available_layouts"
+          <option tal:repeat="layout layouts"
                   tal:attributes="name layout/name;
                                   value layout/name;
                                   selected python: 'selected' if context.layout == layout['name'] else None"
@@ -32,7 +34,7 @@
                   />
         </select>
 
-        <noscript>
+        <noscript tal:omit-tag="python: len(layouts) == 1">
           <input type="submit"
                  name="change"
                  value="Change"

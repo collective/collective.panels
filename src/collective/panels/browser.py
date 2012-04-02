@@ -12,12 +12,12 @@ from plone.protect import protect
 from plone.protect import PostOnly
 from plone.protect import CheckAuthenticator
 
+from zope.component import getAdapter
+from zope.component import getAdapters
 from zope.component import getMultiAdapter
 from zope.component import ComponentLookupError
-from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 
 from AccessControl import getSecurityManager
-from Acquisition import Implicit
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 
@@ -28,46 +28,9 @@ from zope.security import checkPermission
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
 
+from .interfaces import ILayout
 from .traversal import PanelManager
-
-
-class faux_required:
-    @staticmethod
-    def render():
-        return u'<div style="background-color: #666;">&nbsp;</div>'
-
-
-class faux_optional:
-    @staticmethod
-    def render():
-        return u'<div style="background-color: #999;">&nbsp;</div>'
-
-
-layouts = {
-    'deco16': (
-        PageTemplateFile("layouts/deco16.pt"),
-        _(u"Deco 16"),
-        xrange(1, 5)
-        ),
-    'left16': (
-        PageTemplateFile("layouts/left16.pt"),
-        _(u"Left 16"),
-        xrange(1, 5)
-        ),
-    'right16': (
-        PageTemplateFile("layouts/right16.pt"),
-        _(u"Right 16"),
-        xrange(1, 5)
-        ),
-    }
-
-
-def encode(name):
-    return name.replace('.', '-')
-
-
-def decode(name):
-    return name.replace('-', '.')
+from .traversal import encode
 
 
 def addable_portlets_cache_key(function, view):
@@ -84,22 +47,35 @@ def batch(iterable, size):
         yield g
 
 
-class RenderContext(Implicit):
-    """Portlet rendering context."""
+def lookup_layouts(request):
+    ptypes = []
 
-    def __init__(self, name, portlets=None):
-        self.name = name
-        self.portlets = portlets or []
+    components = getAdapters((request, ), ILayout)
 
-    def add(self, portlet):
-        self.portlets.append(portlet)
+    for name, layout in components:
+        ptypes.append(layout)
 
-    def render(self):
-        template, title, count = layouts[self.name]
-        try:
-            return template.pt_render(self.__dict__)
-        finally:
-            del self.portlets[:]
+    # Sort by layout title
+    ptypes.sort(key=lambda ptype: ptype['title'])
+
+    return ptypes
+
+
+def render(portlets, name, request):
+    namespace = {'portlets': [portlet.render for portlet in portlets]}
+    try:
+        layout = getAdapter(request, ILayout, name=name)
+    except ComponentLookupError:
+        return _(u"Missing layout: ${name}.",
+                 mapping={'name': name})
+
+    template = layout['template']
+    return template.pt_render(namespace)
+
+
+def render_template(portlets, template):
+    namespace = {'portlets': portlets}
+    return template.pt_render(namespace)
 
 
 class DisplayView(BrowserView):
@@ -111,42 +87,33 @@ class DisplayView(BrowserView):
         parent = self.context.aq_inner.aq_parent.aq_parent
         panel = self.context
 
-        context = RenderContext(self.context.layout).__of__(parent)
+        portlets = []
+        for assignment in panel:
+            settings = IPortletAssignmentSettings(assignment)
+            if not settings.get('visible', True):
+                continue
 
-        pt, title, slots = layouts[panel.layout]
-        count = max(slots)
-
-        output = []
-        for assignments in batch(panel, count):
-            for assignment in assignments:
-                settings = IPortletAssignmentSettings(assignment)
-                if not settings.get('visible', True):
-                    continue
-
-                try:
-                    portlet = getMultiAdapter(
-                        (parent,
-                         self.request,
-                         self,
-                         panel,
-                         assignment), IPortletRenderer)
-                except ComponentLookupError:
-                    logging.getLogger("panels").info(
-                        "unable to look up renderer for '%s.%s'." % (
-                            assignment.__class__.__module__,
-                            assignment.__class__.__name__
-                            )
+            try:
+                portlet = getMultiAdapter(
+                    (parent,
+                     self.request,
+                     self,
+                     panel,
+                     assignment), IPortletRenderer)
+            except ComponentLookupError:
+                logging.getLogger("panels").info(
+                    "unable to look up renderer for '%s.%s'." % (
+                        assignment.__class__.__module__,
+                        assignment.__class__.__name__
                         )
-                    continue
+                    )
+                continue
 
-                portlet.update()
-                if portlet.available:
-                    context.add(portlet)
+            portlet.update()
+            if portlet.available:
+                portlets.append(portlet)
 
-            result = context.render()
-            output.append(result)
-
-        return u"\n".join(output)
+        return render(portlets, self.context.layout, self.request)
 
 
 class ManageView(EditPortletManagerRenderer):
@@ -167,13 +134,7 @@ class ManageView(EditPortletManagerRenderer):
 
     @property
     def available_layouts(self):
-        ptypes = [
-            {'name': name, 'title': title}
-            for name, (pt, title, range) in layouts.items()
-            ]
-
-        ptypes.sort(key=lambda ptype: ptype['title'])
-        return ptypes
+        return lookup_layouts(self.request)
 
     @property
     def can_move_down(self):
@@ -266,34 +227,7 @@ class PanelViewlet(ViewletBase):
 
     @property
     def available_layouts(self):
-        context = self.context
-
-        ptypes = []
-        for name, (pt, title, range) in layouts.items():
-            # To-Do: Add support for any range.
-            count = max(range)
-
-            portlets = []
-            for i in range:
-                portlets.append(faux_optional)
-
-            portlets.extend(
-                [faux_required] *
-                (count - len(portlets)))
-
-            rcontext = RenderContext(name, portlets).__of__(context)
-            renderer = rcontext.render
-
-            ptypes.append({
-                'name': name,
-                'title': title,
-                'icon': renderer,
-                })
-
-        # Sort by layout title
-        ptypes.sort(key=lambda ptype: ptype['title'])
-
-        return ptypes
+        return lookup_layouts(self.request)
 
     @property
     def normalized_manager_name(self):

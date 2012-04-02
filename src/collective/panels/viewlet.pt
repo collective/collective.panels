@@ -9,7 +9,7 @@
           <dd>
             <a tal:attributes="href string:${add_url}/${layout/name}">
               <span class="discreet" tal:content="layout/title" />
-              <div tal:content="structure layout/icon" />
+              <div tal:content="structure layout/template" />
             </a>
           </dd>
         </tal:panels>
