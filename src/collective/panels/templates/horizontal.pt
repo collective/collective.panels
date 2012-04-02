@@ -1,7 +1,7 @@
 <div class="row"
      tal:define="portlets portlets | python: (1, 2, 3, 4, '+')"
      tal:condition="portlets">
-  <tal:loop tal:define="ratio python: 100.0 / len(portlets);
+  <tal:loop tal:define="ratio python: round(100.0 / len(portlets), 3);
                         width python: ratio - 2.25"
             tal:repeat="portlet portlets">
     <div class="cell"
