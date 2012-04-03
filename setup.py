@@ -33,9 +33,6 @@ setup(name='collective.panels',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'lxml',
-          'plone.app.registry',
-          'plone.app.controlpanel',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]
