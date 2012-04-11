@@ -34,29 +34,27 @@
 
   <!-- Views -->
 
-  <browser:page
-      name="-"
+  <browser:pages
       for=".content.Panel"
       class=".browser.ManageView"
-      attribute="delete"
-      permission="plone.app.portlets.ManagePortlets"
-      />
+      permission="plone.app.portlets.ManagePortlets">
 
-  <browser:page
-      name="change-layout"
-      for=".content.Panel"
-      class=".browser.ManageView"
-      attribute="change_layout"
-      permission="plone.app.portlets.ManagePortlets"
-      />
+    <browser:page
+        name="-"
+        attribute="delete"
+        />
 
-  <browser:page
-      name="manage"
-      for=".content.Panel"
-      class=".browser.ManageView"
-      template="manager.pt"
-      permission="plone.app.portlets.ManagePortlets"
-      />
+    <browser:page
+        name="change-layout"
+        attribute="change_layout"
+        />
+
+    <browser:page
+        name="manage"
+        template="manager.pt"
+        />
+
+  </browser:pages>
 
   <browser:page
       name="display"
