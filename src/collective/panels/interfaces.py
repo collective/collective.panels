@@ -15,6 +15,10 @@ class ILayout(Interface):
     """Marker for a layout dictionary."""
 
 
+class IManagePanels(IDefaultBrowserLayer):
+    """Enables panels management interface."""
+
+
 class IPanel(IColumn, IContained):
     """A portlet panel.
 

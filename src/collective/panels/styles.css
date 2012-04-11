@@ -40,3 +40,17 @@
     float: left;
     margin-right: 2em;
 }
+
+.manage-panels-link div {
+    display: inline;
+}
+
+.manage-panels-link a {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.manage-panels-link {
+    text-align: center;
+    margin: 0px auto;
+}

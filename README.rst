@@ -4,9 +4,20 @@ Overview
 This add-on extends Plone with "portlet panels", where a panel is a
 container for a number of portlet assignments.
 
+Usage
+-----
+
 Panels can be added to any viewlet manager in principle, although in
 the default setup, the panel management interface is registered only
 for the "below content" manager.
+
+To manage panels, there's a "Manage panels" link available in the
+portal footer, similar to Plone's portlet management links. Clicking
+this link adds a panel management interface to the default content
+view.
+
+Layouts
+-------
 
 There's a choice of layout for each panel, selected when the panel is
 first added with an option to change later on. These layouts are

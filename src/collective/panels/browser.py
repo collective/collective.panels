@@ -12,6 +12,7 @@ from plone.protect import protect
 from plone.protect import PostOnly
 from plone.protect import CheckAuthenticator
 
+from zope.interface import alsoProvides
 from zope.component import getAdapter
 from zope.component import getAdapters
 from zope.component import getMultiAdapter
@@ -29,6 +30,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
 
 from .interfaces import ILayout
+from .interfaces import IManagePanels
 from .traversal import PanelManager
 from .traversal import encode
 
@@ -244,3 +246,15 @@ class PanelViewlet(ViewletBase):
             ).__of__(self.context)
 
         return tuple(context)
+
+
+class ManagePanelsView(BrowserView):
+    def __call__(self):
+        alsoProvides(self.request, IManagePanels)
+
+        if self.__name__ not in self.request.get('HTTP_REFERER', ''):
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"This is the panel management interface."),
+                type="info")
+
+        return self.context()

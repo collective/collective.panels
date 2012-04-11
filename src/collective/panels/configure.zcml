@@ -25,10 +25,18 @@
   <!-- Viewlets -->
 
   <browser:viewlet
+      name="collective.panels.managelink"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      view="plone.app.layout.globals.interfaces.IViewView"
+      template="link.pt"
+      permission="plone.app.portlets.ManagePortlets"
+      />
+
+  <browser:viewlet
       name="collective.panels.belowcontent"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       class=".browser.PanelViewlet"
-      view="plone.app.layout.globals.interfaces.IViewView"
+      layer=".interfaces.IManagePanels"
       permission="zope2.View"
       />
 
@@ -61,6 +69,13 @@
       for=".content.Panel"
       class=".browser.DisplayView"
       permission="zope2.View"
+      />
+
+  <browser:page
+      name="manage-panels"
+      for="*"
+      class=".browser.ManagePanelsView"
+      permission="plone.app.portlets.ManagePortlets"
       />
 
   <!-- Layouts -->

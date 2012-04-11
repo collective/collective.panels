@@ -1,0 +1,9 @@
+<div class="manage-panels-link" i18n:domain="collective.panels">
+  <div class="managePortletsLink">
+    <a tal:attributes="href string:${context/absolute_url}/@@manage-panels"
+       title="View panel management interface"
+       i18n:translate="">
+      Manage panels
+    </a>
+  </div>
+</div>
