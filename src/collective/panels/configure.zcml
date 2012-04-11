@@ -33,10 +33,17 @@
       />
 
   <browser:viewlet
+      name="collective.panels.adding"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+      class=".browser.AddingViewlet"
+      layer=".interfaces.IManagePanels"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
       name="collective.panels.belowcontent"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-      class=".browser.PanelViewlet"
-      layer=".interfaces.IManagePanels"
+      class=".browser.DisplayViewlet"
       permission="zope2.View"
       />
 

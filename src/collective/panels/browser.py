@@ -6,6 +6,7 @@ from plone.portlets.interfaces import IPortletAssignmentSettings
 from plone.portlets.constants import CONTEXT_CATEGORY
 
 from plone.app.portlets.browser.editmanager import EditPortletManagerRenderer
+from plone.app.layout.viewlets.interfaces import IBelowContentBody
 
 from plone.memoize.ram import cache
 from plone.protect import protect
@@ -13,9 +14,11 @@ from plone.protect import PostOnly
 from plone.protect import CheckAuthenticator
 
 from zope.interface import alsoProvides
+from zope.interface import providedBy
 from zope.component import getAdapter
 from zope.component import getAdapters
 from zope.component import getMultiAdapter
+from zope.component import getSiteManager
 from zope.component import ComponentLookupError
 
 from AccessControl import getSecurityManager
@@ -196,40 +199,99 @@ class ManageView(EditPortletManagerRenderer):
         return self.request.response.redirect(referer)
 
 
-class PanelViewlet(ViewletBase):
-    """Self-contained panel viewlet.
+class ManagePanelsView(BrowserView):
+    def __call__(self):
+        alsoProvides(self.request, IManagePanels)
 
-    You can drop this viewlet into most viewlet managers, typically
-    those that render above- or below content in the main display
-    area.
-    """
+        if self.__name__ not in self.request.get('HTTP_REFERER', ''):
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"This is the panel management interface. " \
+                  u"Add a new panel or manage existing ones."),
+                type="info")
 
-    index = ViewPageTemplateFile("viewlet.pt")
+        return self.context()
 
-    @property
-    def add_panel_url(self):
-        return self.context.absolute_url() + "/++panel++%s/+" % \
-               self.normalized_manager_name
 
-    @property
-    def can_add(self):
-        # If there's an empty panel in set, we don't want to allow the
-        # user to add another (empty) panel.
-        for panel in self.panels:
-            if len(panel) == 0:
-                return False
-
-        return self.can_manage
-
+class BaseViewlet(ViewletBase):
     @property
     def can_manage(self):
-        return checkPermission(
-            "plone.app.portlets.ManagePortlets", self.context
-            )
+        if IManagePanels.providedBy(self.request):
+            return checkPermission(
+                "plone.app.portlets.ManagePortlets", self.context
+                )
+
+
+class AddingViewlet(BaseViewlet):
+    index = ViewPageTemplateFile("adding.pt")
+
+    available_viewlet_managers = {
+        IBelowContentBody: _(u"Below page content"),
+        }
 
     @property
     def available_layouts(self):
         return lookup_layouts(self.request)
+
+    @property
+    def can_add(self):
+        # If there's empty panels in all the available viewlet
+        # managers, then we don't want to allow the user to add
+        # another (empty) panel.
+        #
+        # This gets pretty esoteric when there's more than one viewlet
+        # manager in play, but it's convenient for the case of one.
+        for manager in self.iter_panel_managers():
+            for panel in manager:
+                if len(panel) == 0:
+                    break
+            else:
+                return self.can_manage
+
+        return False
+
+    @property
+    def default_viewlet_manager(self):
+        for data in self.encode_viewlet_managers():
+            return data
+
+    @property
+    def has_panels(self):
+        # This is used to determine whether to initially collapse the
+        # interface to add new panels. It should be collapsed if
+        # there's a panel defined already.
+        for manager in self.iter_panel_managers():
+            for panel in manager:
+                return True
+
+        return False
+
+    def iter_panel_managers(self):
+        for name, iface in self.iter_viewlet_managers():
+            name = encode(name)
+            yield PanelManager(self.context, self.request, name)
+
+    def iter_viewlet_managers(self):
+        gsm = getSiteManager()
+        lookup = gsm.adapters.lookupAll
+
+        spec = tuple(map(providedBy, (
+            self.context, self.request, self.__parent__
+            )))
+
+        for iface in self.available_viewlet_managers:
+            for name, factory in lookup(spec, iface):
+                yield name, iface
+
+    def encode_viewlet_managers(self):
+        for name, iface in self.iter_viewlet_managers():
+            yield {
+                'name': encode(name),
+                'title': self.available_viewlet_managers[iface],
+                }
+
+
+class DisplayViewlet(BaseViewlet):
+    index = ViewPageTemplateFile("display.pt")
 
     @property
     def normalized_manager_name(self):
@@ -246,15 +308,3 @@ class PanelViewlet(ViewletBase):
             ).__of__(self.context)
 
         return tuple(context)
-
-
-class ManagePanelsView(BrowserView):
-    def __call__(self):
-        alsoProvides(self.request, IManagePanels)
-
-        if self.__name__ not in self.request.get('HTTP_REFERER', ''):
-            IStatusMessage(self.request).addStatusMessage(
-                _(u"This is the panel management interface."),
-                type="info")
-
-        return self.context()

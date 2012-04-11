@@ -1,0 +1,39 @@
+<div class="panels" i18n:domain="collective.panels" tal:condition="view/can_add">
+  <dl tal:define="collapsed python: ' collapsedOnLoad' if view.has_panels else ''"
+      tal:attributes="class string:collapsible${collapsed}">
+    <dt class="collapsibleHeader" i18n:translate="">Add panel</dt>
+    <dd class="collapsibleContent"
+        tal:define="manager view/default_viewlet_manager">
+      <form action="#">
+        <div class="field">
+          <label class="horizontal" for="manager">Location</label>
+          <div class="formHelp" i18n:translate="">
+            Select the location where a new panel should be added.
+          </div>
+          <select name="manager">
+            <option tal:attributes="value manager/name">
+              <tal:title i18n:translate="" tal:content="manager/title" />
+              &nbsp;
+            </option>
+          </select>
+        </div>
+      </form>
+      <div class="field">
+        <label class="horizontal">Layout</label>
+        <div class="formHelp">Select a panel layout.</div>
+      </div>
+      <dl class="add-panel" tal:define="add_url string:${context/absolute_url}/++panel++${view/default_viewlet_manager/name}/+">
+        <tal:panels repeat="layout view/available_layouts">
+          <dt class="hiddenStructure" tal:content="layout/title" />
+          <dd>
+            <a tal:attributes="href string:${add_url}/${layout/name}">
+              <span class="discreet" tal:content="layout/title" />
+              <div tal:content="structure layout/template" />
+            </a>
+          </dd>
+        </tal:panels>
+      </dl>
+      <div class="visualClear"></div>
+    </dd>
+  </dl>
+</div>

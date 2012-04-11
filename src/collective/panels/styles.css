@@ -30,10 +30,14 @@
 
 .add-panel a {
     float: left;
-    padding: 2px;
-    border-bottom: 1px solid #aaa !important;
+    padding: 5px;
+    border: 1px solid #ccc !important;
     margin-right: 3em;
     width: 6em;
+}
+
+.add-panel a:hover {
+    border-color: #999 !important;
 }
 
 .manage-panel .subform {
@@ -52,5 +56,5 @@
 
 .manage-panels-link {
     text-align: center;
-    margin: 0px auto;
+    margin: 0 auto 1em;
 }
