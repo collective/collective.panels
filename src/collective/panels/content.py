@@ -57,6 +57,11 @@ class Panel(Implicit, Persistent, Contained):
     def __len__(self):
         return len(self._assignments)
 
+    def __repr__(self):
+        return '<%s name="%s" items="%d">' % (
+            type(self.aq_base).__name__, self.__name__, len(self._assignments)
+            )
+
     @property
     def available(self):
         return any(
