@@ -1,15 +1,20 @@
 import os
+import sys
+
+reload(sys).setdefaultencoding("UTF-8")
+
 from setuptools import setup, find_packages
 
 
 def read(*pathnames):
-    return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
+    return open(os.path.join(os.path.dirname(__file__), *pathnames)).read().\
+           decode('utf-8')
 
 version = '1.0-dev'
 
 setup(name='collective.panels',
       version=version,
-      description="Portlet panels for Plone.",
+      description="Add-on for Plone that adds portlet panels.",
       long_description='\n'.join([
           read('README.rst'),
           read('CHANGES.rst'),
@@ -22,7 +27,7 @@ setup(name='collective.panels',
       keywords='plone portlets',
       author='Malthe Borch',
       author_email='mborch@gmail.com',
-      license='GPL',
+      license="GPLv3+",
       packages=find_packages('src'),
       package_dir={'': 'src'},
       namespace_packages=['collective'],

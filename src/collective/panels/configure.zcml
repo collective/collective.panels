@@ -40,9 +40,36 @@
       permission="zope2.View"
       />
 
+  <!-- Panel display viewlets (possible locations) -->
+
   <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.abovecontent"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+      class=".browser.DisplayViewlet"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
       name="collective.panels.belowcontent"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".browser.DisplayViewlet"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.portalfooter"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      class=".browser.DisplayViewlet"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      for="zope.annotation.interfaces.IAnnotatable"
+      name="collective.panels.portaltop"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
       class=".browser.DisplayViewlet"
       permission="zope2.View"
       />
@@ -70,6 +97,15 @@
         />
 
   </browser:pages>
+
+  <configure package="plone.app.portlets.browser">
+    <browser:page
+        for="collective.panels.content.Panel"
+        name="manage-portlets-macros"
+        template="templates/edit-manager-macros.pt"
+        permission="plone.app.portlets.ManageOwnPortlets"
+        />
+  </configure>
 
   <browser:page
       name="display"

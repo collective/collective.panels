@@ -6,9 +6,12 @@ from plone.portlets.interfaces import IPortletAssignmentSettings
 from plone.portlets.constants import CONTEXT_CATEGORY
 
 from plone.app.portlets.browser.editmanager import EditPortletManagerRenderer
-from plone.app.layout.viewlets.interfaces import IBelowContentBody
+from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
+from plone.app.layout.viewlets import interfaces
+from plone.app.layout.viewlets import ViewletBase
 
 from plone.memoize.ram import cache
+from plone.memoize.view import memoize
 from plone.protect import protect
 from plone.protect import PostOnly
 from plone.protect import CheckAuthenticator
@@ -19,28 +22,26 @@ from zope.component import getAdapter
 from zope.component import getAdapters
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+from zope.component import getUtility
 from zope.component import ComponentLookupError
+from zope.security import checkPermission
+from zope.viewlet.interfaces import IViewlet
 
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
-
-from .i18n import MessageFactory as _
-
-from zope.security import checkPermission
-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.layout.viewlets import ViewletBase
+from Products.statusmessages.interfaces import IStatusMessage
 
 from .interfaces import ILayout
 from .interfaces import IManagePanels
 from .traversal import PanelManager
 from .traversal import encode
+from .i18n import MessageFactory as _
 
 
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
-    return set(roles), view.manager.__name__
+    return set(roles), view.__parent__.__name__
 
 
 def batch(iterable, size):
@@ -224,9 +225,14 @@ class BaseViewlet(ViewletBase):
 class AddingViewlet(BaseViewlet):
     index = ViewPageTemplateFile("adding.pt")
 
-    available_viewlet_managers = {
-        IBelowContentBody: _(u"Below page content"),
-        }
+    # Order is important here; the default location will be the first
+    # available (non-hidden) manager.
+    all_viewlet_managers = (
+        (interfaces.IBelowContentBody, _(u"Below page content")),
+        (interfaces.IAboveContentBody, _(u"Above page content")),
+        (interfaces.IPortalFooter, _(u"Portal footer")),
+        (interfaces.IPortalTop, _(u"Portal top")),
+        )
 
     @property
     def available_layouts(self):
@@ -240,7 +246,7 @@ class AddingViewlet(BaseViewlet):
         #
         # This gets pretty esoteric when there's more than one viewlet
         # manager in play, but it's convenient for the case of one.
-        for manager in self.iter_panel_managers():
+        for manager in self._iter_panel_managers():
             for panel in manager:
                 if len(panel) == 0:
                     break
@@ -250,8 +256,8 @@ class AddingViewlet(BaseViewlet):
         return False
 
     @property
-    def default_viewlet_manager(self):
-        for data in self.encode_viewlet_managers():
+    def default_location(self):
+        for data in self.available_locations:
             return data
 
     @property
@@ -259,35 +265,59 @@ class AddingViewlet(BaseViewlet):
         # This is used to determine whether to initially collapse the
         # interface to add new panels. It should be collapsed if
         # there's a panel defined already.
-        for manager in self.iter_panel_managers():
+        for manager in self._iter_panel_managers():
             for panel in manager:
                 return True
 
         return False
 
-    def iter_panel_managers(self):
-        for name, iface in self.iter_viewlet_managers():
+    @property
+    @memoize
+    def available_locations(self):
+        return list(self._iter_locations())
+
+    @property
+    @memoize
+    def _lookup(self):
+        gsm = getSiteManager()
+        return gsm.adapters.lookupAll
+
+    def _iter_locations(self):
+        for name, title in self._iter_viewlet_managers():
+            yield {
+                'name': encode(name),
+                'title': title,
+                }
+
+    def _iter_panel_managers(self):
+        for name, title in self._iter_viewlet_managers():
             name = encode(name)
             yield PanelManager(self.context, self.request, name)
 
-    def iter_viewlet_managers(self):
-        gsm = getSiteManager()
-        lookup = gsm.adapters.lookupAll
-
+    def _iter_viewlet_managers(self):
         spec = tuple(map(providedBy, (
             self.context, self.request, self.__parent__
             )))
 
-        for iface in self.available_viewlet_managers:
-            for name, factory in lookup(spec, iface):
-                yield name, iface
+        storage = getUtility(IViewletSettingsStorage)
+        skinname = self.context.getCurrentSkinName()
 
-    def encode_viewlet_managers(self):
-        for name, iface in self.iter_viewlet_managers():
-            yield {
-                'name': encode(name),
-                'title': self.available_viewlet_managers[iface],
-                }
+        for viewlet, iface, title in self._iter_enabled_viewlet_managers():
+            for name, factory in self._lookup(spec, iface):
+                hidden = storage.getHidden(name, skinname)
+
+                if viewlet not in hidden:
+                    yield name, title
+
+    def _iter_enabled_viewlet_managers(self):
+        spec = tuple(map(providedBy, (
+            self.context, self.request, self.__parent__
+            )))
+
+        for iface, title in self.all_viewlet_managers:
+            for name, factory in self._lookup(spec + (iface, ), IViewlet):
+                if issubclass(factory, DisplayViewlet):
+                    yield name, iface, title
 
 
 class DisplayViewlet(BaseViewlet):

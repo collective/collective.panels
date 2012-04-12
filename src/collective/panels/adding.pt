@@ -1,20 +1,35 @@
 <div class="panels" i18n:domain="collective.panels" tal:condition="view/can_add">
-  <dl tal:define="collapsed python: ' collapsedOnLoad' if view.has_panels else ''"
+  <dl tal:define="adding_id python: 'adding-%d' % id(view);
+                  collapsed python: ' collapsedOnLoad' if view.has_panels else ''"
       tal:attributes="class string:collapsible${collapsed}">
     <dt class="collapsibleHeader" i18n:translate="">Add panel</dt>
-    <dd class="collapsibleContent"
-        tal:define="manager view/default_viewlet_manager">
+    <dd class="collapsibleContent">
       <form action="#">
         <div class="field">
-          <label class="horizontal" for="manager">Location</label>
+          <label class="horizontal" for="location">Location</label>
           <div class="formHelp" i18n:translate="">
             Select the location where a new panel should be added.
           </div>
-          <select name="manager">
-            <option tal:attributes="value manager/name">
-              <tal:title i18n:translate="" tal:content="manager/title" />
-              &nbsp;
-            </option>
+          <select name="location"
+                  tal:attributes="onchange string:(function($, selected) {
+                                      var links = $('#${adding_id} a'),
+                                          name = selected.value
+                                      $.each(links, function(i, j) {
+                                          var link = $(j)
+                                          var href = link.attr('href')
+                                          var k = href.lastIndexOf('++')
+                                          var l = href.lastIndexOf('/')
+                                          href = href.substring(0, k) +
+                                                 '++' + name + '/+/' +
+                                                 href.substring(l)
+                                          $(link).attr('href', href)
+                                      })
+                                  })(jQuery, this.options[this.selectedIndex]);;
+                                  this.blur()">
+            <option tal:define="default_location view/default_location"
+                    tal:repeat="location view/available_locations"
+                    tal:attributes="value location/name;
+                                    selected python: location == default_location"><tal:title i18n:translate="" tal:content="location/title" />&nbsp;</option>
           </select>
         </div>
       </form>
@@ -22,7 +37,10 @@
         <label class="horizontal">Layout</label>
         <div class="formHelp">Select a panel layout.</div>
       </div>
-      <dl class="add-panel" tal:define="add_url string:${context/absolute_url}/++panel++${view/default_viewlet_manager/name}/+">
+      <dl class="add-panel"
+          tal:define="name view/default_location/name;
+                      add_url string:${context/absolute_url}/++panel++${name}/+"
+          tal:attributes="id adding_id">
         <tal:panels repeat="layout view/available_layouts">
           <dt class="hiddenStructure" tal:content="layout/title" />
           <dd>
