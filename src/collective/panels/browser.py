@@ -4,8 +4,10 @@ import itertools
 from plone.portlets.interfaces import IPortletRenderer
 from plone.portlets.interfaces import IPortletAssignmentSettings
 from plone.portlets.constants import CONTEXT_CATEGORY
+from plone.portlets.utils import hashPortletInfo
 
 from plone.app.portlets.browser.editmanager import EditPortletManagerRenderer
+from plone.app.portlets.manager import ColumnPortletManagerRenderer
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
 from plone.app.layout.viewlets import interfaces
 from plone.app.layout.viewlets import ViewletBase
@@ -31,6 +33,7 @@ from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from ZODB.POSException import ConflictError
 
 from .interfaces import ILayout
 from .interfaces import IManagePanels
@@ -68,7 +71,7 @@ def lookup_layouts(request):
 
 
 def render(portlets, name, request):
-    namespace = {'portlets': [portlet.render for portlet in portlets]}
+    namespace = {'portlets': portlets}
     try:
         layout = getAdapter(request, ILayout, name=name)
     except ComponentLookupError:
@@ -86,6 +89,9 @@ def render_template(portlets, template):
 
 class DisplayView(BrowserView):
     """This view displays a panel."""
+
+    portlet = ViewPageTemplateFile("portlet.pt")
+    error_message = ColumnPortletManagerRenderer.error_message
 
     def __call__(self):
         # The parent object is the Plone content object here; we get
@@ -115,11 +121,34 @@ class DisplayView(BrowserView):
                     )
                 continue
 
+            info = {
+                'manager': panel.__name__,
+                'category': CONTEXT_CATEGORY,
+                'key': '/'.join(parent.getPhysicalPath()),
+                'name': assignment.__name__,
+                'renderer': portlet,
+                }
+
+            hashPortletInfo(info)
+
             portlet.update()
             if portlet.available:
-                portlets.append(portlet)
+                result = self.portlet(**info)
+                portlets.append(result)
 
         return render(portlets, self.context.layout, self.request)
+
+    def safe_render(self, renderer):
+        try:
+            return renderer.render()
+        except ConflictError:
+            raise
+        except Exception:
+            logging.getLogger("panels").exception(
+                'Error while rendering %r' % (self, )
+                )
+
+            return self.error_message()
 
 
 class ManageView(EditPortletManagerRenderer):
