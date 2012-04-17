@@ -11,18 +11,18 @@
             Select the location where a new panel should be added.
           </div>
           <select name="location"
-                  tal:attributes="onchange string:(function($, selected) {
-                                      var links = $('#${adding_id} a'),
+                  tal:attributes="onchange string:(function($$, selected) {
+                                      var links = $$('#${adding_id} a'),
                                           name = selected.value
-                                      $.each(links, function(i, j) {
-                                          var link = $(j)
+                                      $$.each(links, function(i, j) {
+                                          var link = $$(j)
                                           var href = link.attr('href')
                                           var k = href.lastIndexOf('++')
                                           var l = href.lastIndexOf('/')
                                           href = href.substring(0, k) +
                                                  '++' + name + '/+/' +
                                                  href.substring(l)
-                                          $(link).attr('href', href)
+                                          $$(link).attr('href', href)
                                       })
                                   })(jQuery, this.options[this.selectedIndex]);;
                                   this.blur()">
