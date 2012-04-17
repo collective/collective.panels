@@ -1,0 +1,5 @@
+<div tal:attributes="id string:portletwrapper-${options/hash};
+                     class string:portletWrapper kssattr-portlethash-${options/hash};"
+     tal:content="structure python:view.safe_render(options['renderer'])"
+     />
+
