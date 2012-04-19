@@ -1,6 +1,13 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Fixed issue where you could not add portlets to a panel other than
+  the first (for a given manager). This fixes issue #3.
+
 1.0.1 (2012-04-17)
 ------------------
 

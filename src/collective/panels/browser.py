@@ -44,7 +44,7 @@ from .i18n import MessageFactory as _
 
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
-    return set(roles), view.__parent__.__name__
+    return set(roles), view.__parent__.__name__, view.context.__name__
 
 
 def batch(iterable, size):
