@@ -3,6 +3,10 @@ Changes
 
 In next release ...
 
+Translation:
+
+- Added Danish translation.
+
 Bugfixes:
 
 - The panel assignment class and traverser now inherit from

@@ -1,0 +1,63 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-02-25 15:13+0000\n"
+"PO-Revision-Date: 2010-02-25 16:29+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: da\n"
+"Language-Name: Danish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.panels\n"
+
+msgid "Add panel"
+msgstr "Tilføj panel"
+
+msgid "Above page content"
+msgid "Før indhold"
+
+msgid "Below page content"
+msgstr "Efter indhold"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Layout changed."
+msgstr "Visning ændret."
+
+msgid "Panel added."
+msgstr "Panel tilføjet."
+
+msgid "Panel removed."
+msgstr "Panel fjernet."
+
+msgid "Portal top"
+msgstr "Sidehoved"
+
+msgid "Portal footer"
+msgstr "Sidefod"
+
+msgid "Select the location where a new panel should be added."
+msgstr "Vælg den placering hvor et nyt panel skal indsættes."
+
+msgid "This is the panel management interface. Add a new panel or manage existing ones."
+msgstr "På denne side kan du administrere paneler. Tilføj et nyt eller foretag ændringer på eksisterende."
+
+msgid "This panel is empty."
+msgstr "Dette panel er tomt."
+
+msgid "Layout"
+msgstr "Visning"
+
+msgid "Location"
+msgstr "Placering"
+
+msgid "Select a panel layout."
+msgstr "Vælg en ny visning."
