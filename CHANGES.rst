@@ -3,6 +3,10 @@ Changes
 
 In next release ...
 
+Features:
+
+- Fixed layout "Left" in the case of a single assignment.
+
 Translation:
 
 - Added Danish translation.
