@@ -10,6 +10,7 @@ from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
 
 from zExceptions import BadRequest, NotFound
 from Acquisition import Implicit
+from OFS.Traversable import Traversable
 
 from Products.statusmessages.interfaces import IStatusMessage
 
@@ -26,7 +27,7 @@ def decode(name):
     return name.replace('-', '.')
 
 
-class PanelManager(Implicit):
+class PanelManager(Implicit, Traversable):
     implements(IBrowserPublisher, IPortletAssignmentMapping)
 
     __allow_access_to_unprotected_subobjects__ = 1
@@ -98,6 +99,9 @@ class PanelManager(Implicit):
 
     def __len__(self):
         return len(tuple(iter(self)))
+
+    def getId(self):
+        return "++panel++%s" % self.__name__
 
     def publishTraverse(self, request, name):
         try:

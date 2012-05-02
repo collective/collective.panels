@@ -7,6 +7,7 @@ from plone.portlets.interfaces import IPortletAssignment
 from plone.app.portlets.interfaces import IPortletAssignmentMapping
 
 from Acquisition import Implicit
+from OFS.Traversable import Traversable
 
 from persistent import Persistent
 
@@ -16,7 +17,7 @@ from .i18n import MessageFactory as _
 PANEL_ANNOTATION_KEY = "collective.panels"
 
 
-class Panel(Implicit, Persistent, Contained):
+class Panel(Implicit, Persistent, Contained, Traversable):
     implements(IPanel, IPortletAssignment, IPortletAssignmentMapping)
 
     __allow_access_to_unprotected_subobjects__ = 1
@@ -61,6 +62,9 @@ class Panel(Implicit, Persistent, Contained):
         return '<%s name="%s" items="%d">' % (
             type(self.aq_base).__name__, self.__name__, len(self._assignments)
             )
+
+    def getId(self):
+        return self.__name__
 
     @property
     def available(self):

@@ -1,6 +1,13 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Panel assignments now correctly provide traversal. In particular,
+  the ``getPhysicalPath`` method is now provided.
+
 1.0.2 (2012-04-19)
 ------------------
 
