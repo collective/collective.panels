@@ -101,7 +101,7 @@ class PanelManager(Implicit, Traversable):
         return len(tuple(iter(self)))
 
     def getId(self):
-        return "++panel++%s" % self.__name__
+        return "++panel++%s" % encode(self.__name__)
 
     def publishTraverse(self, request, name):
         try:

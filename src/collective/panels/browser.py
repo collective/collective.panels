@@ -192,11 +192,10 @@ class ManageView(EditPortletManagerRenderer):
         return self.context.absolute_url()
 
     def manageUrl(self):
-        return self.context_url() + "/++panel++%s" % \
-               self.normalized_manager_name
+        return self.__parent__.absolute_url()
 
     def baseUrl(self):
-        return self.manageUrl() + "/%s" % self.context.__name__
+        return self.context.absolute_url()
 
     def portlets(self):
         assignments = tuple(self.context)

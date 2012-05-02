@@ -4,10 +4,10 @@
   <dd class="collapsibleContent">
     <div class="reordering" style="float: right">
       <a tal:condition="view/can_move_down"
-         tal:attributes="href string:${view/manageUrl}/@@move-portlet-down?name=${context/__name__}&amp;referer=${view/referer}"
+         tal:attributes="href string:${view/manageUrl}/@@move-portlet-down?name=${context/getId}&amp;referer=${view/referer}"
          title="Move down" class="down">▼</a>
       <a tal:condition="view/can_move_up"
-         tal:attributes="href string:${view/manageUrl}/@@move-portlet-up?name=${context/__name__}&amp;referer=${view/referer}"
+         tal:attributes="href string:${view/manageUrl}/@@move-portlet-up?name=${context/getId}&amp;referer=${view/referer}"
          title="Move up" class="up">▲</a>
     </div>
 

@@ -5,8 +5,10 @@ In next release ...
 
 Bugfixes:
 
-- Panel assignments now correctly provide traversal. In particular,
-  the ``getPhysicalPath`` method is now provided.
+- The panel assignment class and traverser now inherit from
+  ``OFS.Traversable.Traversable`` and implement the ``getId``
+  method. This fixes an issue where a physical path would not be
+  correctly computed.
 
 1.0.2 (2012-04-19)
 ------------------
