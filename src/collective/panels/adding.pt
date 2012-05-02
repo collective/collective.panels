@@ -6,7 +6,7 @@
     <dd class="collapsibleContent">
       <form action="#">
         <div class="field">
-          <label class="horizontal" for="location">Location</label>
+          <label class="horizontal" for="location" i18n:translate="">Location</label>
           <div class="formHelp" i18n:translate="">
             Select the location where a new panel should be added.
           </div>
@@ -34,8 +34,8 @@
         </div>
       </form>
       <div class="field">
-        <label class="horizontal">Layout</label>
-        <div class="formHelp">Select a panel layout.</div>
+        <label class="horizontal" i18n:translate="">Layout</label>
+        <div class="formHelp" i18n:translate="">Select a panel layout.</div>
       </div>
       <dl class="add-panel"
           tal:define="name view/default_location/name;
