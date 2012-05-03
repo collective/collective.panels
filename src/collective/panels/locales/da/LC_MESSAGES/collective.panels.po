@@ -61,3 +61,12 @@ msgstr "Placering"
 
 msgid "Select a panel layout."
 msgstr "Vælg en ny visning."
+
+msgid "Horizontal"
+msgstr "Horisontal"
+
+msgid "Left"
+msgstr "Venstre"
+
+msgid "Right"
+msgstr "Højre"
