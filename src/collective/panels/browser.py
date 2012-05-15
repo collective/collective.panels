@@ -34,6 +34,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from ZODB.POSException import ConflictError
+from zExceptions import NotFound
 
 from .interfaces import ILayout
 from .interfaces import IManagePanels
@@ -165,7 +166,11 @@ class ManageView(EditPortletManagerRenderer):
 
     @cache(addable_portlets_cache_key)
     def addable_portlets(self):
-        return super(ManageView, self).addable_portlets()
+        try:
+            return super(ManageView, self).addable_portlets()
+        except NotFound as exc:
+            logging.getLogger("panels").warn(exc)
+            return ()
 
     @property
     def available_layouts(self):
