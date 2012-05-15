@@ -19,6 +19,10 @@ Translation:
 
 Bugfixes:
 
+- The addable portlets check is now robust to misconfigured adding
+  views and will log a warning instead of letting the exception
+  trickle through.
+
 - Assignments now get unique names. For example, if two calendar
   assignments are added, the second assignment gets the name
   "calendar-1".
