@@ -122,9 +122,9 @@ class DisplayView(BrowserView):
                 continue
 
             info = {
-                'manager': panel.__name__,
+                'manager': "panels",
                 'category': CONTEXT_CATEGORY,
-                'key': '/'.join(parent.getPhysicalPath()),
+                'key': '/'.join(panel.getPhysicalPath()),
                 'name': assignment.__name__,
                 'renderer': portlet,
                 }

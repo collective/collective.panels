@@ -1,7 +1,9 @@
 from zope.interface import implements
+from zope.interface import providedBy
 from zope.component import getUtilitiesFor
 from zope.container.contained import Contained
 
+from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletType
 from plone.portlets.interfaces import IPortletAssignment
 from plone.app.portlets.interfaces import IPortletAssignmentMapping
@@ -15,6 +17,20 @@ from .interfaces import IPanel
 from .i18n import MessageFactory as _
 
 PANEL_ANNOTATION_KEY = "collective.panels"
+
+
+def getAddablePortletTypes(interface):
+    types = (p[1] for p in getUtilitiesFor(IPortletType))
+
+    return filter(
+        lambda p: any(
+            i for i in p.for_ if interface.isOrExtends(i)
+            ),
+        types)
+
+
+def getAssignmentMapping(panel, manager):
+    return panel
 
 
 class Panel(Implicit, Persistent, Contained, Traversable):
@@ -52,6 +68,9 @@ class Panel(Implicit, Persistent, Contained, Traversable):
         self._assignments.append(assignment)
         self._p_changed = True
 
+    def __contains__(self, name):
+        return any(name == assignment.__name__ for assignment in self)
+
     def __iter__(self):
         return iter(self._assignments)
 
@@ -77,13 +96,8 @@ class Panel(Implicit, Persistent, Contained, Traversable):
         return _(u"Panel ${name}", mapping={'name': self.__name__})
 
     def getAddablePortletTypes(self):
-        types = (p[1] for p in getUtilitiesFor(IPortletType))
-
-        return filter(
-            lambda p: any(
-                i for i in p.for_ if i.providedBy(self)
-                ),
-            types)
+        interface = providedBy(self)
+        return getAddablePortletTypes(interface)
 
     def keys(self):
         return [assignment.__name__ for assignment in self]
@@ -93,3 +107,15 @@ class Panel(Implicit, Persistent, Contained, Traversable):
             key=lambda assignment: keys.index(assignment.__name__)
             )
         self._p_changed = True
+
+
+class PanelManager(object):
+    implements(IPortletManager)
+
+    def __call__(self, context, request, view):
+        raise NotImplementedError(
+            "This portlet manager does not provide a renderer."
+            )
+
+    def getAddablePortletTypes(self):
+        return getAddablePortletTypes(IPanel)

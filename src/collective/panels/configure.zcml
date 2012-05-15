@@ -16,9 +16,20 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-    <!-- Translations -->
+  <!-- Translations -->
 
   <i18n:registerTranslations directory="locales" />
+
+  <!-- Manager -->
+
+  <utility name="panels" factory=".content.PanelManager" />
+
+  <adapter
+      for=".interfaces.IPanel
+           plone.portlets.interfaces.IPortletManager"
+      provides="plone.portlets.interfaces.IPortletAssignmentMapping"
+      factory=".content.getAssignmentMapping"
+      />
 
   <!-- Traversal -->
 

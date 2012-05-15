@@ -13,6 +13,10 @@ Translation:
 
 Bugfixes:
 
+- The panel info hash now correctly encodes a valid portlet
+  manager. This fixes an issue where KSS-enabled portlets would
+  operate incorrectly.
+
 - The panel assignment class and traverser now inherit from
   ``OFS.Traversable.Traversable`` and implement the ``getId``
   method. This fixes an issue where a physical path would not be
