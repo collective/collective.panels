@@ -9,15 +9,13 @@ Changes:
   to be difficult to provide a short, descriptive title for each
   layout.
 
-Features:
-
-- Fixed layout "Left" in the case of a single assignment.
-
 Translation:
 
 - Added Danish translation.
 
 Bugfixes:
+
+- Fixed layout "Left" in the case of a single assignment.
 
 - The addable portlets check is now robust to misconfigured adding
   views and will log a warning instead of letting the exception
