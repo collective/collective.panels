@@ -13,6 +13,10 @@ Translation:
 
 Bugfixes:
 
+- Assignments now get unique names. For example, if two calendar
+  assignments are added, the second assignment gets the name
+  "calendar-1".
+
 - The panel info hash now correctly encodes a valid portlet
   manager. This fixes an issue where KSS-enabled portlets would
   operate incorrectly.

@@ -64,6 +64,18 @@ class Panel(Implicit, Persistent, Contained, Traversable):
         raise KeyError(name)
 
     def __setitem__(self, name, assignment):
+        # Make sure assignment name is unique, e.g. "calendar-1".
+        if name in self:
+            c = 1
+            while True:
+                suggestion = "%s-%d" % (name, c)
+                if suggestion not in self:
+                    break
+
+                c += 1
+
+            name = suggestion
+
         assignment.__name__ = name
         self._assignments.append(assignment)
         self._p_changed = True
