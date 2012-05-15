@@ -157,6 +157,18 @@
       template="templates/right.pt"
       />
 
+  <browser:panel
+      name="one-third-left"
+      title="4"
+      template="templates/onethirdleft.pt"
+      />
+
+  <browser:panel
+      name="one-third-right"
+      title="5"
+      template="templates/onethirdright.pt"
+      />
+
   <!-- Browser resources -->
 
   <browser:resource
