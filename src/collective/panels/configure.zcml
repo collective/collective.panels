@@ -141,19 +141,19 @@
 
   <browser:panel
       name="horizontal"
-      title="Horizontal"
+      title="1"
       template="templates/horizontal.pt"
       />
 
   <browser:panel
       name="left"
-      title="Left"
+      title="2"
       template="templates/left.pt"
       />
 
   <browser:panel
       name="right"
-      title="Right"
+      title="3"
       template="templates/right.pt"
       />
 

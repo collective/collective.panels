@@ -3,6 +3,12 @@ Changes
 
 In next release ...
 
+Changes:
+
+- Layout titles are now simply numbered: 1, 2, 3, etc. It turned out
+  to be difficult to provide a short, descriptive title for each
+  layout.
+
 Features:
 
 - Fixed layout "Left" in the case of a single assignment.
