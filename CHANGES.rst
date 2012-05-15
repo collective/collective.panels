@@ -9,6 +9,11 @@ Changes:
   to be difficult to provide a short, descriptive title for each
   layout.
 
+Features:
+
+- Added two new horizontal layouts that assign a fixed width of 1/3 to
+  respectively the left-most and the right-most assignment.
+
 Translation:
 
 - Added Danish translation.
