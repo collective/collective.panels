@@ -32,7 +32,7 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-msgid "Select a panel layout."
+msgid "Select a panel layout. The arrows indicate the direction of the layout."
 msgstr ""
 
 msgid "Layout changed."
@@ -57,13 +57,4 @@ msgid "This is the panel management interface. Add a new panel or manage existin
 msgstr ""
 
 msgid "This panel is empty."
-msgstr ""
-
-msgid "Horizontal"
-msgstr ""
-
-msgid "Left"
-msgstr ""
-
-msgid "Right"
 msgstr ""

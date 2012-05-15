@@ -141,31 +141,31 @@
 
   <browser:panel
       name="horizontal"
-      title="1"
+      title="A"
       template="templates/horizontal.pt"
       />
 
   <browser:panel
       name="left"
-      title="2"
+      title="B"
       template="templates/left.pt"
       />
 
   <browser:panel
       name="right"
-      title="3"
+      title="C"
       template="templates/right.pt"
       />
 
   <browser:panel
       name="one-third-left"
-      title="4"
+      title="D"
       template="templates/onethirdleft.pt"
       />
 
   <browser:panel
       name="one-third-right"
-      title="5"
+      title="E"
       template="templates/onethirdright.pt"
       />
 

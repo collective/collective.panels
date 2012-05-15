@@ -13,27 +13,32 @@
 
 .add-panel .discreet {
     text-align: center;
-    display: block;
+    padding: 5px;
+    margin: 2px;
+    font-weight: bold !important;
 }
 
 .add-panel dd {
     margin: 0 !important;
+    line-height: 4em;
 }
 
 .add-panel .cell div {
-    padding: 1px 1px;
-    font-size: 150%;
-    background-color: #999;
+    padding: 5px 2px;
+    background-color: #999966;
     color: white;
     text-align: center;
+    line-height: 1em;
 }
 
 .add-panel a {
     float: left;
     padding: 5px;
-    border: 1px solid #ccc !important;
-    margin-right: 3em;
-    width: 6em;
+    border: 1px solid #999966 !important;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    width: 10%;
+    background-color: #FFFFE3;
 }
 
 .add-panel a:hover {

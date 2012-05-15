@@ -5,11 +5,12 @@ In next release ...
 
 Changes:
 
-- Layout titles are now simply numbered: 1, 2, 3, etc. It turned out
-  to be difficult to provide a short, descriptive title for each
-  layout.
+- Layout titles are now simply letters: A, B, C, etc. It turned out to
+  be difficult to provide a short, descriptive title for each layout.
 
 Features:
+
+- Improved styling of adding interface.
 
 - Added two new horizontal layouts that assign a fixed width of 1/3 to
   respectively the left-most and the right-most assignment.

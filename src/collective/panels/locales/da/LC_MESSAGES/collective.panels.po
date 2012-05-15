@@ -59,8 +59,8 @@ msgstr "Visning"
 msgid "Location"
 msgstr "Placering"
 
-msgid "Select a panel layout."
-msgstr "Vælg en ny visning."
+msgid "Select a panel layout. The arrows indicate the direction of the layout."
+msgstr "Vælg en ny visning. Pilene indikerer hvordan indholdet arrangeres."
 
 msgid "Horizontal"
 msgstr "Horisontal"

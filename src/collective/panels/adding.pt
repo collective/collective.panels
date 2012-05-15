@@ -35,7 +35,7 @@
       </form>
       <div class="field">
         <label class="horizontal" i18n:translate="">Layout</label>
-        <div class="formHelp" i18n:translate="">Select a panel layout.</div>
+        <div class="formHelp" i18n:translate="">Select a panel layout. The arrows indicate the direction of the layout.</div>
       </div>
       <dl class="add-panel"
           tal:define="name view/default_location/name;

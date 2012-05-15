@@ -1,5 +1,5 @@
 <div class="row"
-     tal:define="portlets portlets | python: (1, 2, '+');
+     tal:define="portlets portlets | python: (1, '2 &darr;');
                  portlets python: tuple(reversed(portlets))"
      tal:condition="portlets">
   <div class="cell position-0 width-1:2"
