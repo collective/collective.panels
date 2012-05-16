@@ -21,7 +21,7 @@ msgid "Add panel"
 msgstr "Tilføj panel"
 
 msgid "Above page content"
-msgid "Før indhold"
+msgstr "Før indhold"
 
 msgid "Below page content"
 msgstr "Efter indhold"
