@@ -10,6 +10,7 @@ from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
 
 from zExceptions import BadRequest, NotFound
 from Acquisition import Implicit
+from Acquisition import ExplicitAcquisitionWrapper
 from OFS.Traversable import Traversable
 
 from Products.statusmessages.interfaces import IStatusMessage
@@ -88,7 +89,7 @@ class PanelManager(Implicit, Traversable):
 
                 return self.request.response.redirect(referer)
 
-            return adding
+            return ExplicitAcquisitionWrapper(adding, self)
 
         for panel in panels:
             if panel.__name__ == name:

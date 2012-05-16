@@ -10,9 +10,13 @@ Features:
 
 Bugfixes:
 
+- Fixed an issue with the panel adding view that made it impossible to
+  add panels to content marked as private (the request would be
+  unauthorized). This fixes issue #6.
+
 - Views and resources are now registered against a package-specific
   browser layer. This ensures that the user interface is not available
-  unless the product is installed (issue #6).
+  unless the product is installed (issue #7).
 
 1.1 (2012-05-15)
 ----------------
