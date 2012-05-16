@@ -1,0 +1,10 @@
+<div class="row"
+     tal:attributes="style string:width: ${width}%;; float: left;; margin-left: 1.125%;; margin-right: ${spacing}%"
+     tal:define="portlets portlets | python: ('&darr;', );
+                 spacing spacing | python: 1.125;
+                 width python: 33.332 - spacing - 1.125"
+     tal:condition="portlets">
+  <div class="cell" style="float: none; left: 0" tal:repeat="portlet portlets">
+    <div tal:content="structure portlet" />
+  </div>
+</div>

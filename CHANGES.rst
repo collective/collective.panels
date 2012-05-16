@@ -5,6 +5,9 @@ In next release ..
 
 Features:
 
+- Added three new vertical layouts, assigned respectively 1/3, 1/2 and
+  2/3 page width.
+
 - Added option to select standard, double or triple spacing, all of
   which are given as a percentage of the page width.
 

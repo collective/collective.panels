@@ -1,3 +1,7 @@
+.panel {
+    display: inline;
+}
+
 .panels .row {
     float: left;
     width: 100%;
@@ -16,6 +20,10 @@
     padding: 5px;
     margin: 2px;
     font-weight: bold !important;
+}
+
+.add-panel {
+    width: 75%;
 }
 
 .add-panel dd {
@@ -37,7 +45,7 @@
     border: 1px solid #999966 !important;
     margin-right: 1em;
     margin-bottom: 1em;
-    width: 10%;
+    width: 7em;
     background-color: #FFFFE3;
 }
 

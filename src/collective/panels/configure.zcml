@@ -161,26 +161,44 @@
 
   <browser:panel
       name="left"
-      title="B"
+      title="B1"
       template="templates/left.pt"
       />
 
   <browser:panel
       name="right"
-      title="C"
+      title="B2"
       template="templates/right.pt"
       />
 
   <browser:panel
       name="one-third-left"
-      title="D"
+      title="C1"
       template="templates/onethirdleft.pt"
       />
 
   <browser:panel
       name="one-third-right"
-      title="E"
+      title="C2"
       template="templates/onethirdright.pt"
+      />
+
+  <browser:panel
+      name="split-one-third"
+      title="D1"
+      template="templates/splitonethird.pt"
+      />
+
+  <browser:panel
+      name="split-half"
+      title="D2"
+      template="templates/splithalf.pt"
+      />
+
+  <browser:panel
+      name="split-two-thirds"
+      title="D3"
+      template="templates/splittwothirds.pt"
       />
 
   <!-- Browser resources -->
