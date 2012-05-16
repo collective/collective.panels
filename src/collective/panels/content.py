@@ -95,7 +95,7 @@ class Panel(Implicit, Persistent, Contained, Traversable):
 
     def __repr__(self):
         return '<%s name="%s" items="%d">' % (
-            type(self.aq_base).__name__, self.__name__, len(self._assignments)
+            self.__class__.__name__, self.__name__, len(self._assignments)
             )
 
     def getId(self):

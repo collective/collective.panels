@@ -1,6 +1,14 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Fixed an issue where a panel would not correctly return a
+  representation string when not acquisition-wrapped. This fixes issue
+  #5.
+
 1.2 (2012-05-16)
 ----------------
 
