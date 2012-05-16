@@ -1,6 +1,13 @@
 Changes
 =======
 
+In next release ..
+
+Features:
+
+- Added option to select standard, double or triple spacing, all of
+  which are given as a percentage of the page width.
+
 1.1 (2012-05-15)
 ----------------
 

@@ -1,4 +1,5 @@
-<dl tal:define="collapsed python: len(context) and ' collapsedOnLoad' or None"
+<dl i18n:domain="collective.panels"
+    tal:define="collapsed python: len(context) and ' collapsedOnLoad' or None"
     tal:attributes="class string:manage-panel collapsible${collapsed}">
   <dt class="collapsibleHeader" i18n:translate="">Manage panel</dt>
   <dd class="collapsibleContent">
@@ -12,14 +13,14 @@
     </div>
 
     <div class="subform portletAssignments">
-      <h4>Add portlet</h4>
+      <h4 style="visibility: hidden" i18n:translate="">Add portlet</h4>
       <metal:form
           use-macro="context/@@manage-portlets-macros/macros/portlet-add-form"
           />
     </div>
 
     <div class="subform portletAssignments">
-      <h4>Change layout</h4>
+      <h4 i18n:translate="">Change layout</h4>
       <form method="POST"
             tal:define="layouts view/available_layouts"
             tal:attributes="action string:${view/baseUrl}/@@change-layout">
@@ -44,7 +45,36 @@
       </form>
     </div>
 
+    <div class="subform portletAssignments">
+      <h4 i18n:translate="">Change spacing</h4>
+      <form method="POST"
+            tal:define="percentages view/available_spacing_percentages"
+            tal:attributes="action string:${view/baseUrl}/@@change-spacing">
+
+        <span tal:replace="structure context/@@authenticator/authenticator"/>
+
+        <select name="spacing" onchange="this.form.submit()">
+          <option tal:repeat="percentage percentages"
+                  tal:attributes="value percentage/value;
+                                  selected python: 'selected' if context.spacing == percentage['value'] else None">
+            <tal:title i18n:translate="" replace="percentage/title" /> -
+            <tal:value replace="percentage/value" />%&nbsp;
+          </option>
+        </select>
+
+        <noscript tal:omit-tag="python: len(percentages) == 1">
+          <input type="submit"
+                 name="change"
+                 value="Change"
+                 i18n:attributes="value"
+                 />
+        </noscript>
+      </form>
+    </div>
+
     <div class="visualClear"></div>
+
+    <br />
 
     <metal:form
         use-macro="context/@@manage-portlets-macros/macros/current-portlets-list"

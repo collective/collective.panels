@@ -59,6 +59,13 @@ class PanelManager(Implicit, Traversable):
             except IndexError:
                 raise BadRequest("Missing layout.")
 
+            try:
+                spacing = float(self.request['spacing'])
+            except KeyError:
+                raise BadRequest("Missing argument: spacing.")
+            except ValueError:
+                raise BadRequest("Spacing argument must be floating point.")
+
             def adding():
                 """Add panel, then redirect to referer."""
 
@@ -70,7 +77,7 @@ class PanelManager(Implicit, Traversable):
                     if i >= n:
                         n = i + 1
 
-                panel = Panel(str(n), layout)
+                panel = Panel(str(n), layout, spacing)
                 self._mapping[panel.__name__] = panel
 
                 IStatusMessage(self.request).addStatusMessage(

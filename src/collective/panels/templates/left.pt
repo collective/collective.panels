@@ -1,8 +1,11 @@
 <div class="row"
-     tal:define="portlets portlets | python: (1, '2 &darr;')"
+     tal:define="portlets portlets | python: (1, '2 &darr;');
+                 spacing spacing | python: 1.125;
+                 width python: 50 - 2 * (spacing) + (spacing - 1.125)"
      tal:condition="portlets">
   <tal:left define="portlet python: portlets[0]">
-    <div class="cell position-0 width-1:2"
+    <div class="cell position-0"
+         tal:attributes="style string:width: ${width}%"
          tal:condition="python: len(portlets) &gt; 1">
       <div tal:content="structure portlet" />
     </div>
@@ -13,7 +16,9 @@
     </div>
   </tal:left>
 
-  <div class="cell position-1:2 width-1:2"
+  <div class="cell"
+       tal:define="position python: -50 + spacing"
+       tal:attributes="style string:width: ${width}%;; margin-left: ${position}%"
        tal:condition="python: len(portlets) &gt; 1">
     <div tal:repeat="portlet python: portlets[1:]"
          tal:content="structure portlet"

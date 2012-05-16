@@ -70,3 +70,28 @@ msgstr "Venstre"
 
 msgid "Right"
 msgstr "Højre"
+
+msgid "Spacing"
+msgstr "Afstand"
+
+msgid "Select cell spacing as a percentage of the page width."
+msgstr "Vælg afstand mellem rubrikker som procent af sidebredden."
+
+msgid "Add portlet"
+msgstr "Tilføj portlet"
+
+msgid "Change layout"
+msgstr "Skift visning"
+
+msgid "Change spacing"
+msgstr "Skift afstand"
+
+msgid "Standard"
+msgstr "Lille"
+
+msgid "Double"
+msgstr "Mellem"
+
+msgid "Triple"
+msgstr "Stor"
+

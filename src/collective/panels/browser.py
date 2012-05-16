@@ -43,6 +43,13 @@ from .traversal import encode
 from .i18n import MessageFactory as _
 
 
+AVAILABLE_SPACING_PERCENTAGES =(
+        {'value': 1.125, 'title': _(u"Standard")},
+        {'value': 2.25, 'title': _(u"Double")},
+        {'value': 3.375, 'title': _(u"Triple")},
+        )
+
+
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
     return set(roles), view.__parent__.__name__, view.context.__name__
@@ -71,8 +78,8 @@ def lookup_layouts(request):
     return ptypes
 
 
-def render(portlets, name, request):
-    namespace = {'portlets': portlets}
+def render(portlets, name, spacing, request):
+    namespace = {'portlets': portlets, 'spacing': spacing}
     try:
         layout = getAdapter(request, ILayout, name=name)
     except ComponentLookupError:
@@ -80,11 +87,6 @@ def render(portlets, name, request):
                  mapping={'name': name})
 
     template = layout['template']
-    return template.pt_render(namespace)
-
-
-def render_template(portlets, template):
-    namespace = {'portlets': portlets}
     return template.pt_render(namespace)
 
 
@@ -137,7 +139,9 @@ class DisplayView(BrowserView):
                 result = self.portlet(**info)
                 portlets.append(result)
 
-        return render(portlets, self.context.layout, self.request)
+        return render(
+            portlets, self.context.layout, self.context.spacing, self.request
+            )
 
     def safe_render(self, renderer):
         try:
@@ -157,12 +161,18 @@ class ManageView(EditPortletManagerRenderer):
 
     category = CONTEXT_CATEGORY
 
+    available_spacing_percentages = AVAILABLE_SPACING_PERCENTAGES
+
     def __init__(self, context, request):
         # This `manager` is the viewlet manager, or an object
         # emulating it.
         manager = context.aq_inner.aq_parent
 
         super(ManageView, self).__init__(context, request, manager, context)
+
+    @property
+    def available_layouts(self):
+        return lookup_layouts(self.request)
 
     @cache(addable_portlets_cache_key)
     def addable_portlets(self):
@@ -171,10 +181,6 @@ class ManageView(EditPortletManagerRenderer):
         except NotFound as exc:
             logging.getLogger("panels").warn(exc)
             return ()
-
-    @property
-    def available_layouts(self):
-        return lookup_layouts(self.request)
 
     @property
     def can_move_down(self):
@@ -232,6 +238,19 @@ class ManageView(EditPortletManagerRenderer):
 
         return self.request.response.redirect(referer)
 
+    @protect(PostOnly)
+    @protect(CheckAuthenticator)
+    def change_spacing(self, spacing=None, REQUEST=None):
+        self.context.spacing = float(spacing)
+
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Spacing changed."), type="info")
+
+        referer = self.request.get('HTTP_REFERER') or \
+                  self.context.absolute_url()
+
+        return self.request.response.redirect(referer)
+
 
 class ManagePanelsView(BrowserView):
     def __call__(self):
@@ -247,6 +266,8 @@ class ManagePanelsView(BrowserView):
 
 
 class BaseViewlet(ViewletBase):
+    available_spacing_percentages = AVAILABLE_SPACING_PERCENTAGES
+
     @property
     def can_manage(self):
         if IManagePanels.providedBy(self.request):

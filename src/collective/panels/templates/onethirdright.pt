@@ -1,10 +1,11 @@
 <div class="row"
-     tal:define="portlets portlets | python: (1, '&larr; 2')"
+     tal:define="portlets portlets | python: (1, '&larr; 2');
+                 spacing spacing | python: 1.125"
      tal:condition="portlets">
   <tal:left condition="python: len(portlets) &gt; 1">
-    <tal:loop define="start python: -98.875;
+    <tal:loop define="start python: -100.0 + 1.125;
                       ratio python: round(66.667 / (len(portlets) - 1), 3);
-                      width python: ratio - 2.25"
+                      width python: ratio - 2 * spacing"
               repeat="portlet python: reversed(portlets[1:])">
       <div class="cell"
            tal:define="index repeat/portlet/index;

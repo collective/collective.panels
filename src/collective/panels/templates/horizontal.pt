@@ -1,8 +1,9 @@
 <div class="row"
-     tal:define="portlets portlets | python: (1, 2, 3, '&rarr;')"
+     tal:define="portlets portlets | python: (1, 2, 3, '&rarr;');
+                 spacing spacing | python: 1.125"
      tal:condition="portlets">
-  <tal:loop tal:define="ratio python: round(100.0 / len(portlets), 3);
-                        width python: ratio - 2.25"
+  <tal:loop tal:define="ratio python: round((100.0 + ((spacing - 1.125)* 2)) / len(portlets), 3);
+                        width python: ratio - spacing * 2"
             tal:repeat="portlet portlets">
     <div class="cell"
          tal:define="index repeat/portlet/index;

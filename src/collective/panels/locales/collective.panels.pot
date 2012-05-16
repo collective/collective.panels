@@ -58,3 +58,27 @@ msgstr ""
 
 msgid "This panel is empty."
 msgstr ""
+
+msgid "Spacing"
+msgstr ""
+
+msgid "Select cell spacing as a percentage of the page width."
+msgstr ""
+
+msgid "Add portlet"
+msgstr ""
+
+msgid "Change layout"
+msgstr ""
+
+msgid "Changing spacing"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Double"
+msgstr ""
+
+msgid "Triple"
+msgstr ""

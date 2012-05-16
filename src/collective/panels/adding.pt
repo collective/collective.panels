@@ -11,7 +11,7 @@
             Select the location where a new panel should be added.
           </div>
           <select name="location"
-                  tal:attributes="onchange string:(function($$, selected) {
+                  tal:attributes="onchange string:(function($$, form, selected) {
                                       var links = $$('#${adding_id} a'),
                                           name = selected.value
                                       $$.each(links, function(i, j) {
@@ -19,17 +19,33 @@
                                           var href = link.attr('href')
                                           var k = href.lastIndexOf('++')
                                           var l = href.lastIndexOf('/')
+                                          var m = href.lastIndexOf('?')
                                           href = href.substring(0, k) +
-                                                 '++' + name + '/+/' +
-                                                 href.substring(l)
+                                                 '++' + name + '/+' +
+                                                 href.substring(l, m) +
+                                                 '?spacing=' + $$(form.spacing).val();;
                                           $$(link).attr('href', href)
                                       })
-                                  })(jQuery, this.options[this.selectedIndex]);;
+                                  })(jQuery, this.form, this.options[this.selectedIndex]);;
                                   this.blur()">
             <option tal:define="default_location view/default_location"
                     tal:repeat="location view/available_locations"
                     tal:attributes="value location/name;
                                     selected python: location == default_location"><tal:title i18n:translate="" tal:content="location/title" />&nbsp;</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="horizontal" i18n:translate="">Spacing</label>
+          <div class="formHelp" i18n:translate="">
+            Select cell spacing as a percentage of the page width.
+          </div>
+          <select name="spacing" onchange="this.form.location.onchange()">
+            <option tal:repeat="percentage view/available_spacing_percentages"
+                    tal:attributes="value percentage/value;
+                                    selected python: 'selected' if not repeat['percentage'].index() else None">
+              <tal:title i18n:translate="" replace="percentage/title" /> -
+              <tal:value replace="percentage/value" />%&nbsp;
+            </option>
           </select>
         </div>
       </form>
@@ -39,12 +55,14 @@
       </div>
       <dl class="add-panel"
           tal:define="name view/default_location/name;
+                      percentages view/available_spacing_percentages;
+                      spacing python: percentages[0]['value'];
                       add_url string:${context/absolute_url}/++panel++${name}/+"
           tal:attributes="id adding_id">
         <tal:panels repeat="layout view/available_layouts">
           <dt class="hiddenStructure" tal:content="layout/title" />
           <dd>
-            <a tal:attributes="href string:${add_url}/${layout/name}">
+            <a tal:attributes="href string:${add_url}/${layout/name}?spacing=${spacing}">
               <span class="discreet" tal:content="layout/title" />
               <div tal:content="structure layout/template" />
             </a>
