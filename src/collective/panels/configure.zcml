@@ -46,6 +46,7 @@
       view="plone.app.layout.globals.interfaces.IViewView"
       template="link.pt"
       permission="plone.app.portlets.ManagePortlets"
+      layer=".interfaces.ILayer"
       />
 
   <browser:viewlet
@@ -64,6 +65,7 @@
       manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
       class=".browser.DisplayViewlet"
       permission="zope2.View"
+      layer=".interfaces.ILayer"
       />
 
   <browser:viewlet
@@ -72,6 +74,7 @@
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       class=".browser.DisplayViewlet"
       permission="zope2.View"
+      layer=".interfaces.ILayer"
       />
 
   <browser:viewlet
@@ -80,6 +83,7 @@
       manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
       class=".browser.DisplayViewlet"
       permission="zope2.View"
+      layer=".interfaces.ILayer"
       />
 
   <browser:viewlet
@@ -88,6 +92,7 @@
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
       class=".browser.DisplayViewlet"
       permission="zope2.View"
+      layer=".interfaces.ILayer"
       />
 
   <!-- Views -->
@@ -95,7 +100,8 @@
   <browser:pages
       for=".content.Panel"
       class=".browser.ManageView"
-      permission="plone.app.portlets.ManagePortlets">
+      permission="plone.app.portlets.ManagePortlets"
+      layer=".interfaces.ILayer">
 
     <browser:page
         name="-"
@@ -124,6 +130,7 @@
         for="collective.panels.content.Panel"
         name="manage-portlets-macros"
         template="templates/edit-manager-macros.pt"
+        layer="collective.panels.interfaces.ILayer"
         permission="plone.app.portlets.ManageOwnPortlets"
         />
   </configure>
@@ -132,6 +139,7 @@
       name="display"
       for=".content.Panel"
       class=".browser.DisplayView"
+      layer=".interfaces.ILayer"
       permission="zope2.View"
       />
 
@@ -139,6 +147,7 @@
       name="manage-panels"
       for="*"
       class=".browser.ManagePanelsView"
+      layer=".interfaces.ILayer"
       permission="plone.app.portlets.ManagePortlets"
       />
 
@@ -179,6 +188,7 @@
   <browser:resource
       name="panels.css"
       file="styles.css"
+      layer=".interfaces.ILayer"
       />
 
 </configure>

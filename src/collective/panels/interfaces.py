@@ -11,6 +11,10 @@ from plone.app.portlets.interfaces import IColumn
 from .i18n import MessageFactory as _
 
 
+class ILayer(Interface):
+    """Package-specific browser layer."""
+
+
 class ILayout(Interface):
     """Marker for a layout dictionary."""
 
