@@ -5,6 +5,8 @@ In next release ...
 
 Bugfixes:
 
+- Fixed an issue with incompatible template syntax.
+
 - Fixed an issue where a panel would not correctly return a
   representation string when not acquisition-wrapped. This fixes issue
   #5.
