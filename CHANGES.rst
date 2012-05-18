@@ -1,6 +1,13 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Fixed an issue that prevented the versioning tool to check in a
+  document when a panel had been added. This fixes issue #5.
+
 1.2.1 (2012-05-17)
 ------------------
 
@@ -9,8 +16,8 @@ Bugfixes:
 - Fixed an issue with incompatible template syntax.
 
 - Fixed an issue where a panel would not correctly return a
-  representation string when not acquisition-wrapped. This fixes issue
-  #5.
+  representation string when not acquisition-wrapped. This addresses
+  issue #5 (but turned out not quite to fix it entirely).
 
 1.2 (2012-05-16)
 ----------------

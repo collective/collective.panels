@@ -9,6 +9,7 @@ from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
 
 from zExceptions import BadRequest, NotFound
+from Acquisition import aq_base
 from Acquisition import Implicit
 from Acquisition import ExplicitAcquisitionWrapper
 from OFS.Traversable import Traversable
@@ -79,7 +80,7 @@ class PanelManager(Implicit, Traversable):
                         n = i + 1
 
                 panel = Panel(str(n), layout, spacing)
-                self._mapping[panel.__name__] = panel
+                aq_base(self._mapping)[panel.__name__] = panel
 
                 IStatusMessage(self.request).addStatusMessage(
                     _(u"Panel added."), type="info")
