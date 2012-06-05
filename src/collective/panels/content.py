@@ -133,5 +133,8 @@ class PanelManager(object):
             "This portlet manager does not provide a renderer."
             )
 
+    def get(self, name, default=None):
+        return default
+
     def getAddablePortletTypes(self):
         return getAddablePortletTypes(IPanel)
