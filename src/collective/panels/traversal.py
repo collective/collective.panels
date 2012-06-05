@@ -109,6 +109,12 @@ class PanelManager(Implicit, Traversable):
     def __len__(self):
         return len(tuple(iter(self)))
 
+    def get(self, name, default=None):
+        try:
+            return self[name]
+        except KeyError:
+            return default
+
     def getId(self):
         return "++panel++%s" % encode(self.__name__)
 

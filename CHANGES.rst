@@ -1,6 +1,12 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Panel manager must provide ``get`` method. This fixes issue #8.
+
 1.2.2 (2012-05-18)
 ------------------
 
