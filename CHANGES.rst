@@ -5,6 +5,11 @@ In next release ...
 
 Bugfixes:
 
+- The portlet ``settings`` dictionary was missing. Not strictly a bug,
+  but the ``IPortletAssignmentSettings`` API exists to provide this
+  information to the column renderer and we should provide it, too,
+  for the portlet renderer wrapper template.
+
 - Panel manager must provide ``get`` method. This fixes issue #8.
 
 1.2.2 (2012-05-18)

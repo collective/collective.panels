@@ -130,6 +130,7 @@ class DisplayView(BrowserView):
                 'key': '/'.join(panel.getPhysicalPath()),
                 'name': assignment.__name__,
                 'renderer': portlet,
+                'settings': settings,
                 }
 
             hashPortletInfo(info)
