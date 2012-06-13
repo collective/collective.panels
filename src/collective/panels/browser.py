@@ -371,8 +371,13 @@ class AddingViewlet(BaseViewlet):
 
         for iface, title in self.all_viewlet_managers:
             for name, factory in self._lookup(spec + (iface, ), IViewlet):
-                if issubclass(factory, DisplayViewlet):
-                    yield name, iface, title
+                try:
+                    if issubclass(factory, DisplayViewlet):
+                        yield name, iface, title
+                except TypeError:
+                    # Issue #9: "Unexpected non-class object while
+                    # iterating over viewlet managers"
+                    continue
 
 
 class DisplayViewlet(BaseViewlet):

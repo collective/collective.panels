@@ -1,6 +1,13 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Fixed issue #9: "Unexpected non-class object while iterating over
+  viewlet managers".
+
 1.2.3 (2012-06-08)
 ------------------
 
