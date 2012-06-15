@@ -5,6 +5,11 @@ In next release ...
 
 Features:
 
+- Added ``panel-${n}`` classes to the panel elements.
+
+- Added ``portlet-${n}`` classes to the wrapper elements that render
+  the portlet.
+
 - The panel elements now have a class that matches the layout id.
 
 - Added new spacing 'small', set at 0.55%.

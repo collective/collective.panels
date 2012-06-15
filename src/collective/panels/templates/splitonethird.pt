@@ -5,6 +5,7 @@
                  width python: 33.332 - spacing - 1.125"
      tal:condition="portlets">
   <div class="cell" style="float: none; left: 0" tal:repeat="portlet portlets">
-    <div tal:content="structure portlet" />
+    <div tal:attributes="class string:content portlet-${repeat/portlet/index}"
+         tal:content="structure portlet" />
   </div>
 </div>

@@ -7,12 +7,12 @@
     <div class="cell position-0"
          tal:attributes="style string:width: ${width}%"
          tal:condition="python: len(portlets) &gt; 1">
-      <div tal:content="structure portlet" />
+      <div class="portlet-0" tal:content="structure portlet" />
     </div>
 
     <div class="cell position-0 width-full"
          tal:condition="python: len(portlets) == 1">
-      <div tal:content="structure portlet" />
+      <div class="portlet-0" tal:content="structure portlet" />
     </div>
   </tal:left>
 
@@ -21,6 +21,7 @@
        tal:attributes="style string:width: ${width}%;; margin-left: ${position}%"
        tal:condition="python: len(portlets) &gt; 1">
     <div tal:repeat="portlet python: portlets[1:]"
+         tal:attributes="class string:content portlet-${repeat/portlet/number}"
          tal:content="structure portlet"
          />
   </div>

@@ -11,19 +11,22 @@
            tal:define="index repeat/portlet/index;
                        position python: start + ratio * index"
            tal:attributes="style string:width: ${width}%;; margin-left: ${position}%">
-        <div tal:content="structure portlet" />
+        <div tal:attributes="class string:content portlet-${repeat/portlet/number}"
+             tal:content="structure portlet" />
       </div>
     </tal:loop>
   </tal:left>
 
   <div class="cell position-0 width-full"
        tal:condition="python: len(portlets) == 1">
-    <div tal:content="structure python: portlets[0]" />
+    <div class="content portlet-0" tal:content="structure python: portlets[0]" />
   </div>
 
   <div class="cell position-2:3 width-1:3"
        tal:condition="python: len(portlets) &gt; 1">
-    <div tal:content="structure python: portlets[0]" />
+    <div tal:define="count python: len(portlets)"
+         tal:attributes="class string:content portlet-${count}"
+         tal:content="structure python: portlets[0]" />
   </div>
 </div>
 

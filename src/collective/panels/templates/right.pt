@@ -8,6 +8,7 @@
        tal:attributes="style string:width: ${width}%"
        tal:condition="python: len(portlets) &gt; 1">
     <div tal:repeat="portlet python: reversed(portlets[:-1])"
+         tal:attributes="class string:content portlet-${repeat/portlet/index}"
          tal:content="structure portlet"
          />
   </div>
@@ -17,11 +18,13 @@
          tal:define="position python: -50 + spacing"
          tal:attributes="style string:width: ${width}%;; margin-left: ${position}%"
          tal:condition="python: len(portlets) &gt; 1">
-      <div tal:content="structure portlet" />
+      <div tal:define="count python: len(portlets)"
+           tal:attributes="class string:content portlet-${count}"
+           tal:content="structure portlet" />
     </div>
 
     <div tal:condition="python: len(portlets) == 1">
-      <div tal:content="structure portlet" />
+      <div class="content portlet-0" tal:content="structure portlet" />
     </div>
   </tal:right>
 </div>
