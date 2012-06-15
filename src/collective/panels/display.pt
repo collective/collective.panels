@@ -2,7 +2,7 @@
   <tal:panels repeat="panel view/panels">
     <tal:render define="html panel/@@display">
 
-      <div tal:attributes="class string:panel panel-${repeat/panel/index}"
+      <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"
            tal:condition="html"
            tal:content="structure html"
            />
