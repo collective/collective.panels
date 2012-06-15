@@ -60,3 +60,16 @@ class IPanelDirective(Interface):
         required=True,
         default=IDefaultBrowserLayer,
         )
+
+
+class IGlobalSettings(Interface):
+    site_local_managers = schema.Set(
+        title=_(u"Site-local panel managers"),
+        description=_(u"The locations listed here will be assignable "
+                      u"only at sites (typically Plone's site "
+                      u"root, unless local sites are present)."),
+        required=False,
+        value_type=schema.Choice(
+            vocabulary="collective.panels.vocabularies.Managers",
+            )
+        )

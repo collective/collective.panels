@@ -106,3 +106,15 @@ msgstr ""
 
 msgid "Vertical float with a width of 2/3"
 msgstr ""
+
+msgid "Configure panels"
+msgstr ""
+
+msgid "This form lets you configure the panel add-on product."
+msgstr ""
+
+msgid "Site-local panel managers"
+msgstr ""
+
+msgid "The locations listed here will be assignable only at sites (typically Plone's site root, unless local sites are present)."
+msgstr ""

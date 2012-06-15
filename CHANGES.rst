@@ -5,6 +5,11 @@ In next release ...
 
 Features:
 
+- A panel location can now be configured to be local to nearest site
+  context. For instance, the footer manager can be configured in this
+  way such that it's possible to use panels to create a site footer
+  (which will be shown on all pages within that site).
+
 - Layouts now have a required ``description`` attribute which will be
   shown in the "Manage panels" fieldset (instead of the title, which
   is usually very short and non-descriptive).

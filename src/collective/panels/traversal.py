@@ -34,14 +34,14 @@ class PanelManager(Implicit, Traversable):
 
     __allow_access_to_unprotected_subobjects__ = 1
 
-    def __init__(self, context, request, name):
+    def __init__(self, context, request, location, name):
         self.__name__ = decode(name)
         self.context = context
         self.request = request
 
         # We use `self` as the viewlet manager here because only the
         # name is actually needed.
-        self._mapping = localPortletAssignmentMappingAdapter(context, self)
+        self._mapping = localPortletAssignmentMappingAdapter(location, self)
 
     def __delitem__(self, name):
         del self._mapping[name]
@@ -144,4 +144,4 @@ class PanelTraverser(object):
         if not name:
             raise BadRequest("Must provide panel name.")
 
-        return PanelManager(self.context, self.request, name)
+        return PanelManager(self.context, self.request, self.context, name)

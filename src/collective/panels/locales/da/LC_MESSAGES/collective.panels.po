@@ -118,3 +118,16 @@ msgstr "På langs, med bredden 1/2"
 
 msgid "Vertical float with a width of 2/3"
 msgstr "På langs, med bredden 2/3"
+
+msgid "Configure panels"
+msgstr "Paneler"
+
+msgid "This form lets you configure the panel add-on product."
+msgstr "Denne side giver mulighed for at konfigurere hvordan paneler skal opføre sig i forhold til oprettelse lokalt eller på site-basis."
+
+msgid "Site-local panel managers"
+msgstr "Placering med oprettelse på site-basis"
+
+msgid "The locations listed here will be assignable only at sites (typically Plone's site root, unless local sites are present)."
+msgstr "På de valgte placeringer vil de kun være muligt at oprette paneler i site-roden. Til gengæld vises de også på undersider. Dette kan f.eks. bruges til sidefodsområdet hvor man kan vise den samme generelle information på alle sider."
+

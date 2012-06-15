@@ -217,4 +217,21 @@
       layer=".interfaces.ILayer"
       />
 
+  <!-- Vocabularies -->
+
+  <utility
+      component=".vocabularies.managers"
+      name="collective.panels.vocabularies.Managers"
+      />
+
+  <!-- Control panel -->
+
+  <browser:page
+      name="panels-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.ControlPanel"
+      permission="cmf.ManagePortal"
+      layer=".interfaces.ILayer"
+      />
+
 </configure>

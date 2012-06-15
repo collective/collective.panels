@@ -9,7 +9,6 @@ from plone.portlets.utils import hashPortletInfo
 from plone.app.portlets.browser.editmanager import EditPortletManagerRenderer
 from plone.app.portlets.manager import ColumnPortletManagerRenderer
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
-from plone.app.layout.viewlets import interfaces
 from plone.app.layout.viewlets import ViewletBase
 
 from plone.memoize.ram import cache
@@ -17,6 +16,7 @@ from plone.memoize.view import memoize
 from plone.protect import protect
 from plone.protect import PostOnly
 from plone.protect import CheckAuthenticator
+from plone.registry.interfaces import IRegistry
 
 from zope.interface import alsoProvides
 from zope.interface import providedBy
@@ -28,22 +28,25 @@ from zope.component import getUtility
 from zope.component import ComponentLookupError
 from zope.security import checkPermission
 from zope.viewlet.interfaces import IViewlet
+from zope.schema.interfaces import IVocabularyFactory
 
 from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFCore.interfaces import ISiteRoot
 from ZODB.POSException import ConflictError
 from zExceptions import NotFound
 
 from .interfaces import ILayout
 from .interfaces import IManagePanels
+from .interfaces import IGlobalSettings
 from .traversal import PanelManager
 from .traversal import encode
 from .i18n import MessageFactory as _
 
 
-AVAILABLE_SPACING_PERCENTAGES =(
+AVAILABLE_SPACING_PERCENTAGES = (
         {'value': 1.125, 'title': _(u"Standard")},
         {'value': 2.25, 'title': _(u"Double")},
         {'value': 3.375, 'title': _(u"Triple")},
@@ -271,6 +274,19 @@ class BaseViewlet(ViewletBase):
 
     @property
     def can_manage(self):
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            # This (non-critical) error is reported elsewhere. The
+            # product needs to be installed before we let users manage
+            # panels.
+            return False
+        else:
+            for interface in settings.site_local_managers or ():
+                if interface.providedBy(self.manager):
+                    if not ISiteRoot.providedBy(self.context):
+                        return False
+
         if IManagePanels.providedBy(self.request):
             return checkPermission(
                 "plone.app.portlets.ManagePortlets", self.context
@@ -280,14 +296,16 @@ class BaseViewlet(ViewletBase):
 class AddingViewlet(BaseViewlet):
     index = ViewPageTemplateFile("adding.pt")
 
-    # Order is important here; the default location will be the first
-    # available (non-hidden) manager.
-    all_viewlet_managers = (
-        (interfaces.IBelowContentBody, _(u"Below page content")),
-        (interfaces.IAboveContentBody, _(u"Above page content")),
-        (interfaces.IPortalFooter, _(u"Portal footer")),
-        (interfaces.IPortalTop, _(u"Portal top")),
-        )
+    @property
+    def all_viewlet_managers(self):
+        factory = getUtility(
+            IVocabularyFactory,
+            name="collective.panels.vocabularies.Managers"
+            )
+
+        return tuple(
+            (term.value, term.title) for term in factory(self.context)
+            )
 
     @property
     def available_layouts(self):
@@ -347,7 +365,7 @@ class AddingViewlet(BaseViewlet):
     def _iter_panel_managers(self):
         for name, title in self._iter_viewlet_managers():
             name = encode(name)
-            yield PanelManager(self.context, self.request, name)
+            yield PanelManager(self.context, self.request, self.context, name)
 
     def _iter_viewlet_managers(self):
         spec = tuple(map(providedBy, (
@@ -369,7 +387,20 @@ class AddingViewlet(BaseViewlet):
             self.context, self.request, self.__parent__
             )))
 
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            ignore_list = ()
+        else:
+            if not ISiteRoot.providedBy(self.context):
+                ignore_list = settings.site_local_managers or ()
+            else:
+                ignore_list = ()
+
         for iface, title in self.all_viewlet_managers:
+            if iface in ignore_list:
+                continue
+
             for name, factory in self._lookup(spec + (iface, ), IViewlet):
                 try:
                     if issubclass(factory, DisplayViewlet):
@@ -389,12 +420,32 @@ class DisplayViewlet(BaseViewlet):
 
     @property
     def panels(self):
+        context = self.context
+
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except ComponentLookupError:
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"Unable to find registry."), type="error"
+                )
+        except KeyError:
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"Global panel settings unavailable; ignoring."),
+                type="error"
+                )
+        else:
+            for interface in settings.site_local_managers or ():
+                if interface.providedBy(self.manager):
+                    while not ISiteRoot.providedBy(context):
+                        context = context.aq_parent
+                        if context is None:
+                            raise RuntimeError("No site found.")
+
         # Wrap the panel in an acquisition context that provides
         # information about which viewlet manager the panel is
         # implicitly associated with.
-        context = PanelManager(
-            self.context, self.request,
-            self.normalized_manager_name
+        manager = PanelManager(
+            self.context, self.request, context, self.normalized_manager_name
             ).__of__(self.context)
 
-        return tuple(context)
+        return tuple(manager)
