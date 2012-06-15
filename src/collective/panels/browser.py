@@ -260,13 +260,6 @@ class ManageView(EditPortletManagerRenderer):
 class ManagePanelsView(BrowserView):
     def __call__(self):
         alsoProvides(self.request, IManagePanels)
-
-        if self.__name__ not in self.request.get('HTTP_REFERER', ''):
-            IStatusMessage(self.request).addStatusMessage(
-                _(u"This is the panel management interface. " \
-                  u"Add a new panel or manage existing ones."),
-                type="info")
-
         return self.context()
 
 

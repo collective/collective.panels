@@ -50,6 +50,14 @@
       />
 
   <browser:viewlet
+      name="collective.panels.managelink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      template="parent-link.pt"
+      permission="plone.app.portlets.ManagePortlets"
+      layer=".interfaces.IManagePanels"
+      />
+
+  <browser:viewlet
       name="collective.panels.adding"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
       class=".browser.AddingViewlet"

@@ -133,3 +133,7 @@ msgstr "Placering med oprettelse på site-basis"
 
 msgid "The locations listed here will be assignable only at sites (typically Plone's site root, unless local sites are present)."
 msgstr "På de valgte placeringer vil de kun være muligt at oprette paneler i site-roden. Til gengæld vises de også på undersider. Dette kan f.eks. bruges til sidefodsområdet hvor man kan vise den samme generelle information på alle sider."
+
+msgid "You are managing panels for a default page. If you wanted to manage panels for the parent folder, ${go_here}."
+msgstr "Bemærk at du står på en mappeforside. Hvis du vil administrere paneler for selve mappen (eller sitet), ${go_here}."
+
