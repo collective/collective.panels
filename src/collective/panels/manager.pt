@@ -30,9 +30,11 @@
           <option tal:repeat="layout layouts"
                   tal:attributes="name layout/name;
                                   value layout/name;
-                                  selected python: 'selected' if context.layout == layout['name'] else None"
-                  tal:content="string:${layout/title} - ${layout/description}&nbsp;"
-                  />
+                                  selected python: 'selected' if context.layout == layout['name'] else None">
+            <tal:title i18n:translate="" tal:replace="layout/title" /> -
+            <tal:description i18n:translate="" tal:replace="layout/description" />
+            &nbsp;
+          </option>
         </select>
 
         <noscript tal:omit-tag="python: len(layouts) == 1">
