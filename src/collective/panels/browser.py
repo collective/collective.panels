@@ -94,7 +94,7 @@ class DisplayView(BrowserView):
     """This view displays a panel."""
 
     portlet = ViewPageTemplateFile("portlet.pt")
-    error_message = ColumnPortletManagerRenderer.error_message
+    error_message = ColumnPortletManagerRenderer.__dict__['error_message']
 
     def __call__(self):
         # The parent object is the Plone content object here; we get

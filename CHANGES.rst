@@ -11,6 +11,9 @@ Features:
 
 Bugfixes:
 
+- Fixed issue where the error message would not get correctly
+  rendered.
+
 - Fixed issue #9: "Unexpected non-class object while iterating over
   viewlet managers".
 
