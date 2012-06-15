@@ -62,8 +62,8 @@
         <tal:panels repeat="layout view/available_layouts">
           <dt class="hiddenStructure" tal:content="layout/title" />
           <dd>
-            <a tal:attributes="href string:${add_url}/${layout/name}?spacing=${spacing}"
-               tal:attributes="title layout/description"
+            <a tal:attributes="href string:${add_url}/${layout/name}?spacing=${spacing};
+                               title layout/description"
                i18n:attributes="title">
               <span class="discreet" tal:content="layout/title" />
               <div tal:content="structure layout/template" />
