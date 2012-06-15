@@ -47,7 +47,7 @@ from .i18n import MessageFactory as _
 
 
 AVAILABLE_SPACING_PERCENTAGES = (
-        {'value': 0.70, 'title': _(u"Small")},
+        {'value': 0.55, 'title': _(u"Small")},
         {'value': 1.125, 'title': _(u"Standard")},
         {'value': 2.25, 'title': _(u"Double")},
         {'value': 3.375, 'title': _(u"Triple")},
