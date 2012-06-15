@@ -82,3 +82,27 @@ msgstr ""
 
 msgid "Triple"
 msgstr ""
+
+msgid "Single row of portlets"
+msgstr ""
+
+msgid "Split on center, then down on the left side"
+msgstr ""
+
+msgid "Split on center, then down on the right side"
+msgstr ""
+
+msgid "Single row; first portlet takes up 1/3"
+msgstr ""
+
+msgid "Single row; last portlet takes up 1/3"
+msgstr ""
+
+msgid "Vertical float with a width of 1/3"
+msgstr ""
+
+msgid "Vertical float with a width of 1/2"
+msgstr ""
+
+msgid "Vertical float with a width of 2/3"
+msgstr ""

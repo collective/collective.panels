@@ -156,48 +156,56 @@
   <browser:panel
       name="horizontal"
       title="A"
+      description="Single row of portlets"
       template="templates/horizontal.pt"
       />
 
   <browser:panel
       name="left"
       title="B1"
+      description="Split on center, then down on the left side"
       template="templates/left.pt"
       />
 
   <browser:panel
       name="right"
       title="B2"
+      description="Split on center, then down on the right side"
       template="templates/right.pt"
       />
 
   <browser:panel
       name="one-third-left"
       title="C1"
+      description="Single row; first portlet takes up 1/3"
       template="templates/onethirdleft.pt"
       />
 
   <browser:panel
       name="one-third-right"
       title="C2"
+      description="Single row; last portlet takes up 1/3"
       template="templates/onethirdright.pt"
       />
 
   <browser:panel
       name="split-one-third"
       title="D1"
+      description="Vertical float with a width of 1/3"
       template="templates/splitonethird.pt"
       />
 
   <browser:panel
       name="split-half"
       title="D2"
+      description="Vertical float with a width of 1/2"
       template="templates/splithalf.pt"
       />
 
   <browser:panel
       name="split-two-thirds"
       title="D3"
+      description="Vertical float with a width of 2/3"
       template="templates/splittwothirds.pt"
       />
 

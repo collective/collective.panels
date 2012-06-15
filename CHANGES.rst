@@ -3,6 +3,12 @@ Changes
 
 In next release ...
 
+Features:
+
+- Layouts now have a required ``description`` attribute which will be
+  shown in the "Manage panels" fieldset (instead of the title, which
+  is usually very short and non-descriptive).
+
 Bugfixes:
 
 - Fixed issue #9: "Unexpected non-class object while iterating over

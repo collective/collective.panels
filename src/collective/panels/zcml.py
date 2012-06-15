@@ -4,10 +4,11 @@ from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from .interfaces import ILayout
 
 
-def panel(_context, name, title, template, layer):
+def panel(_context, name, title, description, template, layer):
     component = {
         'name': name,
         'title': title,
+        'description': description,
         'template': PageTemplateFile(template),
         }
 

@@ -45,6 +45,11 @@ class IPanelDirective(Interface):
         required=True
         )
 
+    description = schema.TextLine(
+        title=_("Description"),
+        required=True
+        )
+
     template = Path(
         title=_("Template"),
         required=True

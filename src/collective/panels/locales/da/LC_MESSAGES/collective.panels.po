@@ -95,3 +95,26 @@ msgstr "Mellem"
 msgid "Triple"
 msgstr "Stor"
 
+msgid "Single row of portlets"
+msgstr "Enkelt række, automatisk justering"
+
+msgid "Split on center, then down on the left side"
+msgstr "Opdelt, dernæst på langs på i venstre side"
+
+msgid "Split on center, then down on the right side"
+msgstr "Opdelt, dernæst på langs på i højre side"
+
+msgid "Single row; first portlet takes up 1/3"
+msgstr "Enkelt række; første portlet optager altid 1/3 plads"
+
+msgid "Single row; last portlet takes up 1/3"
+msgstr "Enkelt række; sidste portlet optager altid 1/3 plads"
+
+msgid "Vertical float with a width of 1/3"
+msgstr "På langs, med bredden 1/3"
+
+msgid "Vertical float with a width of 1/2"
+msgstr "På langs, med bredden 1/2"
+
+msgid "Vertical float with a width of 2/3"
+msgstr "På langs, med bredden 2/3"
