@@ -42,7 +42,7 @@
           <select name="spacing" onchange="this.form.location.onchange()">
             <option tal:repeat="percentage view/available_spacing_percentages"
                     tal:attributes="value percentage/value;
-                                    selected python: 'selected' if not repeat['percentage'].index else None">
+                                    selected python: 'selected' if percentage['value'] == view.default_spacing else None">
               <tal:title i18n:translate="" replace="percentage/title" /> -
               <tal:value replace="percentage/value" />%&nbsp;
             </option>
@@ -56,7 +56,7 @@
       <dl class="add-panel"
           tal:define="name view/default_location/name;
                       percentages view/available_spacing_percentages;
-                      spacing python: percentages[0]['value'];
+                      spacing view/default_spacing;
                       add_url string:${context/absolute_url}/++panel++${name}/+"
           tal:attributes="id adding_id">
         <tal:panels repeat="layout view/available_layouts">

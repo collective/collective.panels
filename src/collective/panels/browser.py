@@ -47,6 +47,7 @@ from .i18n import MessageFactory as _
 
 
 AVAILABLE_SPACING_PERCENTAGES = (
+        {'value': 0.85, 'title': _(u"Small")},
         {'value': 1.125, 'title': _(u"Standard")},
         {'value': 2.25, 'title': _(u"Double")},
         {'value': 3.375, 'title': _(u"Triple")},
@@ -271,6 +272,10 @@ class ManagePanelsView(BrowserView):
 
 class BaseViewlet(ViewletBase):
     available_spacing_percentages = AVAILABLE_SPACING_PERCENTAGES
+
+    @property
+    def default_spacing(self):
+        return 1.125
 
     @property
     def can_manage(self):

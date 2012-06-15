@@ -1,6 +1,12 @@
 Changes
 =======
 
+In next release ...
+
+Features:
+
+- Added new spacing 'small', set at 0.85%.
+
 1.3 (2012-06-15)
 ----------------
 

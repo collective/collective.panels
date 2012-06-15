@@ -74,6 +74,9 @@ msgstr ""
 msgid "Changing spacing"
 msgstr ""
 
+msgid "Small"
+msgstr ""
+
 msgid "Standard"
 msgstr ""
 
