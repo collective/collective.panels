@@ -124,3 +124,12 @@ msgstr ""
 
 msgid "You are managing panels for a default page. If you wanted to manage panels for the parent folder, ${go_here}."
 msgstr ""
+
+msgid "Delete panel"
+msgstr ""
+
+msgid "Manage panel"
+msgstr ""
+
+msgid "Spacing changed"
+msgstr ""
