@@ -7,7 +7,7 @@ Features:
 
 - The panel elements now have a class that matches the layout id.
 
-- Added new spacing 'small', set at 0.85%.
+- Added new spacing 'small', set at 0.70%.
 
 1.3 (2012-06-15)
 ----------------
