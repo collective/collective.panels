@@ -1,11 +1,13 @@
 <div class="row"
-     tal:attributes="style string:width: ${width}%;; float: left;; margin-left: 1.125%;; margin-right: ${spacing}%"
      tal:define="portlets portlets | python: ('&darr;', );
                  spacing spacing | python: 1.125;
-                 width python: 50 - spacing - 1.125"
-     tal:condition="portlets">
-  <div class="cell" style="float: none; left: 0" tal:repeat="portlet portlets">
+                 sps python:str(spacing).replace('.','-')"
+     tal:condition="portlets"
+     tal:attributes="class string:row spacing-${sps}">
+  <div class="cell width-1:2 position-0"> 
+  <tal:loop tal:repeat="portlet portlets">
     <div tal:attributes="class string:content portlet-${repeat/portlet/index}"
          tal:content="structure portlet" />
+  </tal:loop>
   </div>
 </div>

@@ -6,7 +6,8 @@
                  sps python:str(spacing).replace('.','-')"
      tal:condition="portlets"
      tal:attributes="class string:row spacing-${sps}">
-  <tal:loop tal:repeat="portlet portlets">
+  <tal:loop tal:repeat="portlet portlets"
+            tal:condition="python:pnumber &gt; 1">
     <div class="cell"
          tal:define="index repeat/portlet/index;
                      number python: index>0 and pnumber%index==0 and pnumber/index or pnumber;
@@ -18,4 +19,9 @@
            tal:content="structure portlet" />
     </div>
   </tal:loop>
+  <div class="cell width-full position-0"
+       tal:condition="python: pnumber==1">
+      <div tal:attributes="class string:content portlet-0"
+           tal:content="structure python:portlets[0]" />
+  </div>
 </div>
