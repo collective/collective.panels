@@ -12,6 +12,14 @@ functionality represented by these add-ons is mostly available in
 panels, too, and comes in an implementation that builds directly on
 Plone's portlets framework.
 
+There's an alternative to panels still in development in Carlos de la
+Guardia's `collective.composition
+<https://github.com/collective/collective.composition>`_. It supports
+a number of advanced use-cases mostly related to workflow and
+security. Panels does not currently integrate with Plone's permission
+system except require the blanket "can manage portlets" permission.
+
+
 Compatibility: Plone 4+ required.
 
 
