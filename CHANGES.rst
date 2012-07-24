@@ -1,6 +1,9 @@
 Changes
 =======
 
+1.3.2 (2012-06-15)
+------------------
+
 Bugfixes:
 
 - Fixed template compatibility issue.
