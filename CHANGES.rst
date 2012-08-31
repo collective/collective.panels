@@ -1,6 +1,14 @@
 Changes
 =======
 
+Next release (2012-08-31)
+------------------
+
+Features
+
+- Changes for creating ability to have portlets that consists of portlets. More
+  will follow, on how to use this feature.
+
 1.3.2 (2012-06-15)
 ------------------
 

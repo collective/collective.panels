@@ -6,6 +6,7 @@ from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.traversing.interfaces import ITraversable
 
 from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import ILocalPortletAssignable
 from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
 
 from zExceptions import BadRequest, NotFound
@@ -30,7 +31,7 @@ def decode(name):
 
 
 class PanelManager(Implicit, Traversable):
-    implements(IBrowserPublisher, IPortletAssignmentMapping)
+    implements(IBrowserPublisher, IPortletAssignmentMapping, ILocalPortletAssignable)
 
     __allow_access_to_unprotected_subobjects__ = 1
 
