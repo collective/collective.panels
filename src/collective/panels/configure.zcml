@@ -242,4 +242,12 @@
       layer=".interfaces.ILayer"
       />
 
+  <browser:page
+      name="panels-grid.css"
+      for="*"
+      class=".grid.GridView"
+      permission="zope2.View"
+      />
+
+
 </configure>

@@ -73,3 +73,16 @@ class IGlobalSettings(Interface):
             vocabulary="collective.panels.vocabularies.Managers",
             )
         )
+    spacing = schema.Float(
+        title =  _(u"Columns spacing"),
+        description = _(u'The horisontal distance between portlets in panels'),
+        required = False,
+        default = 1.25,
+        )
+    omit = schema.Bool(
+        title = _(u'Omit left and right margins'),
+        description = _(u'If checked the right and left margin will be 0'),
+        required = False,
+        default = True
+        )
+    
