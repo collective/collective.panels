@@ -42,12 +42,12 @@ class GridView(BrowserView):
         css = ""
         if omit:
             spacing = 0
-            css += ".panels div.width-full { width: 100%; }\n"
-            css += ".panels div.position-0 { margin-left: -100%; }\n"
+            css += ".panels div.width-full {width: 100%}\n"
+            css += ".panels div.position-0 {margin-left: -100%}\n"
         else:
-            css += ".panels div.width-full { width: %.4f%%; }\n" % \
+            css += ".panels div.width-full {width: %.4f%%}\n" % \
                     (100.0 - 2 * margin)
-            css += ".panels div.position-0 { margin-left: %.4f%%; }\n" % \
+            css += ".panels div.position-0 {margin-left: %.4f%%}\n" % \
                     (margin - 100.0)
         pcss = ""
         for i in range(2, self.cells+1):
@@ -62,7 +62,7 @@ class GridView(BrowserView):
                         (fraction.numerator, fraction.denominator, width)
                 pos = width + 2 * margin + spacing / 2 - 100
                 pcss += (".panels div.position-%s\\3a %s "+\
-                       "{margin-left: %.4f%%;}\n") % \
+                       "{margin-left: %.4f%%}\n") % \
                         (fraction.numerator, fraction.denominator, pos)
 
         return css + pcss
