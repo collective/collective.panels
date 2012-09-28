@@ -6,7 +6,6 @@ from zope.component import getUtility
 from .interfaces import IGlobalSettings
 
 
-
 class GridView(BrowserView):
 
     def __init__(self, context, request):
@@ -28,23 +27,12 @@ class GridView(BrowserView):
             self.omit = settings.omit
 
 
-    def __call__(self, spacing = None, omit = None):
+    def __call__(self):
         """render the CSS"""
-        if not spacing:
-            spacing = self.spacing
-        else:
-            try:
-                spacing = float(spacing)
-            except:
-                spacing = self.spacing
-        if omit and omit == '0':
-            omit = False
-        elif omit and omit =='1':
-            omit = True
-        else:
-            omit = self.omit
+        if self.spacing == -1:
+            return "/* panels settings not installed properly */"
         self.request.RESPONSE.setHeader('Content-Type','text/css;;charset=utf-8')
-        return self.grid(spacing, omit)
+        return self.grid(self.spacing, self.omit)
 
 
     def grid(self, spacing, omit):
