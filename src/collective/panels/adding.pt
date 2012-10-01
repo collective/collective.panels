@@ -40,7 +40,6 @@
       </div>
       <dl class="add-panel"
           tal:define="name view/default_location/name;
-                      percentages view/available_spacing_percentages;
                       add_url string:${context/absolute_url}/++panel++${name}/+"
           tal:attributes="id adding_id">
         <tal:panels repeat="layout view/available_layouts">
