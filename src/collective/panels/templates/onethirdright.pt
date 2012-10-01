@@ -1,10 +1,7 @@
 <div class="row"
      tal:define="portlets portlets | python: (1, '&larr; 2');
-                 spacing spacing | python: 1.125;
-                 pnumber python:len(portlets[1:]);
-                 sps python:str(spacing).replace('.','-')"
-     tal:condition="portlets"
-     tal:attributes="class string:row spacing-${sps}">
+                 pnumber python:len(portlets[1:]);"
+     tal:condition="portlets">
   <div class="cell width-2:3 position-0" 
        tal:condition="python: pnumber &gt; 1">
     <tal:loop repeat="portlet python: portlets[1:]">

@@ -1,10 +1,7 @@
 <div class="row"
      tal:define="portlets portlets | python: (1, '2 &darr;');
-                 portlets python: tuple(reversed(portlets));
-                 spacing spacing | python: 1.125;
-                 sps python:str(spacing).replace('.','-')"
-     tal:condition="portlets"
-     tal:attributes="class string:row spacing-${sps}">
+                 portlets python: tuple(reversed(portlets))"
+     tal:condition="portlets">
   <div class="cell width-1:2 position-0"
        tal:condition="python: len(portlets) &gt; 1">
     <div tal:repeat="portlet python: reversed(portlets[:-1])"
