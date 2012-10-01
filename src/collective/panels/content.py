@@ -41,14 +41,11 @@ class Panel(Implicit, Persistent, Contained, Traversable):
     # Currently, panel assignments do not carry state.
     data = None
 
-    spacing = 1.125
-
-    def __init__(self, name, layout, spacing):
+    def __init__(self, name, layout):
         self.__name__ = name
         self._assignments = []
 
         self.layout = layout
-        self.spacing = spacing
 
     def __delitem__(self, name):
         for index, assignment in enumerate(self):

@@ -46,13 +46,6 @@ from .traversal import encode
 from .i18n import MessageFactory as _
 
 
-AVAILABLE_SPACING_PERCENTAGES = (
-        {'value': 0.55, 'title': _(u"Small")},
-        {'value': 1.125, 'title': _(u"Standard")},
-        {'value': 2.25, 'title': _(u"Double")},
-        {'value': 3.375, 'title': _(u"Triple")},
-        )
-
 
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
@@ -82,8 +75,8 @@ def lookup_layouts(request):
     return ptypes
 
 
-def render(portlets, name, spacing, request):
-    namespace = {'portlets': portlets, 'spacing': spacing}
+def render(portlets, name, request):
+    namespace = {'portlets': portlets}
     try:
         layout = getAdapter(request, ILayout, name=name)
     except ComponentLookupError:
@@ -145,7 +138,7 @@ class DisplayView(BrowserView):
                 portlets.append(result)
 
         return render(
-            portlets, self.context.layout, self.context.spacing, self.request
+            portlets, self.context.layout, self.request
             )
 
     def safe_render(self, renderer):
@@ -165,8 +158,6 @@ class ManageView(EditPortletManagerRenderer):
     """This view displays a management interface for a panel."""
 
     category = CONTEXT_CATEGORY
-
-    available_spacing_percentages = AVAILABLE_SPACING_PERCENTAGES
 
     def __init__(self, context, request):
         # This `manager` is the viewlet manager, or an object
@@ -243,19 +234,6 @@ class ManageView(EditPortletManagerRenderer):
 
         return self.request.response.redirect(referer)
 
-    @protect(PostOnly)
-    @protect(CheckAuthenticator)
-    def change_spacing(self, spacing=None, REQUEST=None):
-        self.context.spacing = float(spacing)
-
-        IStatusMessage(self.request).addStatusMessage(
-            _(u"Spacing changed."), type="info")
-
-        referer = self.request.get('HTTP_REFERER') or \
-                  self.context.absolute_url()
-
-        return self.request.response.redirect(referer)
-
 
 class ManagePanelsView(BrowserView):
     def __call__(self):
@@ -264,11 +242,6 @@ class ManagePanelsView(BrowserView):
 
 
 class BaseViewlet(ViewletBase):
-    available_spacing_percentages = AVAILABLE_SPACING_PERCENTAGES
-
-    @property
-    def default_spacing(self):
-        return 1.125
 
     @property
     def can_manage(self):

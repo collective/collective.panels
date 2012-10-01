@@ -122,11 +122,6 @@
         />
 
     <browser:page
-        name="change-spacing"
-        attribute="change_spacing"
-        />
-
-    <browser:page
         name="manage"
         template="manager.pt"
         />
