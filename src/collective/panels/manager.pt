@@ -47,33 +47,6 @@
       </form>
     </div>
 
-    <div class="subform portletAssignments">
-      <h4 i18n:translate="">Change spacing</h4>
-      <form method="POST"
-            tal:define="percentages view/available_spacing_percentages"
-            tal:attributes="action string:${view/baseUrl}/@@change-spacing">
-
-        <span tal:replace="structure context/@@authenticator/authenticator"/>
-
-        <select name="spacing" onchange="this.form.submit()">
-          <option tal:repeat="percentage percentages"
-                  tal:attributes="value percentage/value;
-                                  selected python: 'selected' if context.spacing == percentage['value'] else None">
-            <tal:title i18n:translate="" replace="percentage/title" /> -
-            <tal:value replace="percentage/value" />%&nbsp;
-          </option>
-        </select>
-
-        <noscript tal:omit-tag="python: len(percentages) == 1">
-          <input type="submit"
-                 name="change"
-                 value="Change"
-                 i18n:attributes="value"
-                 />
-        </noscript>
-      </form>
-    </div>
-
     <div class="visualClear"></div>
 
     <br />
