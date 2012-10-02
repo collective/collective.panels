@@ -1,42 +1,45 @@
 .add-panel .discreet {
-    text-align: center;
-    padding: 5px;
-    margin: 2px;
-    font-weight: bold !important;
-}
-
+    font-weight:bold;
+    margin:2px;
+    padding:5px;
+    text-align:center;
+    }
+#content .add-panel .discreet {
+    font-weight:bold;
+    }
 .add-panel dd {
-    margin: 0 !important;
-    line-height: 4em;
-}
-
+    line-height:4em;
+    margin:0;
+    }
+#content .add-panel dd {
+    margin:0;
+    }
 .add-panel .cell div {
-    padding: 5px 2px;
-    background-color: #999966;
-    color: white;
-    text-align: center;
-    line-height: 1em;
-}
-
+    background-color:#996;
+    color:#fff;
+    line-height:1em;
+    padding:5px 2px;
+    text-align:center;
+    }
 .add-panel a {
-    float: left;
-    padding: 5px;
-    border: 1px solid #999966 !important;
-    margin-right: 1em;
-    margin-bottom: 1em;
-    width: 7em;
-    background-color: #FFFFE3;
-}
-
+    background-color:#ffffe3;
+    border:1px solid #996;
+    float:left;
+    margin:0 1em 1em 0;
+    padding:5px;
+    width:7em;
+    }
+#content .add-panel a {
+    border:1px solid #996;
+    }
 .manage-panel .subform {
-    float: left;
-    margin-right: 2em;
-}
-
-.manage-panels-link div {
-    display: inline;
-}
+    float:left;
+    margin:0 2em 0 0;
+    }
 .manage-panels-link {
-    text-align: center;
-    margin: 0 auto 1em;
-}
+    margin:0 auto 1em;
+    text-align:center;
+    }
+.manage-panels-link div {
+    display:inline;
+    }
