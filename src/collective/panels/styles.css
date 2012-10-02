@@ -1,29 +1,8 @@
-.panel {
-    display: inline;
-}
-
-.panels .row {
-    float: left;
-    width: 100%;
-    display: block;
-    position: relative;
-}
-
-.panels .cell {
-    position: relative;
-    float: left;
-    left: 100%;
-}
-
 .add-panel .discreet {
     text-align: center;
     padding: 5px;
     margin: 2px;
     font-weight: bold !important;
-}
-
-.add-panel {
-    width: 75%;
 }
 
 .add-panel dd {
@@ -49,10 +28,6 @@
     background-color: #FFFFE3;
 }
 
-.add-panel a:hover {
-    border-color: #999 !important;
-}
-
 .manage-panel .subform {
     float: left;
     margin-right: 2em;
@@ -61,12 +36,6 @@
 .manage-panels-link div {
     display: inline;
 }
-
-.manage-panels-link a {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
 .manage-panels-link {
     text-align: center;
     margin: 0 auto 1em;
