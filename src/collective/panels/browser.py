@@ -184,7 +184,8 @@ class ManageView(EditPortletManagerRenderer):
         try:
             return super(ManageView, self).addable_portlets()
         except NotFound as exc:
-            logging.getLogger("panels").warn(exc)
+            logging.getLogger("panels").warn(
+                "unable to list addable portlets: can't import %r." % exc)
             return ()
 
     @property
