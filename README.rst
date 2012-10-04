@@ -13,8 +13,8 @@ panels, too, and comes in an implementation that builds directly on
 Plone's portlets framework.
 
 There's an alternative to panels still in development in Carlos de la
-Guardia's `collective.composition
-<https://github.com/collective/collective.composition>`_. It supports
+Guardia's `collective.cover
+<https://github.com/collective/collective.cover>`_. It supports
 a number of advanced use-cases mostly related to workflow and
 security. Panels does not currently integrate with Plone's permission
 system except require the blanket "can manage portlets" permission.
