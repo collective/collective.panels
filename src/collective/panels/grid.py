@@ -38,22 +38,21 @@ def grid(spacing, omit, cells):
     return css + pcss
 
 class GridView(BrowserView):
+    cells = 6
 
     def __call__(self):
         """render the CSS"""
         try:
             settings = getUtility(IRegistry).forInterface(IGlobalSettings)
         except (ComponentLookupError, KeyError):
-            # This (non-critical) error is reported elsewhere. The
-            # product needs to be installed before we let users manage
-            # panels.
-            return False
-        
-        spacing = settings.spacing
-        omit = settings.omit
-        cells = 6
+            spacing = IGlobalSettings['spacing'].default
+            omit = IGlobalSettings['omit'].default
+        else:
+            spacing = settings.spacing
+            omit = settings.omit
+
         self.request.RESPONSE.setHeader('Content-Type','text/css;;charset=utf-8')
-        return grid(spacing, omit, cells)
+        return grid(spacing, omit, self.cells)
 
 
 
