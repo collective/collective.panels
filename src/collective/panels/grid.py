@@ -5,6 +5,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from .interfaces import IGlobalSettings
 
+
 def grid(spacing, omit, cells):
     """the grid calculation"""
     margin = spacing
@@ -20,22 +21,23 @@ def grid(spacing, omit, cells):
         css += ".panels div.position-0 {margin-left: %.4f%%}\n" % \
                 (margin - 100.0)
     pcss = ""
-    for i in range(2, cells+1):
+    for i in range(2, cells + 1):
         for k in range(1, i):
-            fraction = Fraction(k,i)
-            if k!=1 and fraction.denominator != i:
+            fraction = Fraction(k, i)
+            if k != 1 and fraction.denominator != i:
                 continue
-            
+
             width = (100.0 - (i - 1) * 2 * margin - spacing) / i * k + \
                     2 * margin * (k - 1)
             css += ".panels div.width-%s\\3a %s {width: %.4f%%}\n" % \
                     (fraction.numerator, fraction.denominator, width)
             pos = width + 2 * margin + spacing / 2 - 100
-            pcss += (".panels div.position-%s\\3a %s "+\
+            pcss += (".panels div.position-%s\\3a %s " + \
                    "{margin-left: %.4f%%}\n") % \
                     (fraction.numerator, fraction.denominator, pos)
 
     return css + pcss
+
 
 class GridView(BrowserView):
     cells = 6
@@ -51,13 +53,6 @@ class GridView(BrowserView):
             spacing = settings.spacing
             omit = settings.omit
 
-        self.request.RESPONSE.setHeader('Content-Type','text/css;;charset=utf-8')
+        response = self.request.response
+        response.setHeader('Content-Type', 'text/css;;charset=utf-8')
         return grid(spacing, omit, self.cells)
-
-
-
-
-
-
-
-
