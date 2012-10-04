@@ -1,13 +1,26 @@
 Changes
 =======
 
-Next release (2012-08-31)
-------------------
+In next release ...
 
-Features
+Features:
 
-- Changes for creating ability to have portlets that consists of portlets. More
-  will follow, on how to use this feature.
+- Portlet column spacing, and the omission of left- and right margins
+  is now a global setting, and spacing can be expressed in floating
+  point as a percentage of the available width.
+
+  Previously, each panel had a spacing option.
+
+  As a result of this, the HTML now uses CSS-classes to control width
+  and position (previously inline styling).
+  [chervol]
+
+Implementation:
+
+- The persistent ``Panel`` class now inherits from a new
+  ``PortletContainerAssignment`` class, which is a portlet assignment
+  that can contain other portlets. This is a generic base class that
+  other portlet assignments can use.
 
 1.3.2 (2012-06-15)
 ------------------
