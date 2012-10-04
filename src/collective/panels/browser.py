@@ -1,3 +1,4 @@
+import time
 import logging
 import itertools
 
@@ -49,7 +50,7 @@ from .i18n import MessageFactory as _
 
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
-    return set(roles), view.__parent__.__name__, view.context.__name__
+    return set(roles), view.__parent__.__name__, view.context.__name__, int(time.time()) // 120,
 
 
 def batch(iterable, size):
@@ -175,7 +176,9 @@ class ManageView(EditPortletManagerRenderer):
         try:
             return super(ManageView, self).addable_portlets()
         except NotFound as exc:
-            logging.getLogger("panels").warn(exc)
+            logging.getLogger("panels").warn(
+                "Add-view not found for %r." % exc.message
+                )
             return ()
 
     @property

@@ -6,6 +6,7 @@ from zope.container.contained import Contained
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletType
 from plone.portlets.interfaces import IPortletAssignment
+from plone.portlets.interfaces import ILocalPortletAssignable
 from plone.app.portlets.interfaces import IPortletAssignmentMapping
 
 from Acquisition import Implicit
@@ -33,8 +34,8 @@ def getAssignmentMapping(panel, manager):
     return panel
 
 
-class Panel(Implicit, Persistent, Contained, Traversable):
-    implements(IPanel, IPortletAssignment, IPortletAssignmentMapping)
+class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
+    implements(IPortletAssignment, IPortletAssignmentMapping, ILocalPortletAssignable)
 
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -104,22 +105,50 @@ class Panel(Implicit, Persistent, Contained, Traversable):
             assignment.available for assignment in self
             )
 
-    @property
-    def title(self):
-        return _(u"Panel ${name}", mapping={'name': self.__name__})
-
     def getAddablePortletTypes(self):
         interface = providedBy(self)
         return getAddablePortletTypes(interface)
 
+    def items(self):
+        return dict(zip(self.iterkeys(), self.itervalues()))
+
+    def iterkeys(self):
+        return (assignment.__name__ for assignment in self)
+
+    def itervalues(self):
+        return iter(self)
+
     def keys(self):
         return [assignment.__name__ for assignment in self]
+
+    def values(self):
+        return list(self)
 
     def updateOrder(self, keys):
         self._assignments.sort(
             key=lambda assignment: keys.index(assignment.__name__)
             )
         self._p_changed = True
+
+
+class Panel(PortletContainerAssignment):
+    implements(IPanel)
+
+    # Currently, panel assignments do not carry state.
+    data = None
+
+    spacing = 1.125
+
+    def __init__(self, name, layout, spacing):
+        super(Panel, self).__init__()
+
+        self.__name__ = name
+        self.layout = layout
+        self.spacing = spacing
+
+    @property
+    def title(self):
+        return _(u"Panel ${name}", mapping={'name': self.__name__})
 
 
 class PanelManager(object):
