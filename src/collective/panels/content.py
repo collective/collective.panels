@@ -35,7 +35,8 @@ def getAssignmentMapping(panel, manager):
 
 
 class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
-    implements(IPortletAssignment, IPortletAssignmentMapping, ILocalPortletAssignable)
+    implements(IPortletAssignment, IPortletAssignmentMapping,
+               ILocalPortletAssignable)
 
     __allow_access_to_unprotected_subobjects__ = 1
 
