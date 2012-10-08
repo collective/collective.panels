@@ -15,6 +15,15 @@
       description="Registers control panel and default settings."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+ 
+  <genericsetup:upgradeStep
+      title="Update registry schema"
+      description="New options introduced"
+      source="1.0"
+      destination="1.1"
+      handler="collective.panels.upgrades.update_registry"
+      profile="collective.panels:default"
+      />
 
   <!-- Translations -->
 
