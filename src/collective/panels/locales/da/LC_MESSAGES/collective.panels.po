@@ -157,3 +157,5 @@ msgstr "Udelad margener"
 
 msgid "Select this option to omit margins on the left- and right side of a panel."
 msgstr "Vælg denne mulighed for at udelade venstre- og højre-margen omkring et panel."
+msgid "Manage panels"
+msgstr "Administrer paneler"
