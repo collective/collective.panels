@@ -145,3 +145,17 @@ msgstr "Åbn panel"
 
 msgid "Spacing changed"
 msgstr "Afstand ændret"
+
+msgid "Column spacing"
+msgstr "Afstand mellem kolonner"
+
+msgid "This is the horizontal distance between portlets in a panel layout, expressed as a percentage of the available width."
+msgstr "Dette er den horisontale afstand mellem portletter i et panel, som procent i forhold til hele bredden."
+
+msgid "Omit margin"
+msgstr "Udelad margener"
+
+msgid "Select this option to omit margins on the left- and right side of a panel."
+msgstr "Vælg denne mulighed for at udelade venstre- og højre-margen omkring et panel."
+msgid "Manage panels"
+msgstr "Administrer paneler"
