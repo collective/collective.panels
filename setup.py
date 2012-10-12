@@ -10,7 +10,7 @@ def read(*pathnames):
     return open(os.path.join(os.path.dirname(__file__), *pathnames)).read().\
            decode('utf-8')
 
-version = '1.3.2'
+version = '1.4'
 
 setup(name='collective.panels',
       version=version,
