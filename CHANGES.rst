@@ -1,6 +1,12 @@
 Changes
 =======
 
+In next release ...
+
+Bugfixes:
+
+- Fixed "Add panels" action.
+
 1.4 (2012-10-12)
 ----------------
 
