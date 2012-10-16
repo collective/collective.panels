@@ -1,7 +1,8 @@
 Changes
 =======
 
-In next release ...
+1.5 (2012-10-12)
+----------------
 
 Features:
 
