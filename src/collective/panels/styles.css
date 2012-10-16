@@ -34,7 +34,7 @@
     }
 .manage-panel .subform {
     float:left;
-    margin:0 2em 0 0;
+    margin:1em 2em 0 0;
     }
 .manage-panels-link {
     margin:0 auto 1em;
@@ -42,4 +42,33 @@
     }
 .manage-panels-link div {
     display:inline;
+    }
+.manage-panel .reordering {
+    float:right;
+    }
+.manage-panel .reordering a {
+    text-decoration:none;
+    }
+.manage-panel .actions {
+    padding-bottom: 1em;
+    }
+.manage-panel .portletHeader {
+    width: 100% !important;
+    padding: 0 !important;
+    }
+.manage-panel .portletHeader a {
+    padding: 0.5em;
+    line-height: 2em;
+    }
+.manage-panel .managedPortletActions a.down,
+.manage-panel .managedPortletActions a.up {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+.manage-panel .managedPortlet {
+    margin: 0 0 1px;
+    }
+.manage-panel .portletAssignments {
+    margin-bottom: 1em;
     }
