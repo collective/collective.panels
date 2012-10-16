@@ -16,13 +16,12 @@
                                           name = selected.value
                                       $$.each(links, function(i, j) {
                                           var link = $$(j)
-                                          var href = link.attr('href')
+                                          var href = link.attr('href').split('?')[0]
                                           var k = href.lastIndexOf('++')
                                           var l = href.lastIndexOf('/')
-                                          var m = href.lastIndexOf('?')
                                           href = href.substring(0, k) +
                                                  '++' + name + '/+' +
-                                                 href.substring(l, m);;
+                                                 href.substring(l);;
                                           $$(link).attr('href', href)
                                       })
                                   })(jQuery, this.form, this.options[this.selectedIndex]);;

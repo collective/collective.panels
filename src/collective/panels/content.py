@@ -138,14 +138,11 @@ class Panel(PortletContainerAssignment):
     # Currently, panel assignments do not carry state.
     data = None
 
-    spacing = 1.125
-
-    def __init__(self, name, layout, spacing):
-        super(Panel, self).__init__()
+    def __init__(self, name, layout):
+        super(Panel, self).__init__(name, layout)
 
         self.__name__ = name
         self.layout = layout
-        self.spacing = spacing
 
     @property
     def title(self):
