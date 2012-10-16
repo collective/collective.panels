@@ -3,6 +3,10 @@ Changes
 
 In next release ...
 
+Features:
+
+- The "Manage panels" form now has a better default styling.
+
 Bugfixes:
 
 - Fixed "Add panels" action.
