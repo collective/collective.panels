@@ -182,6 +182,10 @@ class ManageView(EditPortletManagerRenderer):
             return ()
 
     @property
+    def has_assignments(self):
+        return len(self.context)
+
+    @property
     def can_move_down(self):
         return self.__parent__.index(self.context.__name__) < \
                len(self.__parent__) - 1
@@ -218,6 +222,18 @@ class ManageView(EditPortletManagerRenderer):
     def delete(self, REQUEST=None):
         name = self.context.__name__
         del self.context.aq_inner.aq_parent[name]
+
+        referer = self.request.get('HTTP_REFERER') or \
+                  self.context.absolute_url()
+
+        return self.request.response.redirect(referer)
+
+    @protect(PostOnly)
+    @protect(CheckAuthenticator)
+    def duplicate(self, REQUEST=None):
+        self.context.aq_inner.aq_parent.addPanel(
+            self.context.layout, *self.context
+        )
 
         referer = self.request.get('HTTP_REFERER') or \
                   self.context.absolute_url()

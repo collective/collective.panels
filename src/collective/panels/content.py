@@ -43,11 +43,9 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
     # Currently, panel assignments do not carry state.
     data = None
 
-    def __init__(self, name, layout):
+    def __init__(self, name, *assignments):
         self.__name__ = name
-        self._assignments = []
-
-        self.layout = layout
+        self._assignments = list(assignments)
 
     def __delitem__(self, name):
         for index, assignment in enumerate(self):
@@ -138,10 +136,8 @@ class Panel(PortletContainerAssignment):
     # Currently, panel assignments do not carry state.
     data = None
 
-    def __init__(self, name, layout):
-        super(Panel, self).__init__(name, layout)
-
-        self.__name__ = name
+    def __init__(self, name, layout, *assignments):
+        super(Panel, self).__init__(name, *assignments)
         self.layout = layout
 
     @property

@@ -54,11 +54,20 @@
         />
 
     <div class="actions">
-      <form method="POST" tal:attributes="action string:${view/baseUrl}/-">
+      <form method="POST" tal:attributes="action string:${view/baseUrl}">
         <span tal:replace="structure context/@@authenticator/authenticator"/>
+        <input type="hidden" name=":action" value="" />
         <input type="submit"
                name="delete"
-               value="Delete panel"
+               value="Delete"
+               onclick="this.form.elements[':action'].value = '/delete'"
+               i18n:attributes="value"
+               />
+        <input type="submit"
+               name="duplicate"
+               value="Duplicate"
+               onclick="this.form.elements[':action'].value = '/duplicate'"
+               tal:condition="view/has_assignments"
                i18n:attributes="value"
                />
       </form>

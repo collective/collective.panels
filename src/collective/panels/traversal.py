@@ -50,10 +50,6 @@ class PanelManager(Implicit, Traversable):
             _(u"Panel removed."), type="info")
 
     def __getitem__(self, name):
-        # Panels are specialized portlet assignments.
-        assignments = self._mapping.values()
-        panels = filter(IPanel.providedBy, assignments)
-
         if name == "+":
             # To-Do: Ideally this should be POST-only to protect
             # against CSRF. It's not critical.
@@ -62,44 +58,61 @@ class PanelManager(Implicit, Traversable):
             except IndexError:
                 raise BadRequest("Missing layout.")
 
-
             def adding():
                 """Add panel, then redirect to referer."""
 
-                # Find first available integer; we use this as the
-                # panel name.
-                n = 1
-                for panel in panels:
-                    i = int(panel.__name__)
-                    if i >= n:
-                        n = i + 1
+                self.addPanel(layout)
 
-                panel = Panel(str(n), layout)
-                aq_base(self._mapping)[panel.__name__] = panel
-
-                IStatusMessage(self.request).addStatusMessage(
-                    _(u"Panel added."), type="info")
-
-                referer = self.request.get('HTTP_REFERER') or \
-                          self.context.absolute_url()
+                referer = (
+                    self.request.get('HTTP_REFERER') or
+                    self.context.absolute_url()
+                )
 
                 return self.request.response.redirect(referer)
 
             return ExplicitAcquisitionWrapper(adding, self)
 
-        for panel in panels:
+        for panel in self.getAssignments():
             if panel.__name__ == name:
                 return panel.__of__(self)
 
         raise KeyError(name)
 
-    def __iter__(self):
-        assignments = self._mapping.values()
+    def getAssignments(self):
+        """Return panel assignments.
 
+        Note that panels are specialized portlet assignments. We make
+        sure that the contained assignment implement the ``IPanel``
+        interface.
+        """
+
+        assignments = self._mapping.values()
+        return filter(IPanel.providedBy, assignments)
+
+    def addPanel(self, *args):
+        """Add panel with the provided layout."""
+
+        # Find first available integer; we use this as the
+        # panel name.
+        n = 1
+        for panel in self.getAssignments():
+            i = int(panel.__name__)
+            if i >= n:
+                n = i + 1
+
+        panel = Panel(str(n), *args)
+        aq_base(self._mapping)[panel.__name__] = panel
+
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Panel added."), type="info")
+
+        return panel
+
+    def __iter__(self):
         return (
-            assignment.__of__(self) for assignment in assignments
-            if IPanel.providedBy(assignment)
-            )
+            assignment.__of__(self) for assignment
+            in self.getAssignments()
+        )
 
     def __len__(self):
         return len(tuple(iter(self)))

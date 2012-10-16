@@ -137,8 +137,11 @@ msgstr "På de valgte placeringer vil de kun være muligt at oprette paneler i s
 msgid "You are managing panels for a default page. If you wanted to manage panels for the parent folder, ${go_here}."
 msgstr "Bemærk at du står på en mappeforside. Hvis du vil administrere paneler for selve mappen (eller sitet), ${go_here}."
 
-msgid "Delete panel"
+msgid "Delete"
 msgstr "Slet"
+
+msgid "Duplicate"
+msgstr "Duplikér"
 
 msgid "Manage panel"
 msgstr "Åbn panel"

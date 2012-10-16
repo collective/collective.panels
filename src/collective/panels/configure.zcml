@@ -112,8 +112,13 @@
       layer=".interfaces.ILayer">
 
     <browser:page
-        name="-"
+        name="delete"
         attribute="delete"
+        />
+
+    <browser:page
+        name="duplicate"
+        attribute="duplicate"
         />
 
     <browser:page

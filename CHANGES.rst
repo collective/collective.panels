@@ -5,6 +5,8 @@ In next release ...
 
 Features:
 
+- Added function to duplicate an existing panel.
+
 - The "Manage panels" form now has a better default styling.
 
 Bugfixes:
