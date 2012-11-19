@@ -4,6 +4,9 @@
       id="++resource++panels.css"
       />
   <stylesheet
+      id="panels-grid.css"
+      />
+  <stylesheet
       id="++resource++panels-grid-classic-theme.css"
       />
 </object>
