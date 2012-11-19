@@ -225,6 +225,12 @@
       layer=".interfaces.ILayer"
       />
 
+  <browser:resource
+      name="panels-grid-classic-theme.css"
+      file="styles-classic-theme-grid.css"
+      layer="plonetheme.classic.browser.interfaces.IThemeSpecific"
+      />
+
   <!-- Vocabularies -->
 
   <utility
