@@ -3,4 +3,7 @@
   <stylesheet
       id="++resource++panels.css"
       />
+  <stylesheet
+      id="++resource++panels-grid-classic-theme.css"
+      />
 </object>
