@@ -16,6 +16,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:upgradeStep
+      title="Update registry schema"
+      description="New options introduced"
+      source="1.0"
+      destination="1.1"
+      handler="collective.panels.upgrades.add_plone_grid_styles"
+      profile="collective.panels:default"
+      />
+
   <!-- Translations -->
 
   <i18n:registerTranslations directory="locales" />
