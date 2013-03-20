@@ -5,6 +5,11 @@ In next release ...
 
 Features:
 
+- Added navigation_local option - for setting local panel managers
+  on INavigationRoot instead of ISiteRoot. Useful eg. with modules for
+  multilingual content.
+  [tmog]
+
 - Added function to duplicate an existing panel.
 
 - The "Manage panels" form now has a better default styling.

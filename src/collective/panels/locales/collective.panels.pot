@@ -136,3 +136,9 @@ msgstr ""
 
 msgid "Spacing changed"
 msgstr ""
+
+msgid "Use navigation root"
+msgstr ""
+
+msgid "Site-local panel managers will be assignable on navigation roots instead of only site roots if you select this option. Check this if you are using LinguaPlone, collective.multilingual or similar, and you want per-language Site-local panel managers.Spacing changed"
+msgstr ""
