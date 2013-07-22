@@ -3,13 +3,25 @@
     tal:attributes="class string:manage-panel collapsible${collapsed}">
   <dt class="collapsibleHeader" i18n:translate="">Manage panel</dt>
   <dd class="collapsibleContent">
-    <div class="reordering">
-      <a tal:condition="view/can_move_down"
-         tal:attributes="href string:${view/manageUrl}/@@move-portlet-down?name=${context/getId}&amp;referer=${view/referer}"
-         title="Move down" class="down">▼</a>
-      <a tal:condition="view/can_move_up"
-         tal:attributes="href string:${view/manageUrl}/@@move-portlet-up?name=${context/getId}&amp;referer=${view/referer}"
-         title="Move up" class="up">▲</a>
+    <div class="reordering managedPortletActions">
+      <form class="portlet-action down" method="POST"
+            tal:attributes="action string:${view/manageUrl}/@@move-portlet-down"
+            tal:condition="view/can_move_down"
+            tal:define="authenticator context/@@authenticator/authenticator">
+        <input type="hidden" name="referer" tal:attributes="value string:${view/referer}" />
+        <input type="hidden" name="name" tal:attributes="value string:${context/getId}" />
+        <span tal:replace="structure authenticator"/>
+        <button title="Move down" class="down" type="submit">▼</button>
+      </form>
+      <form class="portlet-action up" method="POST"
+            tal:attributes="action string:${view/manageUrl}/@@move-portlet-up"
+            tal:condition="view/can_move_up"
+            tal:define="authenticator context/@@authenticator/authenticator">
+        <input type="hidden" name="referer" tal:attributes="value string:${view/referer}" />
+        <input type="hidden" name="name" tal:attributes="value string:${context/getId}" />
+        <span tal:replace="structure authenticator"/>
+        <button title="Move up" class="up" type="submit">▲</button>
+      </form>
     </div>
 
     <div class="subform">
