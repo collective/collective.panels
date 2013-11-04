@@ -1,15 +1,22 @@
 Changes
 =======
 
-1.5 (2012-10-12)
+1.6 (2013-11-04)
 ----------------
-
-Features:
 
 - Added navigation_local option - for setting local panel managers
   on INavigationRoot instead of ISiteRoot. Useful eg. with modules for
   multilingual content.
   [tmog]
+
+- Reworked the arrangement actions for the panels, due to the KSS dependency 
+  on plone.app.portlets has been removed.
+  [bosim]
+
+1.5 (2012-10-12)
+----------------
+
+Features:
 
 - Added function to duplicate an existing panel.
 
