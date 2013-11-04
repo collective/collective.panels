@@ -74,6 +74,16 @@ class IGlobalSettings(Interface):
             )
         )
 
+    navigation_local = schema.Bool(
+        title=_(u"Use navigation root"),
+        description=_(u"Site-local panel managers will be assignable "
+                      u"on navigation roots instead of only site roots "
+                      u"if you select this option. Check this if you are "
+                      u"using LinguaPlone, collective.multilingual or "
+                      u"similar, and you want per-language Site-local "
+                      u"panel managers."),
+        )
+
     spacing = schema.Float(
         title=_(u"Column spacing"),
         description=_(u"This is the horizontal distance between "

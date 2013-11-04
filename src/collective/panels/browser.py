@@ -36,6 +36,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.interfaces import ISiteRoot
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from ZODB.POSException import ConflictError
 from zExceptions import NotFound
 
@@ -262,6 +263,18 @@ class ManagePanelsView(BrowserView):
 
 class BaseViewlet(ViewletBase):
 
+    def __init__(self, context, request, view, manager=None):
+        super(BaseViewlet, self).__init__(context, request,  view, manager)
+
+        self.root_interface = ISiteRoot
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            pass
+        else:
+            if settings.navigation_local:
+                self.root_interface = INavigationRoot
+
     @property
     def can_manage(self):
         try:
@@ -274,7 +287,7 @@ class BaseViewlet(ViewletBase):
         else:
             for interface in settings.site_local_managers or ():
                 if interface.providedBy(self.manager):
-                    if not ISiteRoot.providedBy(self.context):
+                    if not self.root_interface.providedBy(self.context):
                         return False
 
         if IManagePanels.providedBy(self.request):
@@ -382,7 +395,7 @@ class AddingViewlet(BaseViewlet):
         except (ComponentLookupError, KeyError):
             ignore_list = ()
         else:
-            if not ISiteRoot.providedBy(self.context):
+            if not self.root_interface.providedBy(self.context):
                 ignore_list = settings.site_local_managers or ()
             else:
                 ignore_list = ()
@@ -426,7 +439,7 @@ class DisplayViewlet(BaseViewlet):
         else:
             for interface in settings.site_local_managers or ():
                 if interface.providedBy(self.manager):
-                    while not ISiteRoot.providedBy(context):
+                    while not self.root_interface.providedBy(context):
                         context = context.aq_parent
                         if context is None:
                             raise RuntimeError("No site found.")

@@ -162,3 +162,9 @@ msgid "Select this option to omit margins on the left- and right side of a panel
 msgstr "Vælg denne mulighed for at udelade venstre- og højre-margen omkring et panel."
 msgid "Manage panels"
 msgstr "Administrer paneler"
+
+msgid "Use navigation root"
+msgstr "Benyt navigationrod i stedet for siterod"
+
+msgid "Site-local panel managers will be assignable on navigation roots instead of only site roots if you select this option. Check this if you are using LinguaPlone, collective.multilingual or similar, and you want per-language Site-local panel managers."
+msgstr "Vælg dette hvis sitet bruger LinguaPlone, collective.multilingual el.lign. modul til indholdsoversættelse. Placeringer med oprettelse på site-basis vil derefter kunne konfigureres per sprog."
