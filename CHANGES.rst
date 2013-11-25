@@ -1,6 +1,12 @@
 Changes
 =======
 
+Unreleased
+----------
+
+- Added vertical layout 
+  [bosim]
+
 1.6 (2013-11-04)
 ----------------
 
