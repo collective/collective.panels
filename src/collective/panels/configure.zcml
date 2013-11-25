@@ -217,6 +217,14 @@
       template="templates/splittwothirds.pt"
       />
 
+  <browser:panel
+      name="verical"
+      title="E"
+      description="One portlet per row"
+      template="templates/vertical.pt"
+      />
+
+
   <!-- Browser resources -->
 
   <browser:resource

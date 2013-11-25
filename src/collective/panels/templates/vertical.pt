@@ -1,0 +1,11 @@
+<div class="row"
+     tal:define="portlets portlets | python: ('&darr;', )"
+     tal:condition="portlets">
+
+  <div class="cell width-full position-0"> 
+    <tal:loop tal:repeat="portlet portlets">
+      <div tal:attributes="class string:content portlet-${repeat/portlet/index}"
+           tal:content="structure portlet" />
+    </tal:loop>
+  </div>
+</div>
