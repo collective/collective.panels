@@ -1,0 +1,17 @@
+.panels div.row {
+  float: left;
+  width: 100%;
+  display: block;
+  position: relative;
+}
+.panels div.cell {
+  position: relative;
+  float: left;
+  left: 100%;
+}
+/* IE8: keeps livesearch from falling behind content area,
+   and display menu from falling behind footer
+   Keeping float for IE7, so the portlets don't fall */
+.ie6 .panels div.cell {
+    float: none;
+}
