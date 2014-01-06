@@ -7,6 +7,13 @@ Unreleased
 - Added vertical layout 
   [bosim]
 
+- Add missing styles for the Plone Classic theme.
+  The Plone Classic theme doesn't have the grid-based styles present in
+  the Sunburst theme. The styles added in this commit allow the
+  grid-based styling used by the panels to work when the theme in use is 
+  Plone Classic or one based on it.
+  [afrepues]
+
 1.6 (2013-11-04)
 ----------------
 
