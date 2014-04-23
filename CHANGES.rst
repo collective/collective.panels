@@ -4,6 +4,13 @@ Changes
 Unreleased
 ----------
 
+- Bugfix: Add missing upgrade step for installing the registry from released
+  1.5 to the released 1.6. If you already managed to update to 1.6 by
+  uninstalling / reinstalling the product you don't need this, that's
+  why it's retrofitted in the 1.0 -> 1.1 metadata.xml version.
+
+  [fredvd]
+
 - Bugfix: If portlet.available is a property it may throw an exception 
   that will make the whole page rendering fail.
   [bosim]
