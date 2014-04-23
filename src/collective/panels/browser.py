@@ -135,7 +135,20 @@ class DisplayView(BrowserView):
             hashPortletInfo(info)
 
             portlet.update()
-            if portlet.available:
+
+            try:
+                available = portlet.available
+            except Exception as e:
+                logging.getLogger('panels').info(
+                    "available threw an exception for %s (%s %s)" % (
+                        assignment.__name__,
+                        type(e),
+                        str(e)
+                    )
+                )
+                continue
+
+            if available:
                 result = self.portlet(**info)
                 portlets.append(result)
 
