@@ -4,6 +4,10 @@ Changes
 Unreleased
 ----------
 
+- Bugfix: If portlet.available is a property it may throw an exception 
+  that will make the whole page rendering fail.
+  [bosim]
+
 - Added vertical layout 
   [bosim]
 
