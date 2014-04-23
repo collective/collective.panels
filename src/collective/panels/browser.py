@@ -48,10 +48,14 @@ from .traversal import encode
 from .i18n import MessageFactory as _
 
 
-
 def addable_portlets_cache_key(function, view):
     roles = getSecurityManager().getUser().getRoles()
-    return set(roles), view.__parent__.__name__, view.context.__name__, int(time.time()) // 120,
+    return (
+        set(roles),
+        view.__parent__.__name__,
+        view.context.__name__,
+        int(time.time()) // 120,
+    )
 
 
 def batch(iterable, size):
@@ -119,8 +123,8 @@ class DisplayView(BrowserView):
                     "unable to look up renderer for '%s.%s'." % (
                         assignment.__class__.__module__,
                         assignment.__class__.__name__
-                        )
                     )
+                )
                 continue
 
             info = {
@@ -130,7 +134,7 @@ class DisplayView(BrowserView):
                 'name': assignment.__name__,
                 'renderer': portlet,
                 'settings': settings,
-                }
+            }
 
             hashPortletInfo(info)
 
@@ -154,7 +158,7 @@ class DisplayView(BrowserView):
 
         return render(
             portlets, self.context.layout, self.request
-            )
+        )
 
     def safe_render(self, renderer):
         try:
@@ -164,7 +168,7 @@ class DisplayView(BrowserView):
         except Exception:
             logging.getLogger("panels").exception(
                 'Error while rendering %r' % (self, )
-                )
+            )
 
             return self.error_message()
 
@@ -192,7 +196,7 @@ class ManageView(EditPortletManagerRenderer):
         except NotFound as exc:
             logging.getLogger("panels").warn(
                 "Add-view not found for %r." % exc.message
-                )
+            )
             return ()
 
     @property
@@ -202,7 +206,7 @@ class ManageView(EditPortletManagerRenderer):
     @property
     def can_move_down(self):
         return self.__parent__.index(self.context.__name__) < \
-               len(self.__parent__) - 1
+            len(self.__parent__) - 1
 
     @property
     def can_move_up(self):
@@ -229,7 +233,7 @@ class ManageView(EditPortletManagerRenderer):
         assignments = tuple(self.context)
         return self.portlets_for_assignments(
             assignments, self.__parent__, self.baseUrl()
-            )
+        )
 
     @protect(PostOnly)
     @protect(CheckAuthenticator)
@@ -238,7 +242,7 @@ class ManageView(EditPortletManagerRenderer):
         del self.context.aq_inner.aq_parent[name]
 
         referer = self.request.get('HTTP_REFERER') or \
-                  self.context.absolute_url()
+            self.context.absolute_url()
 
         return self.request.response.redirect(referer)
 
@@ -250,7 +254,7 @@ class ManageView(EditPortletManagerRenderer):
         )
 
         referer = self.request.get('HTTP_REFERER') or \
-                  self.context.absolute_url()
+            self.context.absolute_url()
 
         return self.request.response.redirect(referer)
 
@@ -263,7 +267,7 @@ class ManageView(EditPortletManagerRenderer):
             _(u"Layout changed."), type="info")
 
         referer = self.request.get('HTTP_REFERER') or \
-                  self.context.absolute_url()
+            self.context.absolute_url()
 
         return self.request.response.redirect(referer)
 
@@ -277,7 +281,9 @@ class ManagePanelsView(BrowserView):
 class BaseViewlet(ViewletBase):
 
     def __init__(self, context, request, view, manager=None):
-        super(BaseViewlet, self).__init__(context, request,  view, manager)
+        super(BaseViewlet, self).__init__(
+            context, request, view, manager
+        )
 
         self.root_interface = ISiteRoot
         try:
@@ -306,7 +312,7 @@ class BaseViewlet(ViewletBase):
         if IManagePanels.providedBy(self.request):
             return checkPermission(
                 "plone.app.portlets.ManagePortlets", self.context
-                )
+            )
 
 
 class AddingViewlet(BaseViewlet):
@@ -317,11 +323,11 @@ class AddingViewlet(BaseViewlet):
         factory = getUtility(
             IVocabularyFactory,
             name="collective.panels.vocabularies.Managers"
-            )
+        )
 
         return tuple(
             (term.value, term.title) for term in factory(self.context)
-            )
+        )
 
     @property
     def available_layouts(self):
@@ -376,7 +382,7 @@ class AddingViewlet(BaseViewlet):
             yield {
                 'name': encode(name),
                 'title': title,
-                }
+            }
 
     def _iter_panel_managers(self):
         for name, title in self._iter_viewlet_managers():
@@ -386,7 +392,7 @@ class AddingViewlet(BaseViewlet):
     def _iter_viewlet_managers(self):
         spec = tuple(map(providedBy, (
             self.context, self.request, self.__parent__
-            )))
+        )))
 
         storage = getUtility(IViewletSettingsStorage)
         skinname = self.context.getCurrentSkinName()
@@ -401,7 +407,7 @@ class AddingViewlet(BaseViewlet):
     def _iter_enabled_viewlet_managers(self):
         spec = tuple(map(providedBy, (
             self.context, self.request, self.__parent__
-            )))
+        )))
 
         try:
             settings = getUtility(IRegistry).forInterface(IGlobalSettings)
@@ -462,6 +468,6 @@ class DisplayViewlet(BaseViewlet):
         # implicitly associated with.
         manager = PanelManager(
             self.context, self.request, context, self.normalized_manager_name
-            ).__of__(self.context)
+        ).__of__(self.context)
 
         return tuple(manager)
