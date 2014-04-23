@@ -1,0 +1,3 @@
+graft src
+include *rst
+global-exclude *.pyc
