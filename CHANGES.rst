@@ -4,18 +4,21 @@ Changes
 Unreleased
 ----------
 
+- Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
+  [fredvd]
+
 - Bugfix: Add missing upgrade step for installing the registry from released
   1.5 to the released 1.6. If you already managed to update to 1.6 by
   uninstalling / reinstalling the product you don't need this, that's
-  why it's retrofitted in the 1.0 -> 1.1 metadata.xml version.
-
+  why it's retrofitted in the 1.0 -> 1.1 metadata.xml version bump for sites 
+  coming from collective.panels 1.5.
   [fredvd]
 
 - Bugfix: If portlet.available is a property it may throw an exception 
   that will make the whole page rendering fail.
   [bosim]
 
-- Added vertical layout 
+- Added vertical layout.
   [bosim]
 
 - Add missing styles for the Plone Classic theme.

@@ -1,6 +1,3 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,181 +12,181 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: collective.panels\n"
+"Domain: DOMAIN\n"
 
 #: ./vocabularies.py:17
 msgid "Above page content"
-msgstr ""
+msgstr "Boven pagina-inhoud"
 
 #: ./adding.pt:5
 msgid "Add panel"
-msgstr ""
+msgstr "Voeg panel toe"
 
 #: ./manager.pt:28
 msgid "Add portlet"
-msgstr ""
+msgstr "Voeg portlet toe"
 
 #: ./vocabularies.py:16
 msgid "Below page content"
-msgstr ""
+msgstr "Onder pagina-inhoud"
 
 #: ./manager.pt:53
 msgid "Change"
-msgstr ""
+msgstr "Wijzig"
 
 #: ./manager.pt:35
 msgid "Change layout"
-msgstr ""
+msgstr "Wijzig layout"
 
 #: ./interfaces.py:88
 msgid "Column spacing"
-msgstr ""
+msgstr "Kolomspatiëring"
 
 #: ./controlpanel.py:14
 msgid "Configure panels"
-msgstr ""
+msgstr "Beheer panels"
 
 #: ./manager.pt:72
 msgid "Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: ./interfaces.py:49
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #: ./manager.pt:78
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliceer"
 
 #: ./browser.py:456
 msgid "Global panel settings unavailable; ignoring."
-msgstr ""
+msgstr "Globale panel-instellingen niet beschikbaar; kijk of het Panel product bijgewerkt kan worden."
 
 #: ./display.pt:13
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: ./parent-link.pt:2
 msgid "Information"
-msgstr ""
+msgstr "Informatie"
 
 #: ./interfaces.py:59
 msgid "Layer"
-msgstr ""
+msgstr "Layer"
 
 #: ./adding.pt:37
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: ./browser.py:268
 msgid "Layout changed."
-msgstr ""
+msgstr "Layout gewijzigd"
 
 #: ./adding.pt:9
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: ./manager.pt:4
 msgid "Manage panel"
-msgstr ""
+msgstr "Beheer panel"
 
 #: ./link.pt:3
 msgid "Manage panels"
-msgstr ""
+msgstr "Beheer panels"
 
 #: ./browser.py:89
 msgid "Missing layout: ${name}."
-msgstr ""
+msgstr "Ontbrekende layout: ${name}"
 
 #: ./interfaces.py:39
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: ./interfaces.py:97
 msgid "Omit margins"
-msgstr ""
+msgstr "Laat marges weg"
 
 #: ./content.py:145
 msgid "Panel ${name}"
-msgstr ""
+msgstr "Panel ${name}"
 
 #: ./traversal.py:107
 msgid "Panel added."
-msgstr ""
+msgstr "Panel toegevoegd."
 
 #: ./traversal.py:50
 msgid "Panel removed."
-msgstr ""
+msgstr "Panel verwijderd."
 
 #: ./profile/controlpanel.xml
 msgid "Panels"
-msgstr ""
+msgstr "Panels"
 
 #: ./vocabularies.py:18
 msgid "Portal footer"
-msgstr ""
+msgstr "Onderaan pagina"
 
 #: ./vocabularies.py:19
 msgid "Portal top"
-msgstr ""
+msgstr "Bovenaan pagina"
 
 #: ./adding.pt:38
 msgid "Select a panel layout. The arrows indicate the direction of the layout."
-msgstr ""
+msgstr "Kies een layout voor de panel. De pijlen geven de layoutrichting aan."
 
 #: ./adding.pt:10
 msgid "Select the location where a new panel should be added."
-msgstr ""
+msgstr "Selecteer de locatie waar een nieuw panel toegevoegd wordt."
 
 #: ./interfaces.py:98
 msgid "Select this option to omit margins on the left- and right side of a panel."
-msgstr ""
+msgstr "Selecteer om marges aan de linker- en rechterkant van een panel weg te laten."
 
 #: ./interfaces.py:67
 msgid "Site-local panel managers"
-msgstr ""
+msgstr "Lokale panel managers in de website"
 
 #: ./interfaces.py:79
 msgid "Site-local panel managers will be assignable on navigation roots instead of only site roots if you select this option. Check this if you are using LinguaPlone, collective.multilingual or similar, and you want per-language Site-local panel managers."
-msgstr ""
+msgstr "Met deze optie zijn lokale panel managers toe te wijzen op navigatie startpunten (navigation root) in plaats van alleen de hoofdmap (site root). Gebruik deze optie als u add'ons als LinguaPlone of collective.multilingual gebruikt en u taal-afhankelijke panel managers wenst te gebruiken."
 
 #: ./interfaces.py:54
 msgid "Template"
-msgstr ""
+msgstr "Sjabloon"
 
 #: ./interfaces.py:68
 msgid "The locations listed here will be assignable only at sites (typically Plone's site root, unless local sites are present)."
-msgstr ""
+msgstr "De hier getoonde locaties zijn alleen toe te wijzen op site-niveau (normaliter de Plone site root, tenzij er lokale sites zijn)."
 
 #: ./controlpanel.py:15
 msgid "This form lets you configure the panel add-on product."
-msgstr ""
+msgstr "Met dit formulier configureer u het Panel-product."
 
 #: ./interfaces.py:89
 msgid "This is the horizontal distance between portlets in a panel layout, expressed as a percentage of the available width."
-msgstr ""
+msgstr "Dit is de horizontale afstand tussen portlets in een panel layout, als een percentage van de beschikbare breedte."
 
 #: ./parent-link.pt:6
 msgid "This is the panel management interface. Add a new panel or manage existing ones."
-msgstr ""
+msgstr "Dit is het panel beheerscherm. "
 
 #: ./display.pt:14
 msgid "This panel is empty."
-msgstr ""
+msgstr "Dit panel is leeg."
 
 #: ./interfaces.py:44
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ./browser.py:452
 msgid "Unable to find registry."
-msgstr ""
+msgstr "Registry niet gevonden"
 
 #: ./interfaces.py:78
 msgid "Use navigation root"
-msgstr ""
+msgstr "Gebruik navigation root"
 
 #: ./parent-link.pt:13
 msgid "You are managing panels for a default page. If you wanted to manage panels for the parent folder, ${go_here}."
-msgstr ""
+msgstr "U beheert panels voor een standaardweergave. Als u de panels voor de bovenliggende map wilt beheren, ${go_here}."
 
