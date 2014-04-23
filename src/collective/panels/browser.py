@@ -134,6 +134,7 @@ class DisplayView(BrowserView):
                 'name': assignment.__name__,
                 'renderer': portlet,
                 'settings': settings,
+                'assignment': assignment
             }
 
             hashPortletInfo(info)
