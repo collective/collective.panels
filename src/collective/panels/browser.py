@@ -454,7 +454,7 @@ class DisplayViewlet(BaseViewlet):
         except KeyError:
             IStatusMessage(self.request).addStatusMessage(
                 _(u"Global panel settings unavailable; ignoring."),
-                type="error"
+                type="warning"
                 )
         else:
             for interface in settings.site_local_managers or ():
