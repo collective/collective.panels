@@ -4,6 +4,13 @@ Changes
 Unreleased
 ----------
 
+- Put a warning instead of an error whenever the settings are not available
+  (can be solved usually by profile update).
+  [bosim]
+
+- Updated danish translations
+  [bosim]
+
 - Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
   [fredvd]
 
