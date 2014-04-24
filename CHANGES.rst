@@ -4,15 +4,7 @@ Changes
 Unreleased
 ----------
 
-- Put a warning instead of an error whenever the settings are not available
-  (can be solved usually by profile update).
-  [bosim]
-
-- Updated danish translations
-  [bosim]
-
-- Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
-  [fredvd]
+Bugfixes:
 
 - Bugfix: Add missing upgrade step for installing the registry from released
   1.5 to the released 1.6. If you already managed to update to 1.6 by
@@ -25,6 +17,8 @@ Unreleased
   that will make the whole page rendering fail.
   [bosim]
 
+Features:
+
 - Added vertical layout.
   [bosim]
 
@@ -34,6 +28,19 @@ Unreleased
   grid-based styling used by the panels to work when the theme in use is 
   Plone Classic or one based on it.
   [afrepues]
+
+Misc:
+
+- Put a warning instead of an error whenever the settings are not available
+  (can be solved usually by profile update).
+  [bosim]
+
+- Updated danish translations
+  [bosim]
+
+- Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
+  [fredvd]
+
 
 1.6 (2013-11-04)
 ----------------
