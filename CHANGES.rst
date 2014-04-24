@@ -4,26 +4,20 @@ Changes
 Unreleased
 ----------
 
-- Put a warning instead of an error whenever the settings are not available
-  (can be solved usually by profile update).
-  [bosim]
+Bugfixes:
 
-- Updated danish translations
-  [bosim]
-
-- Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
-  [fredvd]
-
-- Bugfix: Add missing upgrade step for installing the registry from released
+- Add missing upgrade step for installing the registry from released
   1.5 to the released 1.6. If you already managed to update to 1.6 by
   uninstalling / reinstalling the product you don't need this, that's
   why it's retrofitted in the 1.0 -> 1.1 metadata.xml version bump for sites 
   coming from collective.panels 1.5.
   [fredvd]
 
-- Bugfix: If portlet.available is a property it may throw an exception 
+- If portlet.available is a property it may throw an exception 
   that will make the whole page rendering fail.
   [bosim]
+
+Features:
 
 - Added vertical layout.
   [bosim]
@@ -35,13 +29,30 @@ Unreleased
   Plone Classic or one based on it.
   [afrepues]
 
+Misc:
+
+- Put a warning instead of an error whenever the settings are not available
+  (can be solved usually by profile update).
+  [bosim]
+
+- Updated danish translations
+  [bosim]
+
+- Add Dutch translations, update .po files. Add rebuild_i18n.sh script.
+  [fredvd]
+
+
 1.6 (2013-11-04)
 ----------------
+
+Feature:
 
 - Added navigation_local option - for setting local panel managers
   on INavigationRoot instead of ISiteRoot. Useful eg. with modules for
   multilingual content.
   [tmog]
+
+Bugfix:
 
 - Reworked the arrangement actions for the panels, due to the KSS dependency 
   on plone.app.portlets has been removed.
