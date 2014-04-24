@@ -55,7 +55,7 @@ msgstr "Slet"
 
 #: ./interfaces.py:49
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: ./manager.pt:78
 msgid "Duplicate"
@@ -63,7 +63,7 @@ msgstr "Duplikér"
 
 #: ./browser.py:456
 msgid "Global panel settings unavailable; ignoring."
-msgstr ""
+msgstr "De globale panelindstillinger er ikke tilgængelige."
 
 #: ./display.pt:13
 msgid "Info"
@@ -71,11 +71,11 @@ msgstr "Info"
 
 #: ./parent-link.pt:2
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: ./interfaces.py:59
 msgid "Layer"
-msgstr ""
+msgstr "Lag"
 
 #: ./adding.pt:37
 msgid "Layout"
@@ -99,19 +99,19 @@ msgstr "Administrer paneler"
 
 #: ./browser.py:89
 msgid "Missing layout: ${name}."
-msgstr ""
+msgstr "Mangler layout: ${name}."
 
 #: ./interfaces.py:39
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: ./interfaces.py:97
 msgid "Omit margins"
-msgstr ""
+msgstr "Udelad marginer"
 
 #: ./content.py:145
 msgid "Panel ${name}"
-msgstr ""
+msgstr "Panel ${name}"
 
 #: ./traversal.py:107
 msgid "Panel added."
@@ -123,7 +123,7 @@ msgstr "Panel fjernet."
 
 #: ./profile/controlpanel.xml
 msgid "Panels"
-msgstr ""
+msgstr "Paneler"
 
 #: ./vocabularies.py:18
 msgid "Portal footer"
@@ -155,7 +155,7 @@ msgstr "Vælg dette hvis sitet bruger LinguaPlone, collective.multilingual el.li
 
 #: ./interfaces.py:54
 msgid "Template"
-msgstr ""
+msgstr "Skabelon"
 
 #: ./interfaces.py:68
 msgid "The locations listed here will be assignable only at sites (typically Plone's site root, unless local sites are present)."
@@ -183,7 +183,7 @@ msgstr "Titel"
 
 #: ./browser.py:452
 msgid "Unable to find registry."
-msgstr ""
+msgstr "Kan ikke finde globalt register."
 
 #: ./interfaces.py:78
 msgid "Use navigation root"
