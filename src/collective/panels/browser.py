@@ -1,51 +1,46 @@
-import time
-import logging
-import itertools
-
-from plone.portlets.interfaces import IPortletRenderer
-from plone.portlets.interfaces import IPortletAssignmentSettings
-from plone.portlets.constants import CONTEXT_CATEGORY
-from plone.portlets.utils import hashPortletInfo
-
+from .i18n import MessageFactory as _
+from .interfaces import IGlobalSettings
+from .interfaces import ILayout
+from .interfaces import IManagePanels
+from .traversal import PanelManager
+from .traversal import encode
+from AccessControl import getSecurityManager
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
+from ZODB.POSException import ConflictError
+from plone.app.layout.navigation.interfaces import INavigationRoot
+from plone.app.layout.viewlets import ViewletBase
 from plone.app.portlets.browser.editmanager import EditPortletManagerRenderer
 from plone.app.portlets.manager import ColumnPortletManagerRenderer
 from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
-from plone.app.layout.viewlets import ViewletBase
-
 from plone.memoize.ram import cache
 from plone.memoize.view import memoize
-from plone.protect import protect
-from plone.protect import PostOnly
+from plone.portlets.constants import CONTEXT_CATEGORY
+from plone.portlets.interfaces import IPortletAssignmentSettings
+from plone.portlets.interfaces import IPortletRenderer
+from plone.portlets.utils import hashPortletInfo
 from plone.protect import CheckAuthenticator
+from plone.protect import PostOnly
+from plone.protect import protect
 from plone.registry.interfaces import IRegistry
-
-from zope.interface import alsoProvides
-from zope.interface import providedBy
+from zExceptions import NotFound
+from zope.component import ComponentLookupError
 from zope.component import getAdapter
 from zope.component import getAdapters
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
-from zope.component import ComponentLookupError
+from zope.interface import alsoProvides
+from zope.interface import providedBy
+from zope.schema.interfaces import IVocabularyFactory
 from zope.security import checkPermission
 from zope.viewlet.interfaces import IViewlet
-from zope.schema.interfaces import IVocabularyFactory
 
-from AccessControl import getSecurityManager
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
-from Products.CMFCore.interfaces import ISiteRoot
-from plone.app.layout.navigation.interfaces import INavigationRoot
-from ZODB.POSException import ConflictError
-from zExceptions import NotFound
-
-from .interfaces import ILayout
-from .interfaces import IManagePanels
-from .interfaces import IGlobalSettings
-from .traversal import PanelManager
-from .traversal import encode
-from .i18n import MessageFactory as _
+import itertools
+import logging
+import time
 
 
 def addable_portlets_cache_key(function, view):
@@ -450,12 +445,12 @@ class DisplayViewlet(BaseViewlet):
         except ComponentLookupError:
             IStatusMessage(self.request).addStatusMessage(
                 _(u"Unable to find registry."), type="error"
-                )
+            )
         except KeyError:
             IStatusMessage(self.request).addStatusMessage(
                 _(u"Global panel settings unavailable; ignoring."),
                 type="warning"
-                )
+            )
         else:
             for interface in settings.site_local_managers or ():
                 if interface.providedBy(self.manager):

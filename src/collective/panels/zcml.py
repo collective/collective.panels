@@ -1,7 +1,6 @@
+from .interfaces import ILayout
 from zope.component.zcml import handler
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
-
-from .interfaces import ILayout
 
 
 def panel(_context, name, title, description, template, layer):
@@ -10,7 +9,7 @@ def panel(_context, name, title, description, template, layer):
         'title': title,
         'description': description,
         'template': PageTemplateFile(template),
-        }
+    }
 
     adapter = lambda request: component
 
@@ -21,4 +20,4 @@ def panel(_context, name, title, description, template, layer):
             'registerAdapter',
             adapter, (layer, ), ILayout,
             name, _context.info),
-        )
+    )

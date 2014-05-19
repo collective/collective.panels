@@ -1,25 +1,21 @@
-from zope.annotation.interfaces import IAttributeAnnotatable
-from zope.interface import implements
-from zope.component import adapts
-from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.publisher.interfaces.browser import IBrowserPublisher
-from zope.traversing.interfaces import ITraversable
-
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import ILocalPortletAssignable
-from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
-
-from zExceptions import BadRequest, NotFound
-from Acquisition import aq_base
-from Acquisition import Implicit
-from Acquisition import ExplicitAcquisitionWrapper
-from OFS.Traversable import Traversable
-
-from Products.statusmessages.interfaces import IStatusMessage
-
 from .content import Panel
-from .interfaces import IPanel
 from .i18n import MessageFactory as _
+from .interfaces import IPanel
+from Acquisition import ExplicitAcquisitionWrapper
+from Acquisition import Implicit
+from Acquisition import aq_base
+from OFS.Traversable import Traversable
+from Products.statusmessages.interfaces import IStatusMessage
+from plone.app.portlets.assignable import localPortletAssignmentMappingAdapter
+from plone.portlets.interfaces import ILocalPortletAssignable
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from zExceptions import BadRequest, NotFound
+from zope.annotation.interfaces import IAttributeAnnotatable
+from zope.component import adapts
+from zope.interface import implements
+from zope.publisher.interfaces.browser import IBrowserPublisher
+from zope.publisher.interfaces.browser import IBrowserRequest
+from zope.traversing.interfaces import ITraversable
 
 
 def encode(name):
@@ -31,7 +27,11 @@ def decode(name):
 
 
 class PanelManager(Implicit, Traversable):
-    implements(IBrowserPublisher, IPortletAssignmentMapping, ILocalPortletAssignable)
+    implements(
+        IBrowserPublisher,
+        IPortletAssignmentMapping,
+        ILocalPortletAssignable
+    )
 
     __allow_access_to_unprotected_subobjects__ = 1
 

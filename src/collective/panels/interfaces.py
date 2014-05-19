@@ -38,28 +38,28 @@ class IPanelDirective(Interface):
     name = schema.TextLine(
         title=_("Name"),
         required=True
-        )
+    )
 
     title = schema.TextLine(
         title=_("Title"),
         required=True
-        )
+    )
 
     description = schema.TextLine(
         title=_("Description"),
         required=True
-        )
+    )
 
     template = Path(
         title=_("Template"),
         required=True
-        )
+    )
 
     layer = GlobalInterface(
         title=_("Layer"),
         required=True,
         default=IDefaultBrowserLayer,
-        )
+    )
 
 
 class IGlobalSettings(Interface):
@@ -71,8 +71,8 @@ class IGlobalSettings(Interface):
         required=False,
         value_type=schema.Choice(
             vocabulary="collective.panels.vocabularies.Managers",
-            )
         )
+    )
 
     navigation_local = schema.Bool(
         title=_(u"Use navigation root"),
@@ -82,7 +82,7 @@ class IGlobalSettings(Interface):
                       u"using LinguaPlone, collective.multilingual or "
                       u"similar, and you want per-language Site-local "
                       u"panel managers."),
-        )
+    )
 
     spacing = schema.Float(
         title=_(u"Column spacing"),
@@ -91,7 +91,7 @@ class IGlobalSettings(Interface):
                       u"a percentage of the available width."),
         required=False,
         default=1.25,
-        )
+    )
 
     omit = schema.Bool(
         title=_(u"Omit margins"),
@@ -100,4 +100,4 @@ class IGlobalSettings(Interface):
                       u"panel."),
         required=False,
         default=True,
-        )
+    )

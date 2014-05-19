@@ -1,21 +1,18 @@
-from zope.interface import implements
-from zope.interface import providedBy
-from zope.component import getUtilitiesFor
-from zope.container.contained import Contained
-
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletType
-from plone.portlets.interfaces import IPortletAssignment
-from plone.portlets.interfaces import ILocalPortletAssignable
-from plone.app.portlets.interfaces import IPortletAssignmentMapping
-
+from .i18n import MessageFactory as _
+from .interfaces import IPanel
 from Acquisition import Implicit
 from OFS.Traversable import Traversable
-
 from persistent import Persistent
+from plone.app.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import ILocalPortletAssignable
+from plone.portlets.interfaces import IPortletAssignment
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletType
+from zope.component import getUtilitiesFor
+from zope.container.contained import Contained
+from zope.interface import implements
+from zope.interface import providedBy
 
-from .interfaces import IPanel
-from .i18n import MessageFactory as _
 
 PANEL_ANNOTATION_KEY = "collective.panels"
 
@@ -26,7 +23,7 @@ def getAddablePortletTypes(interface):
     return filter(
         lambda p: any(
             i for i in p.for_ if interface.isOrExtends(i)
-            ),
+        ),
         types)
 
 
@@ -93,7 +90,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
     def __repr__(self):
         return '<%s name="%s" items="%d">' % (
             self.__class__.__name__, self.__name__, len(self._assignments)
-            )
+        )
 
     def getId(self):
         return self.__name__
@@ -102,7 +99,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
     def available(self):
         return any(
             assignment.available for assignment in self
-            )
+        )
 
     def getAddablePortletTypes(self):
         interface = providedBy(self)
@@ -126,7 +123,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
     def updateOrder(self, keys):
         self._assignments.sort(
             key=lambda assignment: keys.index(assignment.__name__)
-            )
+        )
         self._p_changed = True
 
 
@@ -151,7 +148,7 @@ class PanelManager(object):
     def __call__(self, context, request, view):
         raise NotImplementedError(
             "This portlet manager does not provide a renderer."
-            )
+        )
 
     def get(self, name, default=None):
         return default
