@@ -37,7 +37,7 @@
       />
 
 
-  <!-- Viewlets -->
+  <!-- Manage Viewlets -->
 
   <browser:viewlet
       name="collective.panels.managelink"
