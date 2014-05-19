@@ -4,9 +4,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
-  <!-- Setup -->
-
   <include package="plone.app.layout" />
+  <i18n:registerTranslations directory="locales" />
 
   <genericsetup:registerProfile
       name="default"
@@ -16,14 +15,8 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <!-- Translations -->
-
-  <i18n:registerTranslations directory="locales" />
-
-  <!-- Manager -->
-
+  <!-- Panel Manager -->
   <utility name="panels" factory=".content.PanelManager" />
-
   <adapter
       for=".interfaces.IPanel
            plone.portlets.interfaces.IPortletManager"
@@ -32,11 +25,17 @@
       />
 
   <!-- Traversal -->
-
   <adapter
-      factory=".traversal.PanelTraverser"
       name="panel"
+      factory=".traversal.PanelTraverser"
       />
+
+  <!-- Vocabularies -->
+  <utility
+      component=".vocabularies.managers"
+      name="collective.panels.vocabularies.Managers"
+      />
+
 
   <!-- Viewlets -->
 
@@ -103,6 +102,7 @@
       layer=".interfaces.ILayer"
       />
 
+
   <!-- Views -->
 
   <browser:pages
@@ -110,27 +110,10 @@
       class=".browser.ManageView"
       permission="plone.app.portlets.ManagePortlets"
       layer=".interfaces.ILayer">
-
-    <browser:page
-        name="delete"
-        attribute="delete"
-        />
-
-    <browser:page
-        name="duplicate"
-        attribute="duplicate"
-        />
-
-    <browser:page
-        name="change-layout"
-        attribute="change_layout"
-        />
-
-    <browser:page
-        name="manage"
-        template="templates/manager.pt"
-        />
-
+    <browser:page name="delete" attribute="delete"/>
+    <browser:page name="duplicate" attribute="duplicate"/>
+    <browser:page name="change-layout" attribute="change_layout"/>
+    <browser:page name="manage" template="templates/manager.pt"/>
   </browser:pages>
 
   <configure package="plone.app.portlets.browser">
@@ -158,6 +141,7 @@
       layer=".interfaces.ILayer"
       permission="plone.app.portlets.ManagePortlets"
       />
+
 
   <!-- Layouts -->
 
@@ -226,7 +210,6 @@
 
 
   <!-- Browser resources -->
-
   <browser:resourceDirectory
       name="collective.panels"
       directory="resources"
@@ -240,15 +223,8 @@
       layer=".interfaces.ILayer"
       />
 
-  <!-- Vocabularies -->
-
-  <utility
-      component=".vocabularies.managers"
-      name="collective.panels.vocabularies.Managers"
-      />
 
   <!-- Control panel -->
-
   <browser:page
       name="panels-controlpanel"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -256,8 +232,5 @@
       permission="cmf.ManagePortal"
       layer=".interfaces.ILayer"
       />
-
-
-
 
 </configure>
