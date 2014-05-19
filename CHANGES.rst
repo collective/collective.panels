@@ -10,7 +10,8 @@ Changes
 - Move css browser resources to dedicated resource directory.
   [thet]
 
-- Move templates to dedicated templates directory.
+- Move templates to dedicated templates directory and layout templtes to
+  layouts directory.
   [thet]
 
 
