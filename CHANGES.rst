@@ -1,10 +1,16 @@
 Changes
 =======
 
-1.8 (unreleased)
+
+
+2.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Move css browser resources to dedicated resource directory.
+  [thet]
+
+- Move templates to dedicated templates directory.
+  [thet]
 
 
 1.7 (2014-04-24)
