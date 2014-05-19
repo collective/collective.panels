@@ -248,16 +248,17 @@
 
   <!-- Browser resources -->
 
-  <browser:resource
-      name="panels.css"
-      file="styles.css"
+  <browser:resourceDirectory
+      name="collective.panels"
+      directory="resources"
       layer=".interfaces.ILayer"
       />
-
-  <browser:resource
-      name="panels-grid-classic-theme.css"
-      file="styles-classic-theme-grid.css"
-      layer="plonetheme.classic.browser.interfaces.IThemeSpecific"
+  <browser:page
+      name="panels-grid.css"
+      for="*"
+      class=".grid.GridView"
+      permission="zope2.View"
+      layer=".interfaces.ILayer"
       />
 
   <!-- Vocabularies -->
@@ -277,12 +278,7 @@
       layer=".interfaces.ILayer"
       />
 
-  <browser:page
-      name="panels-grid.css"
-      for="*"
-      class=".grid.GridView"
-      permission="zope2.View"
-      />
+
 
 
 </configure>
