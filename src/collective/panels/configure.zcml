@@ -65,7 +65,7 @@
       name="collective.panels.managelink"
       manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
       view="plone.app.layout.globals.interfaces.IViewView"
-      template="link.pt"
+      template="templates/link.pt"
       permission="plone.app.portlets.ManagePortlets"
       layer=".interfaces.ILayer"
       />
@@ -73,7 +73,7 @@
   <browser:viewlet
       name="collective.panels.managelink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-      template="parent-link.pt"
+      template="templates/parent-link.pt"
       permission="plone.app.portlets.ManagePortlets"
       layer=".interfaces.IManagePanels"
       />
@@ -149,7 +149,7 @@
 
     <browser:page
         name="manage"
-        template="manager.pt"
+        template="templates/manager.pt"
         />
 
   </browser:pages>

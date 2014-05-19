@@ -96,7 +96,7 @@ def render(portlets, name, request):
 class DisplayView(BrowserView):
     """This view displays a panel."""
 
-    portlet = ViewPageTemplateFile("portlet.pt")
+    portlet = ViewPageTemplateFile("templates/portlet.pt")
     error_message = ColumnPortletManagerRenderer.__dict__['error_message']
 
     def __call__(self):
@@ -317,7 +317,7 @@ class BaseViewlet(ViewletBase):
 
 
 class AddingViewlet(BaseViewlet):
-    index = ViewPageTemplateFile("adding.pt")
+    index = ViewPageTemplateFile("templates/adding.pt")
 
     @property
     def all_viewlet_managers(self):
@@ -435,7 +435,7 @@ class AddingViewlet(BaseViewlet):
 
 
 class DisplayViewlet(BaseViewlet):
-    index = ViewPageTemplateFile("display.pt")
+    index = ViewPageTemplateFile("templates/display.pt")
 
     @property
     def normalized_manager_name(self):
