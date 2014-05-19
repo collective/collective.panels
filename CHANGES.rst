@@ -1,7 +1,7 @@
 Changes
 =======
 
-2.0 (unreleased)
+1.8 (unreleased)
 ----------------
 
 - Remove upgrade steps. Re-Importing the newer profile does the same.
