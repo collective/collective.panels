@@ -16,27 +16,6 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <genericsetup:upgradeSteps
-       source="1.0"
-       destination="1.1"
-       profile="collective.panels:default">
-
-       <genericsetup:upgradeStep
-           title="Update registry schema"
-           description="run registry profile"
-           handler="collective.panels.upgrades.run_registry_step"
-           />
-           
-     <genericsetup:upgradeStep
-           title="Add Plone grid styles"
-           description="New options introduced"
-           handler="collective.panels.upgrades.add_plone_grid_styles"
-           />
-
-
-
-   </genericsetup:upgradeSteps>
-
   <!-- Translations -->
 
   <i18n:registerTranslations directory="locales" />

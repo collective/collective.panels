@@ -1,10 +1,11 @@
 Changes
 =======
 
-
-
 2.0 (unreleased)
 ----------------
+
+- Remove upgrade steps. Re-Importing the newer profile does the same.
+  [thet]
 
 - Move css browser resources to dedicated resource directory.
   [thet]
