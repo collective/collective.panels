@@ -4,10 +4,8 @@ Changes
 1.8 (unreleased)
 ----------------
 
-- Remove upgrade steps. Re-Importing the newer profile does the same.
-  [thet]
-
-- Move css browser resources to dedicated resource directory.
+- Move css browser resources to dedicated resource directory. Include an
+  upgrade step for that.
   [thet]
 
 - Move templates to dedicated templates directory and layout templtes to

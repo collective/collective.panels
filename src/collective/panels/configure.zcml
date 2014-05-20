@@ -1,19 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+    xmlns:browser="http://namespaces.zope.org/browser">
 
   <include package="plone.app.layout" />
   <i18n:registerTranslations directory="locales" />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="Panels"
-      directory="profile"
-      description="Registers control panel and default settings."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <include file="profiles.zcml" />
 
   <!-- Panel Manager -->
   <utility name="panels" factory=".content.PanelManager" />

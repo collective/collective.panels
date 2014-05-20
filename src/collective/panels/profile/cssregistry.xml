@@ -5,8 +5,4 @@
   <stylesheet id="++resource++collective.panels/panels-grid-classic-theme.css"/>
   <stylesheet id="panels-grid.css"/><!-- i'm a browser view -->
 
-  <!-- UPGRADE: remove old resources -->
-  <stylesheet remove="True" id="++resource++panels-grid-classic-theme.css"/>
-  <stylesheet remove="True" id="++resource++panels.css"/>
-
 </object>
