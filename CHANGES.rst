@@ -4,7 +4,13 @@ Changes
 1.8 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Move css browser resources to dedicated resource directory. Include an
+  upgrade step for that.
+  [thet]
+
+- Move templates to dedicated templates directory and layout templtes to
+  layouts directory.
+  [thet]
 
 
 1.7 (2014-04-24)
@@ -15,11 +21,11 @@ Bugfixes:
 - Add missing upgrade step for installing the registry from released
   1.5 to the released 1.6. If you already managed to update to 1.6 by
   uninstalling / reinstalling the product you don't need this, that's
-  why it's retrofitted in the 1.0 -> 1.1 metadata.xml version bump for sites 
+  why it's retrofitted in the 1.0 -> 1.1 metadata.xml version bump for sites
   coming from collective.panels 1.5.
   [fredvd]
 
-- If portlet.available is a property it may throw an exception 
+- If portlet.available is a property it may throw an exception
   that will make the whole page rendering fail.
   [bosim]
 
@@ -31,7 +37,7 @@ Features:
 - Add missing styles for the Plone Classic theme.
   The Plone Classic theme doesn't have the grid-based styles present in
   the Sunburst theme. The styles added in this commit allow the
-  grid-based styling used by the panels to work when the theme in use is 
+  grid-based styling used by the panels to work when the theme in use is
   Plone Classic or one based on it.
   [afrepues]
 
@@ -60,7 +66,7 @@ Feature:
 
 Bugfix:
 
-- Reworked the arrangement actions for the panels, due to the KSS dependency 
+- Reworked the arrangement actions for the panels, due to the KSS dependency
   on plone.app.portlets has been removed.
   [bosim]
 

@@ -1,6 +1,4 @@
 <?xml version="1.0"?>
 <layers>
-  <layer name="collective.panels"
-         interface="collective.panels.interfaces.ILayer"
-         />
+  <layer name="collective.panels" interface="collective.panels.interfaces.ILayer"/>
 </layers>

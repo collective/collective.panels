@@ -1,0 +1,41 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Panels"
+      directory="profile"
+      description="Registers control panel and default settings."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+ 
+  <genericsetup:upgradeSteps
+      source="1.0"
+      destination="1.1"
+      profile="collective.panels:default">
+    <genericsetup:upgradeStep
+        title="Update registry schema"
+        description="run registry profile"
+        handler="collective.panels.upgrades.run_registry_step"
+        />
+    <genericsetup:upgradeStep
+        title="Add Plone grid styles"
+        description="New options introduced"
+        handler="collective.panels.upgrades.add_plone_grid_styles"
+        />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+      source="1.1"
+      destination="2"
+      profile="collective.panels:default">
+    <genericsetup:upgradeStep
+        title=""
+        description="Remove deprecated css resources, register new ones."
+        handler="collective.panels.upgrades.upgrade_11_2__css_registry"
+        />
+  </genericsetup:upgradeSteps>
+
+</configure>
