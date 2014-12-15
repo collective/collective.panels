@@ -12,6 +12,18 @@ Changes
   layouts directory.
   [thet]
 
+- Plone 4.3.4 compatibility:
+  Save __portlet_metadata__ on the portlet renderer.
+  [sunew]
+
+  The key should not be unicode (Traversal error).
+  Use the panel context path as key, not the panel path. The key is used for
+  transformations of urls in portlets, so avoid urls like http://domain.com/++panel++plone-portalfooter/1/contact-info
+  [sunew]
+
+- Never catch ConflictErrors.
+  [sunew]
+
 
 1.7 (2014-04-24)
 ----------------

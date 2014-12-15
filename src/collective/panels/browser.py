@@ -125,7 +125,7 @@ class DisplayView(BrowserView):
             info = {
                 'manager': "panels",
                 'category': CONTEXT_CATEGORY,
-                'key': '/'.join(panel.getPhysicalPath()),
+                'key': str('/'.join(panel.context.getPhysicalPath())),
                 'name': assignment.__name__,
                 'renderer': portlet,
                 'settings': settings,
@@ -134,10 +134,15 @@ class DisplayView(BrowserView):
 
             hashPortletInfo(info)
 
+            portlet.__portlet_metadata__ = info.copy()
+            del portlet.__portlet_metadata__['renderer']
+
             portlet.update()
 
             try:
                 available = portlet.available
+            except ConflictError:
+                raise
             except Exception as e:
                 logging.getLogger('panels').info(
                     "available threw an exception for %s (%s %s)" % (
