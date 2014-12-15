@@ -16,9 +16,17 @@ Changes
   Save __portlet_metadata__ on the portlet renderer.
   [sunew]
 
-  The key should not be unicode (Traversal error).
-  Use the panel context path as key, not the panel path. The key is used for
-  transformations of urls in portlets, so avoid urls like http://domain.com/++panel++plone-portalfooter/1/contact-info
+- The key should not be unicode (Traversal error).
+  [sunew]
+
+- The aq chain to the plone content object (the 'parent') can vary in length depending on
+  where we render. Go up the aq chain until we are out of nested panels, portlet assignments,
+  and panel managers. (The chain is long when rendering panels, maybe in the footer, on a
+  panel portlet edit form).
+  [sunew]
+
+- Use the parent path as key (the plone content object), not the panel path. The key is used for
+  transformations of urls in portlets, so this avoids urls like http://domain.com/++panel++plone-portalfooter/1/contact-info
   [sunew]
 
 - Never catch ConflictErrors.

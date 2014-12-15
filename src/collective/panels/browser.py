@@ -2,6 +2,7 @@ from .i18n import MessageFactory as _
 from .interfaces import IGlobalSettings
 from .interfaces import ILayout
 from .interfaces import IManagePanels
+from .interfaces import IPanel
 from .traversal import PanelManager
 from .traversal import encode
 from AccessControl import getSecurityManager
@@ -19,7 +20,9 @@ from plone.memoize.ram import cache
 from plone.memoize.view import memoize
 from plone.portlets.constants import CONTEXT_CATEGORY
 from plone.portlets.interfaces import IPortletAssignmentSettings
+from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletRenderer
+from plone.portlets.interfaces import IPortletAssignment
 from plone.portlets.utils import hashPortletInfo
 from plone.protect import CheckAuthenticator
 from plone.protect import PostOnly
@@ -97,7 +100,21 @@ class DisplayView(BrowserView):
     def __call__(self):
         # The parent object is the Plone content object here; we get
         # it from the acquisition chain.
-        parent = self.context.aq_inner.aq_parent.aq_parent
+
+        # The panel can be rendered in different contexts, where the length of
+        # the chain to the Plone content object is not obvious;
+        # on portlet edit forms for instance, where we have a panel of
+        # portlets below the edit form.
+        # So to get the content object we go up in the aq chain, until we are
+        # out of the chain of portlet assignments, panels etc.
+        parent = self.context.aq_inner
+        while True:
+            parent = parent.aq_parent
+            if not (IPanel.providedBy(parent)
+                or IPortletAssignment.providedBy(parent)
+                or IPortletAssignmentMapping.providedBy(parent)):
+                break
+
         panel = self.context
 
         portlets = []
@@ -125,7 +142,7 @@ class DisplayView(BrowserView):
             info = {
                 'manager': "panels",
                 'category': CONTEXT_CATEGORY,
-                'key': str('/'.join(panel.context.getPhysicalPath())),
+                'key': str('/'.join(parent.getPhysicalPath())),
                 'name': assignment.__name__,
                 'renderer': portlet,
                 'settings': settings,
