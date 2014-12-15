@@ -1,7 +1,7 @@
 Changes
 =======
 
-1.8 (unreleased)
+1.8 (2014-12-15)
 ----------------
 
 - Move css browser resources to dedicated resource directory. Include an
