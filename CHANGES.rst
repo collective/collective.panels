@@ -4,8 +4,8 @@ Changes
 1.9 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Add Finnish localization
+  [datakurre]
 
 1.8 (2014-12-15)
 ----------------
