@@ -23,8 +23,8 @@ msgid "Add panel"
 msgstr "Voeg panel toe"
 
 #: ./manager.pt:28
-msgid "Add portlet"
-msgstr "Voeg portlet toe"
+msgid "Insert"
+msgstr "Invoegen"
 
 #: ./vocabularies.py:16
 msgid "Below page content"

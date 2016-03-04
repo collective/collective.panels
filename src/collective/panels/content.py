@@ -130,6 +130,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
 class Panel(PortletContainerAssignment):
     implements(IPanel)
 
+    heading = u""
 
     def __init__(self, name, layout, *assignments):
         super(Panel, self).__init__(name, *assignments)

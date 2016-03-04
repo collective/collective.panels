@@ -13,7 +13,7 @@
     }
 #content .add-panel dd {
     margin:0;
-    }
+}
 .add-panel .cell div {
     background-color:#996;
     color:#fff;
@@ -32,9 +32,15 @@
 #content .add-panel a {
     border:1px solid #996;
     }
+.manage-panel .field input[type="text"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+    }
 .manage-panel .subform {
     float:left;
-    margin:1em 2em 0 0;
     }
 .manage-panels-link {
     margin:0 auto 1em;
@@ -68,7 +74,15 @@
 }
 .manage-panel .managedPortlet {
     margin: 0 0 1px;
-    }
+}
 .manage-panel .portletAssignments {
     margin-bottom: 1em;
-    }
+}
+.manage-panel .panelLayoutFormWrapper {
+    margin: 0 0 1em 1em;
+    float: left;
+}
+.manage-panel .panelEditForm {
+    clear: left;
+    margin-bottom: 1em;
+}

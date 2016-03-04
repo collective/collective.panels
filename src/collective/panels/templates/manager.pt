@@ -25,14 +25,14 @@
     </div>
 
     <div class="subform">
-      <h4 class="hiddenStructure" i18n:translate="">Add portlet</h4>
+      <label i18n:translate="">Insert</label>
       <metal:form
           use-macro="context/@@manage-portlets-macros/macros/portlet-add-form"
           />
     </div>
 
-    <div class="subform portletAssignments">
-      <h4 i18n:translate="">Change layout</h4>
+    <div class="subform panelLayoutFormWrapper">
+      <label i18n:translate="">Change layout</label>
       <form method="POST"
             tal:define="layouts view/available_layouts"
             tal:attributes="action string:${view/baseUrl}/@@change-layout">
@@ -59,7 +59,27 @@
       </form>
     </div>
 
-    <div class="visualClear"></div>
+    <form class="panelEditForm"
+          method="POST"
+          tal:attributes="action string:${view/baseUrl}/@@save">
+      <span tal:replace="structure context/@@authenticator/authenticator"/>
+
+      <div class="field">
+        <label i18n:domain="plone" i18n:translate=""
+               for="form-panel-heading" class="horizontal">Title</label>
+        <input id="form-panel-heading" name="heading"
+               class="text-widget required textline-field"
+               tal:attributes="value context/heading"
+               type="text" />
+      </div>
+
+      <input type="submit"
+             name="save"
+             value="Save"
+             i18n:domain="plone"
+             i18n:attributes="value"
+             />
+    </form>
 
     <metal:form
         use-macro="context/@@manage-portlets-macros/macros/current-portlets-list"

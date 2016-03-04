@@ -4,6 +4,10 @@ Changes
 1.9 (unreleased)
 ----------------
 
+- Added optional heading field which if set is rendered immediately
+  before the panel.
+  [malthe]
+
 - Add Finnish localization
   [datakurre]
 

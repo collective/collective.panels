@@ -289,6 +289,19 @@ class ManageView(EditPortletManagerRenderer):
 
         return self.request.response.redirect(referer)
 
+    @protect(PostOnly)
+    @protect(CheckAuthenticator)
+    def save(self, heading=None, REQUEST=None):
+        self.context.heading = heading
+
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Panel settings saved."), type="info")
+
+        referer = self.request.get('HTTP_REFERER') or \
+            self.context.absolute_url()
+
+        return self.request.response.redirect(referer)
+
 
 class ManagePanelsView(BrowserView):
     def __call__(self):

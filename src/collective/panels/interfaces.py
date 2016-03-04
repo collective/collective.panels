@@ -33,6 +33,8 @@ class IPanel(IColumn, IContained):
 
     layout = Attribute("Assigned layout.")
 
+    heading = Attribute("Panel heading.")
+
 
 class IPanelDirective(Interface):
     name = schema.TextLine(

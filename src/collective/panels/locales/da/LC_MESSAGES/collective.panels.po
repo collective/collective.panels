@@ -26,8 +26,8 @@ msgid "Add panel"
 msgstr "Tilføj panel"
 
 #: ./manager.pt:28
-msgid "Add portlet"
-msgstr "Tilføj portlet"
+msgid "Insert"
+msgstr "Indsæt"
 
 #: ./vocabularies.py:16
 msgid "Below page content"

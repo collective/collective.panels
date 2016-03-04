@@ -104,6 +104,7 @@
       permission="plone.app.portlets.ManagePortlets"
       layer=".interfaces.ILayer">
     <browser:page name="delete" attribute="delete"/>
+    <browser:page name="save" attribute="save"/>
     <browser:page name="duplicate" attribute="duplicate"/>
     <browser:page name="change-layout" attribute="change_layout"/>
     <browser:page name="manage" template="templates/manager.pt"/>
@@ -225,5 +226,14 @@
       permission="cmf.ManagePortal"
       layer=".interfaces.ILayer"
       />
+
+   <!-- Permissions -->
+
+   <class class=".content.Panel">
+     <require
+         permission="zope2.View"
+         attributes="heading"
+         />
+   </class>
 
 </configure>
