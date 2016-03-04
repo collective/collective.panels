@@ -130,8 +130,6 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
 class Panel(PortletContainerAssignment):
     implements(IPanel)
 
-    # Currently, panel assignments do not carry state.
-    data = None
 
     def __init__(self, name, layout, *assignments):
         super(Panel, self).__init__(name, *assignments)
