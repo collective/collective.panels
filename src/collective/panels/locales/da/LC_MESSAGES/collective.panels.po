@@ -29,6 +29,10 @@ msgstr "Tilføj panel"
 msgid "Insert"
 msgstr "Indsæt"
 
+#: ./manager.pt:72
+msgid "Provide a heading for the panel or leave blank to omit"
+msgstr "Her kan du skrive en overskrift til panelet"
+
 #: ./vocabularies.py:16
 msgid "Below page content"
 msgstr "Efter indhold"
