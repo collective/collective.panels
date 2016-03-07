@@ -67,10 +67,12 @@
       <div class="field">
         <label i18n:domain="plone" i18n:translate=""
                for="form-panel-heading" class="horizontal">Title</label>
-        <input id="form-panel-heading" name="heading"
+        <input id="form-panel-heading" name="heading" type="text"
                class="text-widget required textline-field"
+               placeholder="Provide a heading for the panel or leave blank to omit"
+               i18n:attributes="placeholder"
                tal:attributes="value context/heading"
-               type="text" />
+               />
       </div>
 
       <input type="submit"
