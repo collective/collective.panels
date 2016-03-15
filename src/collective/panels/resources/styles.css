@@ -32,6 +32,9 @@
 #content .add-panel a {
     border:1px solid #996;
     }
+.manage-panel {
+  clear: both;
+    }
 .manage-panel .field input[type="text"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
