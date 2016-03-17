@@ -1,6 +1,5 @@
 <div class="panels" i18n:domain="collective.panels">
   <tal:panels repeat="panel view/panels">
-    <h2 tal:condition="panel/heading" tal:content="panel/heading" />
     <tal:render define="html panel/@@display">
 
       <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"

@@ -95,6 +95,7 @@ class DisplayView(BrowserView):
     """This view displays a panel."""
 
     portlet = ViewPageTemplateFile("templates/portlet.pt")
+    wrapper = ViewPageTemplateFile("templates/wrapper.pt")
     error_message = ColumnPortletManagerRenderer.__dict__['error_message']
 
     def __call__(self):
@@ -174,9 +175,14 @@ class DisplayView(BrowserView):
                 result = self.portlet(**info)
                 portlets.append(result)
 
-        return render(
+        html = render(
             portlets, self.context.layout, self.request
         )
+
+        if not html:
+            return
+
+        return self.wrapper(html=html)
 
     def safe_render(self, renderer):
         try:
