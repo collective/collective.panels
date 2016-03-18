@@ -94,11 +94,12 @@ def render(portlets, name, request):
 class DisplayView(BrowserView):
     """This view displays a panel."""
 
-    portlet = ViewPageTemplateFile("templates/portlet.pt")
-    wrapper = ViewPageTemplateFile("templates/wrapper.pt")
+    render_portlet = ViewPageTemplateFile("templates/portlet.pt")
     error_message = ColumnPortletManagerRenderer.__dict__['error_message']
 
-    def __call__(self):
+    def __init__(self, context, request):
+        super(BrowserView, self).__init__(context, request)
+
         # The parent object is the Plone content object here; we get
         # it from the acquisition chain.
 
@@ -172,17 +173,13 @@ class DisplayView(BrowserView):
                 continue
 
             if available:
-                result = self.portlet(**info)
-                portlets.append(result)
+                portlets.append(info)
 
-        html = render(
-            portlets, self.context.layout, self.request
-        )
+        self.portlets = portlets
 
-        if not html:
-            return
-
-        return self.wrapper(html=html)
+    def render(self, mapper=lambda f, ds: [f(**d) for d in ds]):
+        columns = list(mapper(self.render_portlet, self.portlets))
+        return render(columns, self.context.layout, self.request)
 
     def safe_render(self, renderer):
         try:

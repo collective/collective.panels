@@ -1,4 +1,0 @@
-<tal:wrapper>
-  <h2 tal:condition="context/heading" tal:content="context/heading" />
-  <tal:render content="structure options/html" />
-</tal:wrapper>

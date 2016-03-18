@@ -126,6 +126,7 @@
       class=".browser.DisplayView"
       layer=".interfaces.ILayer"
       permission="zope2.View"
+      template="templates/panel.pt"
       />
 
   <browser:page
