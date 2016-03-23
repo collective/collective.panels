@@ -172,12 +172,12 @@ class DisplayView(BrowserView):
                 )
                 continue
 
-            if available:
-                portlets.append(info)
+            info['available'] = available
+            portlets.append(info)
 
         self.portlets = portlets
 
-    def render(self, mapper=lambda f, ds: [f(**d) for d in ds]):
+    def render(self, mapper=lambda f, ds: [f(**d) for d in ds if d['available']]):
         columns = list(mapper(self.render_portlet, self.portlets))
         return render(columns, self.context.layout, self.request)
 
