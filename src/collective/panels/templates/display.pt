@@ -17,7 +17,8 @@
         </dl>
 
         <div class="visualClear"></div>
-        <div tal:content="structure panel/@@manage" />
+        <div class="panel-management-wrapper"
+             tal:content="structure panel/@@manage" />
       </tal:manage>
     </tal:render>
   </tal:panels>
