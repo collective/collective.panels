@@ -4,6 +4,10 @@ Changes
 1.9 (unreleased)
 ----------------
 
+- Show each panel HTML container element only when it contains one or
+  more panel instances.
+  [malthe]
+
 - Added optional heading field which if set is rendered immediately
   before the panel.
   [malthe]

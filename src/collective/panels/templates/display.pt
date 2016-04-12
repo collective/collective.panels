@@ -1,5 +1,7 @@
-<div class="panels" i18n:domain="collective.panels">
-  <tal:panels repeat="panel view/panels">
+<div class="panels" i18n:domain="collective.panels"
+     tal:define="panels view/panels"
+     tal:condition="python: panels">
+  <tal:panels repeat="panel panels">
     <tal:render define="html panel/@@display">
 
       <div tal:attributes="class string:panel panel-${repeat/panel/index} panel-${panel/layout}"
@@ -18,6 +20,5 @@
         <div tal:content="structure panel/@@manage" />
       </tal:manage>
     </tal:render>
-
   </tal:panels>
 </div>
