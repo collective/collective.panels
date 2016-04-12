@@ -1,7 +1,7 @@
 Changes
 =======
 
-1.9 (unreleased)
+1.9 (2016-04-12)
 ----------------
 
 - Show each panel HTML container element only when it contains one or
