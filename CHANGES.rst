@@ -1,6 +1,12 @@
 Changes
 =======
 
+1.9.1 (unreleased)
+------------------
+
+- Uninstall profile
+  [sunew]
+
 1.9 (2016-04-12)
 ----------------
 

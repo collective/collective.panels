@@ -10,7 +10,15 @@
       description="Registers control panel and default settings."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
- 
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.panels (uninstall)"
+      directory="uninstall"
+      description="Uninstalls the collective.panels add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <genericsetup:upgradeSteps
       source="1.0"
       destination="1.1"
