@@ -197,3 +197,14 @@ msgstr "Benyt navigationrod i stedet for siterod"
 msgid "You are managing panels for a default page. If you wanted to manage panels for the parent folder, ${go_here}."
 msgstr "Bemærk at du står på en mappeforside. Hvis du vil administrere paneler for selve mappen (eller sitet), ${go_here}."
 
+#: ./manager.pt:63
+msgid "Move"
+msgstr "Flyt"
+
+#: ./manager.pt:70
+msgid "Select location ..."
+msgstr "Vælg panel ..."
+
+#: ./browser.py:422
+msgid "Portlets were moved."
+msgstr "Portletter blev flyttet."

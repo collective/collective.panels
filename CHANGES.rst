@@ -1,8 +1,13 @@
 Changes
 =======
 
-1.9.1 (unreleased)
-------------------
+1.10 (unreleased)
+-----------------
+
+- Add option to move (all) portlets from a panel in a particular
+  location, e.g. above content to a new panel in another location. The
+  layout selection is preserved.
+  [malthe]
 
 - Uninstall profile
   [sunew]

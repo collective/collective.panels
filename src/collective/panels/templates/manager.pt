@@ -59,6 +59,35 @@
       </form>
     </div>
 
+    <div class="subform panelLayoutFormWrapper">
+      <label i18n:translate="">Move</label>
+      <form method="POST"
+            tal:define="locations view/available_locations"
+            tal:attributes="action string:${view/baseUrl}/@@move-portlets">
+        <span tal:replace="structure context/@@authenticator/authenticator"/>
+
+        <select name="location" onchange="this.form.submit()">
+          <option disabled="" selected="" i18n:translate="">Select location ...</option>
+          <tal:location repeat="location locations">
+            <option tal:attributes="name location/name;
+                                    value location/name"
+                    tal:condition="python: view.location_name != location['name']">
+              <tal:title i18n:translate="" tal:replace="location/title" />
+              &nbsp;
+            </option>
+          </tal:location>
+        </select>
+
+        <noscript tal:omit-tag="python: len(locations) == 1">
+          <input type="submit"
+                 name="change"
+                 value="Change"
+                 i18n:attributes="value"
+                 />
+        </noscript>
+      </form>
+    </div>
+
     <form class="panelEditForm"
           method="POST"
           tal:attributes="action string:${view/baseUrl}/@@save">

@@ -28,7 +28,7 @@ from plone.protect import CheckAuthenticator
 from plone.protect import PostOnly
 from plone.protect import protect
 from plone.registry.interfaces import IRegistry
-from zExceptions import NotFound
+from zExceptions import NotFound, BadRequest
 from zope.component import ComponentLookupError
 from zope.component import getAdapter
 from zope.component import getAdapters
@@ -77,7 +77,6 @@ def lookup_layouts(request):
     ptypes.sort(key=lambda ptype: ptype['title'])
 
     return ptypes
-
 
 def render(portlets, name, request):
     namespace = {'portlets': portlets}
@@ -194,7 +193,125 @@ class DisplayView(BrowserView):
             return self.error_message()
 
 
-class ManageView(EditPortletManagerRenderer):
+class BaseViewlet(ViewletBase):
+    @property
+    def root_interface(self):
+        if getattr(self.settings, "navigation_local", False):
+            return INavigationRoot
+
+        return ISiteRoot
+
+    @property
+    def settings(self):
+        try:
+            getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            pass
+
+    @property
+    def can_manage(self):
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            # This (non-critical) error is reported elsewhere. The
+            # product needs to be installed before we let users manage
+            # panels.
+            return False
+        else:
+            for interface in settings.site_local_managers or ():
+                if interface.providedBy(self.manager):
+                    if not self.root_interface.providedBy(self.context):
+                        return False
+
+        if IManagePanels.providedBy(self.request):
+            return checkPermission(
+                "plone.app.portlets.ManagePortlets", self.context
+            )
+
+    @property
+    def all_viewlet_managers(self):
+        factory = getUtility(
+            IVocabularyFactory,
+            name="collective.panels.vocabularies.Managers"
+        )
+
+        return tuple(
+            (term.value, term.title) for term in factory(self.context)
+        )
+
+    @property
+    @memoize
+    def _lookup(self):
+        gsm = getSiteManager()
+        return gsm.adapters.lookupAll
+
+    @property
+    def has_panels(self):
+        # This is used to determine whether to initially collapse the
+        # interface to add new panels. It should be collapsed if
+        # there's a panel defined already.
+        for manager in self._iter_panel_managers():
+            for panel in manager:
+                return True
+
+        return False
+
+    @property
+    @memoize
+    def available_locations(self):
+        return list(self._iter_locations())
+
+    def _iter_locations(self):
+        for name, title in self._iter_viewlet_managers():
+            yield {
+                'name': encode(name),
+                'title': title,
+            }
+
+    def _iter_panel_managers(self):
+        context = self.get_panel_context()
+        for name, title in self._iter_viewlet_managers():
+            name = encode(name)
+            yield PanelManager(context, self.request, context, name)
+
+    def _iter_viewlet_managers(self):
+        spec = tuple(map(providedBy, self.get_lookup_args()))
+        storage = getUtility(IViewletSettingsStorage)
+        skinname = self.context.getCurrentSkinName()
+
+        for viewlet, iface, title in self._iter_enabled_viewlet_managers(spec):
+            for name, factory in self._lookup(spec, iface):
+                hidden = storage.getHidden(name, skinname)
+
+                if viewlet not in hidden:
+                    yield name, title
+
+    def _iter_enabled_viewlet_managers(self, spec):
+        try:
+            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
+        except (ComponentLookupError, KeyError):
+            ignore_list = ()
+        else:
+            if not self.root_interface.providedBy(self.context):
+                ignore_list = settings.site_local_managers or ()
+            else:
+                ignore_list = ()
+
+        for iface, title in self.all_viewlet_managers:
+            if iface in ignore_list:
+                continue
+
+            for name, factory in self._lookup(spec + (iface, ), IViewlet):
+                try:
+                    if issubclass(factory, DisplayViewlet):
+                        yield name, iface, title
+                except TypeError:
+                    # Issue #9: "Unexpected non-class object while
+                    # iterating over viewlet managers"
+                    continue
+
+
+class ManageView(EditPortletManagerRenderer, BaseViewlet):
     """This view displays a management interface for a panel."""
 
     category = CONTEXT_CATEGORY
@@ -206,9 +323,19 @@ class ManageView(EditPortletManagerRenderer):
 
         super(ManageView, self).__init__(context, request, manager, context)
 
+    def get_lookup_args(self):
+        return self.get_panel_context(), self.request, self
+
+    def get_panel_context(self):
+        return self._parent.context
+
     @property
     def available_layouts(self):
         return lookup_layouts(self.request)
+
+    @property
+    def location_name(self):
+        return self.__parent__.__name__.replace('.', '-')
 
     @cache(addable_portlets_cache_key)
     def addable_portlets(self):
@@ -294,6 +421,32 @@ class ManageView(EditPortletManagerRenderer):
 
     @protect(PostOnly)
     @protect(CheckAuthenticator)
+    def move_portlets(self, location=None, REQUEST=None):
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Portlets were moved."), type="info")
+
+        name = location.replace('-', '.').decode('utf-8')
+        referer = self.request.get('HTTP_REFERER')
+        for manager in self._iter_panel_managers():
+            if manager.__name__ == name:
+                assignments = iter(self.context)
+                panel = manager.addPanel(self.context.layout, *assignments)
+                referer = referer or panel.absolute_url()
+                break
+        else:
+            raise BadRequest(
+                "The location '%s' does not exist in this context." % (
+                    location,)
+                )
+
+        # Delete this panel.
+        name = self.context.__name__
+        del self.context.aq_inner.aq_parent[name]
+
+        return self.request.response.redirect(referer)
+
+    @protect(PostOnly)
+    @protect(CheckAuthenticator)
     def save(self, heading=None, REQUEST=None):
         self.context.heading = heading
 
@@ -312,56 +465,14 @@ class ManagePanelsView(BrowserView):
         return self.context()
 
 
-class BaseViewlet(ViewletBase):
-
-    def __init__(self, context, request, view, manager=None):
-        super(BaseViewlet, self).__init__(
-            context, request, view, manager
-        )
-
-        self.root_interface = ISiteRoot
-        try:
-            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
-        except (ComponentLookupError, KeyError):
-            pass
-        else:
-            if settings.navigation_local:
-                self.root_interface = INavigationRoot
-
-    @property
-    def can_manage(self):
-        try:
-            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
-        except (ComponentLookupError, KeyError):
-            # This (non-critical) error is reported elsewhere. The
-            # product needs to be installed before we let users manage
-            # panels.
-            return False
-        else:
-            for interface in settings.site_local_managers or ():
-                if interface.providedBy(self.manager):
-                    if not self.root_interface.providedBy(self.context):
-                        return False
-
-        if IManagePanels.providedBy(self.request):
-            return checkPermission(
-                "plone.app.portlets.ManagePortlets", self.context
-            )
-
-
 class AddingViewlet(BaseViewlet):
     index = ViewPageTemplateFile("templates/adding.pt")
 
-    @property
-    def all_viewlet_managers(self):
-        factory = getUtility(
-            IVocabularyFactory,
-            name="collective.panels.vocabularies.Managers"
-        )
+    def get_lookup_args(self):
+        return self.context, self.request, self.__parent__
 
-        return tuple(
-            (term.value, term.title) for term in factory(self.context)
-        )
+    def get_panel_context(self):
+        return self.context
 
     @property
     def available_layouts(self):
@@ -388,83 +499,6 @@ class AddingViewlet(BaseViewlet):
     def default_location(self):
         for data in self.available_locations:
             return data
-
-    @property
-    def has_panels(self):
-        # This is used to determine whether to initially collapse the
-        # interface to add new panels. It should be collapsed if
-        # there's a panel defined already.
-        for manager in self._iter_panel_managers():
-            for panel in manager:
-                return True
-
-        return False
-
-    @property
-    @memoize
-    def available_locations(self):
-        return list(self._iter_locations())
-
-    @property
-    @memoize
-    def _lookup(self):
-        gsm = getSiteManager()
-        return gsm.adapters.lookupAll
-
-    def _iter_locations(self):
-        for name, title in self._iter_viewlet_managers():
-            yield {
-                'name': encode(name),
-                'title': title,
-            }
-
-    def _iter_panel_managers(self):
-        for name, title in self._iter_viewlet_managers():
-            name = encode(name)
-            yield PanelManager(self.context, self.request, self.context, name)
-
-    def _iter_viewlet_managers(self):
-        spec = tuple(map(providedBy, (
-            self.context, self.request, self.__parent__
-        )))
-
-        storage = getUtility(IViewletSettingsStorage)
-        skinname = self.context.getCurrentSkinName()
-
-        for viewlet, iface, title in self._iter_enabled_viewlet_managers():
-            for name, factory in self._lookup(spec, iface):
-                hidden = storage.getHidden(name, skinname)
-
-                if viewlet not in hidden:
-                    yield name, title
-
-    def _iter_enabled_viewlet_managers(self):
-        spec = tuple(map(providedBy, (
-            self.context, self.request, self.__parent__
-        )))
-
-        try:
-            settings = getUtility(IRegistry).forInterface(IGlobalSettings)
-        except (ComponentLookupError, KeyError):
-            ignore_list = ()
-        else:
-            if not self.root_interface.providedBy(self.context):
-                ignore_list = settings.site_local_managers or ()
-            else:
-                ignore_list = ()
-
-        for iface, title in self.all_viewlet_managers:
-            if iface in ignore_list:
-                continue
-
-            for name, factory in self._lookup(spec + (iface, ), IViewlet):
-                try:
-                    if issubclass(factory, DisplayViewlet):
-                        yield name, iface, title
-                except TypeError:
-                    # Issue #9: "Unexpected non-class object while
-                    # iterating over viewlet managers"
-                    continue
 
 
 class DisplayViewlet(BaseViewlet):

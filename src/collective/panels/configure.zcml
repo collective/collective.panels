@@ -107,6 +107,7 @@
     <browser:page name="save" attribute="save"/>
     <browser:page name="duplicate" attribute="duplicate"/>
     <browser:page name="change-layout" attribute="change_layout"/>
+    <browser:page name="move-portlets" attribute="move_portlets"/>
     <browser:page name="manage" template="templates/manager.pt"/>
   </browser:pages>
 

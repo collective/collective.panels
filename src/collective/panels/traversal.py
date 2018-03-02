@@ -102,6 +102,7 @@ class PanelManager(Implicit, Traversable):
 
         panel = Panel(str(n), *args)
         aq_base(self._mapping)[panel.__name__] = panel
+        self._mapping._p_changed = True
 
         IStatusMessage(self.request).addStatusMessage(
             _(u"Panel added."), type="info")
