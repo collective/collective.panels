@@ -1,7 +1,7 @@
 Changes
 =======
 
-1.10 (unreleased)
+1.10 (2017-03-02)
 -----------------
 
 - Add option to move (all) portlets from a panel in a particular
