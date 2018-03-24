@@ -4,7 +4,8 @@ Changes
 1.11 (unreleased)
 -----------------
 
-- ...
+- String returned by `getId` must be a string (not unicode).
+  [malthe]
 
 1.10 (2017-03-02)
 -----------------

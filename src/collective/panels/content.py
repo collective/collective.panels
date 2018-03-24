@@ -93,7 +93,7 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
         )
 
     def getId(self):
-        return self.__name__
+        return str(self.__name__)
 
     @property
     def available(self):
