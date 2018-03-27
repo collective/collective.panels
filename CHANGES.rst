@@ -1,7 +1,7 @@
 Changes
 =======
 
-1.11 (unreleased)
+1.11 (2017-03-27)
 -----------------
 
 - String returned by `getId` must be a string (not unicode).
